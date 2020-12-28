@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Multiple extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		// 입력된 데이터의 문자셋은 UTF-8 이다.
 		request.setCharacterEncoding("UTF-8");
 		// 출력될 문서는 html(UTF-8) 이다.
@@ -22,7 +23,7 @@ public class Multiple extends HttpServlet {
 
 		int table = request.getParameter("dan") != null ? Integer.parseInt(request.getParameter("dan")) : 1;
 		int limit = request.getParameter("limit") != null ? Integer.parseInt(request.getParameter("limit")) : 9;
-
+		
 		request.setAttribute("dan", table);
 		request.setAttribute("limit", limit);
 		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/home/index.jsp");

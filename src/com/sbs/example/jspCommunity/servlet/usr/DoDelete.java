@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
-@WebServlet("/usr/jspCommunity/usr/article/list")
+@WebServlet("/usr/jspCommunity/usr/article/doDelete")
 
-public class BoardListServlet extends HttpServlet {
+public class DoDelete extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -29,21 +29,16 @@ public class BoardListServlet extends HttpServlet {
 
 		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
 
-		Map<String, Object> boardMap = MysqlUtil.selectRow(new SecSql().append("SELECT * FROM `board` WHERE `code`= ?",
-				request.getParameter("boardCode") != null ? request.getParameter("boardCode") : "notice"));
-		int boardId = (int) boardMap.get("id");
-
-		List<Map<String, Object>> articleMapList = MysqlUtil
-				.selectRows(new SecSql().append("SELECT * FROM article WHERE boardId = ?", boardId));
-
-		String boardName = (String) boardMap.get("name");
-
+			
+		SecSql sql = new SecSql();
+		
+		sql.append("DELETE FROM article");		
+		sql.append("WHERE id = ?",request.getParameter("id"));
+		
+		MysqlUtil.delete(sql);
+		
 		MysqlUtil.closeConnection();
 
-		request.setAttribute("boardName", boardName);
-		request.setAttribute("articleMapList", articleMapList);
-
-		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/home/boardList.jsp");
-		re.forward(request, response);
+	
 	}
 }

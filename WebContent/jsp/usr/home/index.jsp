@@ -8,7 +8,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>구구단 <%=request.getAttribute("dan")%></title>
+<title>구구단 <%=table%></title>
 </head>
 <body>
 	<h1>

@@ -26,7 +26,7 @@ public class Multiple extends HttpServlet {
 		
 		request.setAttribute("dan", table);
 		request.setAttribute("limit", limit);
-		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/home/index.jsp");
+		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/home/multiple.jsp");
 		re.forward(request, response);
 	}
 }

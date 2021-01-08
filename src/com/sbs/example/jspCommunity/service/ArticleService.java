@@ -26,18 +26,24 @@ public class ArticleService {
 		return articleDao.getArticleById(articleId);
 	}
 
-	public void doDelete(int articleId, int memberId) {
-		articleDao.doDelete(articleId, memberId);
 
+
+	public List<Article> getArticlesForPrintByBoardId(int boardId) {
+		return articleDao.getArticlesForPrintByBoardId(boardId);
 	}
 
-	public void doModify(int memberId, String title, String body, int articleId) {
-		articleDao.doModify(memberId, title, body, articleId);
-
+	public void doWrite(String title, String body, int memberId, int boardId) {
+		articleDao.doWrite(title,body,memberId,boardId);
+		
 	}
 
-	public void doWrite(int boardId, int memberId, String title, String body) {
-		articleDao.doWrite(boardId,memberId,title,body);
+	public void doModify(int id, String body, String title) {
+		articleDao.doModify(id,title,body);
+		
+	}
+
+	public void doDelete(int id) {
+		articleDao.doDelete(id);
 		
 	}
 }

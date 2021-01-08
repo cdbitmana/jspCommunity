@@ -14,7 +14,7 @@
 <%
 	if (request.getParameter("btnSubmit") != null) {
 	SecSql sql = new SecSql();
-	sql.append("DELETE FROM article where id= ?", request.getParameter("btnSubmit"));
+	sql.append("DELETE FROM article where id= ?", Integer.parseInt(request.getParameter("btnSubmit")));
 	MysqlUtil.delete(sql);
 
 }
@@ -37,9 +37,11 @@
 		번호 :
 		<%=article.getId()%>		
 		</br> 제목 : <a
-			href="http://localhost:8080/jspCommunity/usr/jspCommunity/usr/article/detail?id=<%=article.getId()%>"><%=article.getTitle()%></a>
+			href="http://localhost:8080/jspCommunity/usr/article/detail?id=<%=article.getId()%>"><%=article.getTitle()%></a>
 		<form enctype="multipart/form-data" method="get">
-			<input type="submit" id="btnSubmit" name="btnSubmit"
+		<button>삭제</button>
+		<input type="hidden" name="boardId" value="<%=article.getBoardId() %>">
+			<input type="hidden" id="btnSubmit" name="btnSubmit"
 				value="<%=article.getId()%>">
 		</form>
 

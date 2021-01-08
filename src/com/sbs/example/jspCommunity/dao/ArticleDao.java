@@ -17,15 +17,12 @@ public class ArticleDao {
 
 		SecSql sql = new SecSql();
 
-		Board board = null;
-		board = getBoardByCode(boardCode);
-
 		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
-		sql.append("WHERE B.id = ?", board.getId());
+		sql.append("WHERE B.code = ?", boardCode);
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
 
@@ -71,46 +68,67 @@ public class ArticleDao {
 		return article;
 	}
 
-	public void doDelete(int articleId, int memberId) {
+	public List<Article> getArticlesForPrintByBoardId(int boardId) {
+
+		List<Article> articles = new ArrayList<>();
+
 		SecSql sql = new SecSql();
 
-		sql.append("DELETE FROM article");
-		sql.append("WHERE id = ?", articleId);
-		sql.append("AND memberId = ?", memberId);
-		
-		MysqlUtil.delete(sql);
+		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON A.memberId = M.id");
+		sql.append("INNER JOIN `board` AS B");
+		sql.append("ON A.boardId = B.id");
+		sql.append("WHERE B.id = ?", boardId);
+
+		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articleMap : articleMapList) {
+			articles.add(new Article(articleMap));
+		}
+
+		return articles;
 	}
 
-	public void doModify(int memberId, String title, String body, int articleId) {
-		SecSql sql = new SecSql();
+	public void doWrite(String title, String body, int memberId, int boardId) {
 
-		sql.append("UPDATE article SET ");
-		sql.append("updateDate = NOW() , ");
-		sql.append("title = ?, " , title);
-		sql.append("`body` = ?, " , body);
-		sql.append("memberId = ? " ,memberId);		
-		sql.append("WHERE id = ? " , articleId);
-
-		MysqlUtil.update(sql);
-		
-	}
-
-	public void doWrite(int boardId, int memberId, String title, String body) {
-		
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO article SET");
 		sql.append("regDate = NOW() , updateDate = NOW(),");
-		sql.append("title = ?, ", title);
-		sql.append("`body` = ?, ", body);
-		sql.append("memberId = ?, ", memberId);
-		sql.append("boardId = ?, ", boardId);
-		sql.append("hitCount = ?",0);
-		
+		sql.append("title = ?,", title);
+		sql.append("`body` = ?,", body);
+		sql.append("memberId = ?,", memberId);
+		sql.append("boardId = ?,", boardId);
+		sql.append("hitCount = ?", 0);
+
 		MysqlUtil.insert(sql);
+
+	}
+
+	public void doModify(int id, String title, String body) {
+
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE article SET");
+		sql.append("updateDate = NOW(),");
+		sql.append("title = ?,", title);
+		sql.append("`body` = ?", body);
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
+
+	}
+
+	public void doDelete(int id) {
+
+		SecSql sql = new SecSql();
 		
+		sql.append("DELETE FROM article");
+		sql.append("WHERE id = ?" , id);
 		
-		
+		MysqlUtil.delete(sql);
+
 	}
 
 }

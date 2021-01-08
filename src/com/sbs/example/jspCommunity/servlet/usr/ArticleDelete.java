@@ -13,12 +13,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sbs.example.jspCommunity.container.Container;
+import com.sbs.example.jspCommunity.service.ArticleService;
+
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
-@WebServlet("/usr/jspCommunity/usr/article/doWrite")
+@WebServlet("/usr/jspCommunity/usr/article/doDelete")
 
-public class DoWrite extends HttpServlet {
+public class ArticleDelete extends HttpServlet {
+	
+private ArticleService articleService;
+	
+	public ArticleDelete() {
+		articleService = Container.articleService;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -28,19 +38,12 @@ public class DoWrite extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
-
-			
-		SecSql sql = new SecSql();
 		
-		sql.append("INSERT INTO article SET");
-		sql.append("regDate = NOW() , updateDate = NOW() ,");
-		sql.append("title = ?,",request.getParameter("title"));
-		sql.append("`body` = ?,",request.getParameter("body"));
-		sql.append("memberId = 1,");
-		sql.append("boardId = 1,");
-		sql.append("hitCount = 0");
+		int articleId = Integer.parseInt(request.getParameter("id"));
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		
-		MysqlUtil.insert(sql);
+		articleService.doDelete(articleId,memberId);
+		
 		
 		MysqlUtil.closeConnection();
 

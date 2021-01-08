@@ -13,12 +13,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sbs.example.jspCommunity.container.Container;
+import com.sbs.example.jspCommunity.dto.Article;
+import com.sbs.example.jspCommunity.service.ArticleService;
+
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
 @WebServlet("/usr/jspCommunity/usr/article/list")
 
-public class BoardListServlet extends HttpServlet {
+public class ArticleListServlet extends HttpServlet {
+	
+	private ArticleService articleService;
+	
+	public ArticleListServlet() {
+		articleService = Container.articleService;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -29,21 +40,20 @@ public class BoardListServlet extends HttpServlet {
 
 		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
 
-		Map<String, Object> boardMap = MysqlUtil.selectRow(new SecSql().append("SELECT * FROM `board` WHERE `code`= ?",
-				request.getParameter("boardCode") != null ? request.getParameter("boardCode") : "notice"));
-		int boardId = (int) boardMap.get("id");
-
-		List<Map<String, Object>> articleMapList = MysqlUtil
-				.selectRows(new SecSql().append("SELECT * FROM article WHERE boardId = ?", boardId));
-
-		String boardName = (String) boardMap.get("name");
+		String boardCode = request.getParameter("boardCode");
+		
+		if(boardCode == null) {
+			boardCode = "notice";
+		}
+		
+		List<Article> articles = articleService.getArticlesForPrintByBoardCode(boardCode);
 
 		MysqlUtil.closeConnection();
-
-		request.setAttribute("boardName", boardName);
-		request.setAttribute("articleMapList", articleMapList);
-
-		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/home/boardList.jsp");
+		
+		request.setAttribute("articles", articles);
+		
+		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/article/articleList.jsp");
 		re.forward(request, response);
+		
 	}
 }

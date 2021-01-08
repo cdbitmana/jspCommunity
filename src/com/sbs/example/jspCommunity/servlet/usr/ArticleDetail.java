@@ -13,12 +13,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sbs.example.jspCommunity.container.Container;
+import com.sbs.example.jspCommunity.dto.Article;
+import com.sbs.example.jspCommunity.service.ArticleService;
+
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
-@WebServlet("/usr/jspCommunity/usr/article/doDelete")
+@WebServlet("/usr/jspCommunity/usr/article/detail")
 
-public class DoDelete extends HttpServlet {
+public class ArticleDetail extends HttpServlet {
+	
+private ArticleService articleService;
+	
+	public ArticleDetail() {
+		articleService = Container.articleService;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -28,17 +39,21 @@ public class DoDelete extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
-
-			
-		SecSql sql = new SecSql();
 		
-		sql.append("DELETE FROM article");		
-		sql.append("WHERE id = ?",request.getParameter("id"));
+		int articleId = 1;
 		
-		MysqlUtil.delete(sql);
+		if(request.getParameter("id") != null) {
+			 articleId = Integer.parseInt(request.getParameter("id"));
+		}
+		
+		Article article = articleService.getArticleById(articleId);		
 		
 		MysqlUtil.closeConnection();
 
+		request.setAttribute("article", article);
+		
+		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/article/articleDetail.jsp");
+		re.forward(request, response);
 	
 	}
 }

@@ -13,12 +13,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sbs.example.jspCommunity.container.Container;
+import com.sbs.example.jspCommunity.service.ArticleService;
+
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
-@WebServlet("/usr/jspCommunity/usr/article/detail")
+@WebServlet("/usr/jspCommunity/usr/article/doWrite")
 
-public class Detail extends HttpServlet {
+public class ArticleWrite extends HttpServlet {
+
+	private ArticleService articleService;
+
+	public ArticleWrite() {
+		articleService = Container.articleService;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -29,20 +39,14 @@ public class Detail extends HttpServlet {
 
 		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
 
-			
-		SecSql sql = new SecSql();
-		
-		sql.append("SELECT * FROM article ");		
-		sql.append("WHERE id = ?",request.getParameter("id"));
-		
-		Map<String,Object> articleMap = MysqlUtil.selectRow(sql);
-		
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		String title = request.getParameter("title");
+		String body = request.getParameter("body");
+
+		articleService.doWrite(boardId, memberId, title, body);
+
 		MysqlUtil.closeConnection();
 
-		request.setAttribute("articleMap", articleMap);
-		
-		RequestDispatcher re = request.getRequestDispatcher("/jsp/usr/home/articleDetail.jsp");
-		re.forward(request, response);
-	
 	}
 }

@@ -34,7 +34,7 @@ public class DispatcherServlet extends HttpServlet {
 		// 출력될 문서는 html(UTF-8) 이다.
 		response.setContentType("text/html; charset=UTF-8");
 
-		String requestUri = request.getRequestURI();
+		String requestUri = request.getRequestURI();		
 		String[] requestUriBits = requestUri.split("/");
 
 		if (requestUriBits.length < 5) {

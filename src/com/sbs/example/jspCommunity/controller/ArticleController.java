@@ -43,26 +43,25 @@ public class ArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-	
 
 		articleService.doModify(id, title, body);
 	}
 
 	public void doDelete(HttpServletRequest request, HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+
 		articleService.doDelete(id);
-		
+
 	}
 
 	public String showDetail(HttpServletRequest request, HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Article article = articleService.getArticleById(id);
-		
+
 		request.setAttribute("article", article);
-		
+
 		return "usr/article/articleDetail";
-		
+
 	}
 
 	public String write(HttpServletRequest request, HttpServletResponse response) {
@@ -72,13 +71,12 @@ public class ArticleController {
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("boardId", boardId);
 		return "usr/article/writeForm";
-		
+
 	}
 
 	public String modify(HttpServletRequest request, HttpServletResponse response) {
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int id = Integer.parseInt(request.getParameter("id"));
-		
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("id", id);
 		return "usr/article/modifyForm";

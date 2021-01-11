@@ -25,7 +25,7 @@ import mysqlutil.SecSql;
 @WebServlet("/usr/*")
 
 public class DispatcherServlet extends HttpServlet {
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -60,32 +60,40 @@ public class DispatcherServlet extends HttpServlet {
 
 			if (actionMethodName.equals("list")) {
 				jspPath = memberController.showList(request, response);
-			} 
-			
+			}
+
 		} else if (controllerName.equals("article")) {
 			ArticleController articleController = Container.articleController;
 
 			if (actionMethodName.equals("list")) {
 				jspPath = articleController.showList(request, response);
-			}
-			else if (actionMethodName.equals("doWrite")) {
-				articleController.doWrite(request,response);
+			} else if (actionMethodName.equals("write")) {
+				jspPath = articleController.write(request, response);
+			} else if (actionMethodName.equals("doWrite")) {
+				articleController.doWrite(request, response);
 				return;
+			} else if (actionMethodName.equals("modify")) {
+				jspPath = articleController.modify(request, response);
 			} else if (actionMethodName.equals("doModify")) {
-				articleController.doModify(request,response);
+				articleController.doModify(request, response);
 				return;
 			} else if (actionMethodName.equals("doDelete")) {
-				articleController.doDelete(request,response);
+				articleController.doDelete(request, response);
 				return;
 			} else if (actionMethodName.equals("detail")) {
-				jspPath = articleController.showDetail(request,response);
+				jspPath = articleController.showDetail(request, response);
 			}
 		}
-
+		
 		MysqlUtil.closeConnection();
 
 		RequestDispatcher re = request.getRequestDispatcher("/jsp/" + jspPath + ".jsp");
 		re.forward(request, response);
 
 	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request,response);
+	}
+	
 }

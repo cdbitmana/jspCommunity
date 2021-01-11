@@ -19,7 +19,7 @@ public class ArticleController {
 
 	public String showList(HttpServletRequest request, HttpServletResponse response) {
 
-		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		int boardId = 1;
 
 		List<Article> articles = articleService.getArticlesForPrintByBoardId(boardId);
 
@@ -63,6 +63,25 @@ public class ArticleController {
 		
 		return "usr/article/articleDetail";
 		
+	}
+
+	public String write(HttpServletRequest request, HttpServletResponse response) {
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		
+		request.setAttribute("memberId", memberId);
+		request.setAttribute("boardId", boardId);
+		return "usr/article/writeForm";
+		
+	}
+
+	public String modify(HttpServletRequest request, HttpServletResponse response) {
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		request.setAttribute("memberId", memberId);
+		request.setAttribute("id", id);
+		return "usr/article/modifyForm";
 	}
 
 }

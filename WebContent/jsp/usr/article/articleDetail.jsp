@@ -16,6 +16,19 @@
 	<h1>
 		<%=article.getTitle()%>
 	</h1>
+	<form action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
+	<input type="hidden" name="memberId" value="<%=article.getMemberId()%>">
+	<input type="hidden" name="id" value="<%=article.getId()%>">
+	<input type="submit" value="수정">
+	</form>
+	
+	<form action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">	
+	<input type="hidden" name="memberId" value="<%=article.getMemberId()%>">
+	<input type="hidden" name="id" value="<%=article.getId()%>">
+	<input type="submit" value="삭제">
+	</form>
+	
+	
 
 	<div>
 		번호 :
@@ -29,6 +42,10 @@
 		</br> 내용 :
 		<%=article.getBody()%>
 		
+	</div>
+	
+	<div>
+	<a href="/jspCommunity/usr/article/list?boardId=<%=article.getBoardId()%>">목록으로</a>
 	</div>
 
 </body>

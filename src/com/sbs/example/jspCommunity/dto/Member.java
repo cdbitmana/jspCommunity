@@ -6,6 +6,11 @@ public class Member {
 	private int id;
 	private String regDate;
 	private String updateDate;
+	private String loginId;
+	private String loginPw;
+	private String name;
+	private String nickName;
+	private int authLevel;
 	
 	public int getId() {
 		return id;
@@ -71,11 +76,7 @@ public class Member {
 		this.authLevel = authLevel;
 	}
 
-	private String loginId;
-	private String loginPw;
-	private String name;
-	private String nickName;
-	private int authLevel;
+	
 	
 	public Member(Map<String,Object> memberMap) {
 		this.id = (int)memberMap.get("id");

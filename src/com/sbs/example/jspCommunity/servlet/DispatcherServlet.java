@@ -70,16 +70,13 @@ public class DispatcherServlet extends HttpServlet {
 			} else if (actionMethodName.equals("write")) {
 				jspPath = articleController.write(request, response);
 			} else if (actionMethodName.equals("doWrite")) {
-				articleController.doWrite(request, response);
-				return;
+				jspPath = articleController.doWrite(request, response);				
 			} else if (actionMethodName.equals("modify")) {
 				jspPath = articleController.modify(request, response);
 			} else if (actionMethodName.equals("doModify")) {
-				articleController.doModify(request, response);
-				return;
+				jspPath = articleController.doModify(request, response);
 			} else if (actionMethodName.equals("doDelete")) {
-				articleController.doDelete(request, response);
-				return;
+				jspPath = articleController.doDelete(request, response);
 			} else if (actionMethodName.equals("detail")) {
 				jspPath = articleController.showDetail(request, response);
 			}

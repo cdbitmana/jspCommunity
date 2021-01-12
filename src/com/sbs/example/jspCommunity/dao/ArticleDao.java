@@ -90,7 +90,7 @@ public class ArticleDao {
 		return articles;
 	}
 
-	public void doWrite(String title, String body, int memberId, int boardId) {
+	public int doWrite(String title, String body, int memberId, int boardId) {
 
 		SecSql sql = new SecSql();
 
@@ -102,11 +102,11 @@ public class ArticleDao {
 		sql.append("boardId = ?,", boardId);
 		sql.append("hitCount = ?", 0);
 
-		MysqlUtil.insert(sql);
+		return MysqlUtil.insert(sql);
 
 	}
 
-	public void doModify(int id, String title, String body) {
+	public int doModify(int id, String title, String body) {
 
 		SecSql sql = new SecSql();
 
@@ -117,6 +117,8 @@ public class ArticleDao {
 		sql.append("WHERE id = ?", id);
 
 		MysqlUtil.update(sql);
+		
+		return id;
 
 	}
 

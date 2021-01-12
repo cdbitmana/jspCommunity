@@ -10,19 +10,6 @@ int memberId = (int) request.getAttribute("memberId");
 int id = (int) request.getAttribute("id");
 %>
 
-<%
-if (request.getParameter("title") != null && request.getParameter("body") != null) {
-	SecSql sql = new SecSql();
-	sql.append("UPDATE article SET");
-	sql.append("updateDate = NOW(),");
-	sql.append("title = ?,", request.getParameter("title"));
-	sql.append("`body` = ?", request.getParameter("body"));
-	sql.append("WHERE memberId = ?", request.getParameter("memberId"));
-	sql.append("AND id = ?", request.getParameter("id"));
-	MysqlUtil.update(sql);
-
-}
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,7 +19,7 @@ if (request.getParameter("title") != null && request.getParameter("body") != nul
 <body>
 	<h1>게시물 수정</h1>
 
-	<form style="display:inline-block" method="post">
+	<form action="doModify" style="display:inline-block" method="post">
 		<input type="hidden" name="memberId" value="<%=memberId%>">		
 		 <input
 			type="hidden" name="id" value="<%=id%>"> 			

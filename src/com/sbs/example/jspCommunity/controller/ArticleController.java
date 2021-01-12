@@ -19,7 +19,7 @@ public class ArticleController {
 
 	public String showList(HttpServletRequest request, HttpServletResponse response) {
 
-		int boardId = 1;
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		List<Article> articles = articleService.getArticlesForPrintByBoardId(boardId);
 
@@ -29,28 +29,41 @@ public class ArticleController {
 
 	}
 
-	public void doWrite(HttpServletRequest request, HttpServletResponse response) {
+	public String doWrite(HttpServletRequest request, HttpServletResponse response) {
 
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
-		articleService.doWrite(title, body, memberId, boardId);
+		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
+		
+		request.setAttribute("alertMsg", newArticleId+ "번 게시물이 생성되었습니다.");
+		request.setAttribute("replaceUrl", String.format("detail?id=%d", newArticleId));
+		return "common/redirect";
 	}
 
-	public void doModify(HttpServletRequest request, HttpServletResponse response) {
+	public String doModify(HttpServletRequest request, HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 
 		articleService.doModify(id, title, body);
+		
+		request.setAttribute("alertMsg", id+"번 게시물이 수정되었습니다.");
+		request.setAttribute("replaceUrl", String.format("detail?id=%d", id));
+		
+		return "common/redirect";
 	}
 
-	public void doDelete(HttpServletRequest request, HttpServletResponse response) {
+	public String doDelete(HttpServletRequest request, HttpServletResponse response) {
+		
 		int id = Integer.parseInt(request.getParameter("id"));
-
+		Article article = articleService.getArticleById(id);
 		articleService.doDelete(id);
+		request.setAttribute("alertMsg", id+"번 게시물이 삭제되었습니다.");
+		request.setAttribute("replaceUrl", String.format("list?boardId=%d", article.getBoardId()) );
+		return "common/redirect";
 
 	}
 
@@ -75,6 +88,7 @@ public class ArticleController {
 	}
 
 	public String modify(HttpServletRequest request, HttpServletResponse response) {
+		
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		request.setAttribute("memberId", memberId);

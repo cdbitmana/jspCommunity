@@ -4,11 +4,8 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.sbs.example.jspCommunity.dto.*"%>
 <%@ page import="mysqlutil.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-int memberId = (int) request.getAttribute("memberId");
-int id = (int) request.getAttribute("id");
-%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,9 +17,9 @@ int id = (int) request.getAttribute("id");
 	<h1>게시물 수정</h1>
 
 	<form action="doModify" style="display:inline-block" method="post">
-		<input type="hidden" name="memberId" value="<%=memberId%>">		
+		<input type="hidden" name="memberId" value="${memberId }">		
 		 <input
-			type="hidden" name="id" value="<%=id%>"> 			
+			type="hidden" name="id" value="${id }"> 			
 			<input type="text"
 			name="title" placeholder="제목을 입력해주세요.">
 			<hr>

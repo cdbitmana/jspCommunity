@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script>
-var alertMsg = '<%=request.getAttribute("alertMsg")%>'.trim();
+var alertMsg = '<c:out value="${alertMsg }"/>'.trim();
 if ( alertMsg ) {
 	alert(alertMsg);
 }
-var historyBack = '<%=request.getAttribute("historyBack")%>' == 'true';
+var historyBack = '<c:out value="${historyBack }"/>' == 'true';
 if ( historyBack ) {
 	history.back();
 }
-var replaceUrl = '<%=request.getAttribute("replaceUrl")%>'.trim();
+var replaceUrl = '<c:out value="${replaceUrl }"/>'.trim();
 	if (replaceUrl) {
 		location.replace(replaceUrl);
 	}

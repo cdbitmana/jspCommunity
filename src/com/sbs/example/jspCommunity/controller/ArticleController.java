@@ -18,13 +18,17 @@ public class ArticleController {
 	}
 
 	public String showList(HttpServletRequest request, HttpServletResponse response) {
-
+		
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		List<Article> articles = articleService.getArticlesForPrintByBoardId(boardId);
-
+		if(articles == null) {
+			request.setAttribute("alertMsg", "게시물이 없습니다.");
+			request.setAttribute("historyBack", "true");
+			return "common/redirect";
+		}
 		request.setAttribute("articles", articles);
-
+	
 		return "usr/article/articleList";
 
 	}

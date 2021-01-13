@@ -70,7 +70,7 @@ public class ArticleDao {
 
 	public List<Article> getArticlesForPrintByBoardId(int boardId) {
 
-		List<Article> articles = new ArrayList<>();
+		List<Article> articles = null;
 
 		SecSql sql = new SecSql();
 
@@ -79,14 +79,18 @@ public class ArticleDao {
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
-		sql.append("WHERE B.id = ?", boardId);
+		sql.append("WHERE A.boardId = ?", boardId);
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
-
-		for (Map<String, Object> articleMap : articleMapList) {
-			articles.add(new Article(articleMap));
+		
+		if(!articleMapList.isEmpty()) {
+			articles = new ArrayList<>();
+			for (Map<String, Object> articleMap : articleMapList) {
+				
+				articles.add(new Article(articleMap));
+			}	
 		}
-
+		
 		return articles;
 	}
 

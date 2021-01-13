@@ -6,7 +6,6 @@
 <%@ page import="mysqlutil.*"%>
 <%@ page import="com.sbs.example.jspCommunity.dto.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <c:set var="articleBoardName" value="${articles[0].extra__boardName }"/>
 <c:set var="articleBoardId" value="${articles[0].boardId }"/>
 <c:set var="articleId" value="${articles[0].id }"/>

@@ -47,12 +47,6 @@ public class DispatcherServlet extends HttpServlet {
 
 		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
 
-		String boardCode = request.getParameter("boardCode");
-
-		if (boardCode == null) {
-			boardCode = "notice";
-		}
-
 		String jspPath = null;
 
 		if (controllerName.equals("member")) {

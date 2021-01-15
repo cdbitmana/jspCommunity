@@ -4,14 +4,9 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.sbs.example.jspCommunity.dto.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="게시판 상세 페이지"/>
+<%@ include file="../../part/head.jspf"%>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>${article.title }</title>
-</head>
-<body>
 	<h1>
 		${article.title }
 	</h1>
@@ -43,6 +38,4 @@
 	<div>
 	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }">목록으로</a>
 	</div>
-
-</body>
-</html>
+<%@ include file="../../part/foot.jspf"%>

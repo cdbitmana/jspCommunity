@@ -23,7 +23,6 @@ import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
 @WebServlet("/usr/*")
-
 public class DispatcherServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

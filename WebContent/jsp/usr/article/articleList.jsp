@@ -9,14 +9,9 @@
 <c:set var="articleBoardName" value="${articles[0].extra__boardName }"/>
 <c:set var="articleBoardId" value="${articles[0].boardId }"/>
 <c:set var="articleId" value="${articles[0].id }"/>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>
-${articleBoardName } 게시판 리스트</title>
-</head>
-<body>
+<c:set var="pageTitle" value="게시판 리스트 페이지"/>
+
+<%@ include file="../../part/head.jspf"%>
 	<h1>
 		${articleBoardName } 게시판 리스트
 	</h1>
@@ -49,6 +44,4 @@ ${articleBoardName } 게시판 리스트</title>
 	<hr>
 	</c:forEach>
 
-	
-</body>
-</html>
+<%@ include file="../../part/foot.jspf"%>

@@ -7,14 +7,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<!DOCTYPE html>
-
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>게시물 작성</title>
-</head>
-<body>
+<c:set var="pageTitle" value="게시판 수정 페이지"/>
+<%@ include file="../../part/head.jspf"%>
 	<h1>게시물 작성</h1>
 	<form action="doWrite" style="display: inline-block" method="post">
 		<input type="hidden" name="memberId" value="${memberId }">
@@ -24,5 +18,4 @@
 		<textarea name="body" placeholder="내용을 입력해주세요."></textarea>
 		<input type="submit" value="작성">
 	</form>
-</body>
-</html>
+<%@ include file="../../part/foot.jspf"%>

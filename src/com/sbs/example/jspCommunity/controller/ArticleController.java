@@ -1,6 +1,8 @@
 package com.sbs.example.jspCommunity.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +24,13 @@ public class ArticleController {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		List<Article> articles = articleService.getArticlesForPrintByBoardId(boardId);
+		
 		if(articles == null) {
 			request.setAttribute("alertMsg", "게시물이 없습니다.");
 			request.setAttribute("historyBack", "true");
 			return "common/redirect";
 		}
+		
 		request.setAttribute("articles", articles);
 	
 		return "usr/article/articleList";
@@ -51,8 +55,13 @@ public class ArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
+		
+		Map<String, Object> modifyArgs = new HashMap<>();
+		modifyArgs.put("id", id);
+		modifyArgs.put("title", title);
+		modifyArgs.put("body", body);
 
-		articleService.doModify(id, title, body);
+		articleService.doModify(modifyArgs);
 		
 		request.setAttribute("alertMsg", id+"번 게시물이 수정되었습니다.");
 		request.setAttribute("replaceUrl", String.format("detail?id=%d", id));
@@ -63,7 +72,22 @@ public class ArticleController {
 	public String doDelete(HttpServletRequest request, HttpServletResponse response) {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
+		int memberId = 0;
+		if(request.getParameter("memberId")!=null) {
+			memberId = Integer.parseInt(request.getParameter("memberId"));	
+		}
+		
 		Article article = articleService.getArticleById(id);
+		if(article == null) {
+			request.setAttribute("alertMsg", "해당 게시물은 존재하지 않습니다.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		if(article.getMemberId() != memberId) {
+			request.setAttribute("alertMsg", "접근 권한이 없습니다.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
 		articleService.doDelete(id);
 		request.setAttribute("alertMsg", id+"번 게시물이 삭제되었습니다.");
 		request.setAttribute("replaceUrl", String.format("list?boardId=%d", article.getBoardId()) );
@@ -95,9 +119,22 @@ public class ArticleController {
 		
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int id = Integer.parseInt(request.getParameter("id"));
+		
+		Article article = articleService.getArticleById(id);
+		if(article == null) {
+			request.setAttribute("alertMsg", "해당 게시물은 존재하지 않습니다.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		if(article.getMemberId() != memberId) {
+			request.setAttribute("alertMsg", "접근 권한이 없습니다.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("id", id);
 		return "usr/article/modifyForm";
+		
 	}
 
 }

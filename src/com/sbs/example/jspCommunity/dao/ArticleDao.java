@@ -110,19 +110,33 @@ public class ArticleDao {
 
 	}
 
-	public int doModify(int id, String title, String body) {
+	public int doModify(Map<String,Object> modifyArgs) {
 
 		SecSql sql = new SecSql();
 
 		sql.append("UPDATE article SET");
-		sql.append("updateDate = NOW(),");
-		sql.append("title = ?,", title);
-		sql.append("`body` = ?", body);
-		sql.append("WHERE id = ?", id);
+		sql.append("updateDate = NOW()");
+		
+		boolean needToUpdate = false;
+		String title = (String)modifyArgs.get("title");
+		String body = (String)modifyArgs.get("body");
+		if(title.length() != 0) {
+			needToUpdate = true;
+			sql.append(",title = ?", modifyArgs.get("title"));	
+		}
+		if(body.length() != 0) {
+			needToUpdate = true;
+			sql.append(",`body` = ?", modifyArgs.get("body"));	
+		}
+		
+		sql.append("WHERE id = ?", modifyArgs.get("id"));
 
+		if(needToUpdate == false) {
+			return 0;
+		}
 		MysqlUtil.update(sql);
 		
-		return id;
+		return (int)modifyArgs.get("id");
 
 	}
 

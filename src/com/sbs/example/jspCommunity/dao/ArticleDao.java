@@ -80,6 +80,7 @@ public class ArticleDao {
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
 		sql.append("WHERE A.boardId = ?", boardId);
+		sql.append("ORDER BY A.id DESC");
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
 		

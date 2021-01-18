@@ -13,5 +13,6 @@ if ( historyBack ) {
 var replaceUrl = '<c:out value="${replaceUrl }"/>'.trim();
 	if (replaceUrl) {
 		location.replace(replaceUrl);
+		
 	}
 </script>

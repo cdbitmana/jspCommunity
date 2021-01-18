@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.Map"%>
-<%@ page import="java.util.List"%>
-<%@ page import="com.sbs.example.jspCommunity.dto.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="게시판 상세 페이지"/>
 <%@ include file="../../part/head.jspf"%>
@@ -25,13 +22,13 @@
 	<div>
 		번호 :
 		${article.id }
-		</br> 작성자 :
+		<br> 작성자 :
 		${article.extra__writer }
-		</br> 작성일 :
+		<br> 작성일 :
 		${article.regDate }
-		</br> 제목 :
+		<br> 제목 :
 		${article.title }
-		</br> 내용 :
+		<br> 내용 :
 		${article.body }		
 	</div>
 	

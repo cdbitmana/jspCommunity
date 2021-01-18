@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.controller.ArticleController;
-import com.sbs.example.jspCommunity.controller.MemberController;
+import com.sbs.example.jspCommunity.controller.UsrMemberController;
 import com.sbs.example.jspCommunity.dto.Article;
 import com.sbs.example.jspCommunity.service.ArticleService;
 
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
+
 
 @WebServlet("/usr/*")
 public class DispatcherServlet extends HttpServlet {
@@ -49,10 +50,16 @@ public class DispatcherServlet extends HttpServlet {
 		String jspPath = null;
 
 		if (controllerName.equals("member")) {
-			MemberController memberController = Container.memberController;
+			UsrMemberController memberController = Container.usrMemberController;
 
-			if (actionMethodName.equals("list")) {
-				jspPath = memberController.showList(request, response);
+			if (actionMethodName.equals("join")) {
+				jspPath = memberController.showJoin(request, response);
+			}  else if(actionMethodName.equals("doJoin")) {
+				jspPath = memberController.doJoin(request, response);
+			}   else if(actionMethodName.equals("login")) {
+				jspPath = memberController.login(request, response);
+			} else if(actionMethodName.equals("doLogin")) {
+				jspPath = memberController.doLogin(request, response);
 			}
 
 		} else if (controllerName.equals("article")) {

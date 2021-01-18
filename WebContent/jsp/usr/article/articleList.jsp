@@ -1,13 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.Map"%>
-<%@ page import="java.util.List"%>
-<%@ page import="mysqlutil.*"%>
-<%@ page import="com.sbs.example.jspCommunity.dto.*"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="articleBoardName" value="${articles[0].extra__boardName }"/>
-<c:set var="articleBoardId" value="${articles[0].boardId }"/>
 <c:set var="articleId" value="${articles[0].id }"/>
 <c:set var="pageTitle" value="게시판 리스트 페이지"/>
 
@@ -18,7 +14,7 @@
 	<div>
 		<form action="write" method="POST">
 			<input type="hidden" name="boardId"
-				value="${articleBoardId }"> <input
+				value="${param.boardId }"> <input
 				type="hidden" name="memberId" value="1"> <input
 				type="submit" value="글 작성">
 		</form>

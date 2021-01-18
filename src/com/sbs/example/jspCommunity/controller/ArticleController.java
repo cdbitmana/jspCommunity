@@ -41,7 +41,7 @@ public class ArticleController {
 
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int memberId = Container.session.getLoginedMemeberId();
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
@@ -72,10 +72,7 @@ public class ArticleController {
 	public String doDelete(HttpServletRequest request, HttpServletResponse response) {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
-		int memberId = 0;
-		if(request.getParameter("memberId")!=null) {
-			memberId = Integer.parseInt(request.getParameter("memberId"));	
-		}
+		int memberId = Container.session.getLoginedMemeberId();
 		
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
@@ -106,7 +103,13 @@ public class ArticleController {
 	}
 
 	public String write(HttpServletRequest request, HttpServletResponse response) {
-		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int memberId = Container.session.getLoginedMemeberId();
+		
+		if(memberId == 0) {
+			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		
 		request.setAttribute("memberId", memberId);
@@ -117,7 +120,7 @@ public class ArticleController {
 
 	public String modify(HttpServletRequest request, HttpServletResponse response) {
 		
-		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int memberId = Container.session.getLoginedMemeberId();
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		Article article = articleService.getArticleById(id);

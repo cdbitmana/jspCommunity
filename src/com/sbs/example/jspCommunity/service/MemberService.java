@@ -18,4 +18,12 @@ public class MemberService {
 		return memberDao.getForPrintMembers();
 	}
 
+	public Member getMemberByLoginId(String loginId) {
+		return memberDao.getMemberByLoginId(loginId);
+	}
+
+	public int doJoin(String loginId, String loginPw, String name, String nickName) {
+		return memberDao.doJoin(loginId,loginPw,name,nickName);
+	}
+
 }

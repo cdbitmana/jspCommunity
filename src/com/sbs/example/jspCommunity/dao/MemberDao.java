@@ -49,7 +49,7 @@ public class MemberDao {
 		return member;
 	}
 
-	public int doJoin(String loginId, String loginPw, String name, String nickName) {
+	public int doJoin(String loginId, String loginPw, String name, String nickName, String email, String phoneNo) {
 		
 		SecSql sql = new SecSql();
 		
@@ -59,6 +59,8 @@ public class MemberDao {
 		sql.append("loginPw = ?,",loginPw);
 		sql.append("name = ?,",name);
 		sql.append("nickName = ?,",nickName);
+		sql.append("email = ?," , email);
+		sql.append("phoneNo = ?," , phoneNo);
 		sql.append("authLevel = 1");
 		
 		return MysqlUtil.insert(sql);

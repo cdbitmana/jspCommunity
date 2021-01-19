@@ -1,6 +1,7 @@
 package com.sbs.example.jspCommunity.service;
 
 import com.sbs.example.jspCommunity.dto.Article;
+import com.sbs.example.jspCommunity.dto.Board;
 import com.sbs.example.jspCommunity.dao.ArticleDao;
 
 import java.util.List;
@@ -44,5 +45,9 @@ public class ArticleService {
 	public void doDelete(int id) {
 		articleDao.doDelete(id);
 
+	}
+
+	public Board getBoardById(int boardId) {
+		return articleDao.getBoardById(boardId);
 	}
 }

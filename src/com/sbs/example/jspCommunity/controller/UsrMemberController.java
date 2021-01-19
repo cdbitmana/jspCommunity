@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Member;
@@ -44,8 +45,9 @@ public class UsrMemberController {
 		String loginPw = request.getParameter("loginPw");
 		String name = request.getParameter("name");
 		String nickName = request.getParameter("nickName");
-		
-		int id = memberService.doJoin(loginId,loginPw,name,nickName);
+		String email = request.getParameter("email");
+		String phoneNo = request.getParameter("phoneNo");
+		int id = memberService.doJoin(loginId,loginPw,name,nickName,email,phoneNo);
 		
 		request.setAttribute("alertMsg", id+"번 회원으로 가입되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/article/list?boardId=1");
@@ -54,7 +56,12 @@ public class UsrMemberController {
 	}
 
 	public String login(HttpServletRequest request, HttpServletResponse response) {
-
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginedMemberId") != null) {
+			request.setAttribute("alertMsg", "이미 로그인 상태입니다.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
 		return "usr/member/loginForm";
 	}
 
@@ -77,11 +84,29 @@ public class UsrMemberController {
 			return "common/redirect";
 		}
 		
-		Container.session.setLoginedMemeberId(member.getId());
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("loginedMemberId", member.getId());
+		session.setAttribute("isLogined", true);
+		session.setAttribute("loginedMember", member);
 		
 		request.setAttribute("alertMsg", member.getName() + "님 로그인 되었습니다.");
+		request.setAttribute("historyGo", true);
+		return "common/redirect";
+	}
+
+	public String doLogout(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("loginedMemberId");
+		session.removeAttribute("isLogined");
+		session.removeAttribute("loginedMember");
+		
+		request.setAttribute("alertMsg", "로그아웃 되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/article/list?boardId=1");
 		return "common/redirect";
+		
 	}
 
 }

@@ -3,36 +3,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="게시판 상세 페이지"/>
 <%@ include file="../../part/head.jspf"%>
-
-	<h1>
-		${article.title }
-	</h1>
-	<form action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
+<div class="con articleDetailBox">
+    <span class="articleDetailTitle">${article.title}</span>
+     <form class="articleDetailModify" action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="submit" value="수정">
 	</form>
-	
-	<form action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">	
+    <form class="articleDetailDelete" action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="submit" value="삭제">
 	</form>
-
-	<div>
-		번호 :
-		${article.id }
-		<br> 작성자 :
-		${article.extra__writer }
-		<br> 작성일 :
-		${article.regDate }
-		<br> 제목 :
-		${article.title }
-		<br> 내용 :
-		${article.body }		
-	</div>
-	
-	<div>
-	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }">목록으로</a>
+    <div class="articleDetailInfo">
+    <span class="articleDetailWriter">${article.extra__writer}</span>
+      <span class="articleDetailRegDate">${article.regDate}</span>
+      <span class="articleDetailHit">${article.hitCount}</span>
+      </div>	
+    
+    <div class="articleDetailBody">
+      ${article.body}
+    </div>
+    
+	<div class="articleDetailToList">
+	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }">목록</a>
 	</div>
 <%@ include file="../../part/foot.jspf"%>

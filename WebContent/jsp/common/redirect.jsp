@@ -10,9 +10,12 @@ var historyBack = '<c:out value="${historyBack }"/>' == 'true';
 if ( historyBack ) {
 	history.back();
 }
+var historyGo = '<c:out value="${historyGo }"/>' == 'true';
+if ( historyGo ) {
+	history.go(-2);
+}
 var replaceUrl = '<c:out value="${replaceUrl }"/>'.trim();
 	if (replaceUrl) {
-		location.replace(replaceUrl);
-		
+		location.replace(replaceUrl);		
 	}
 </script>

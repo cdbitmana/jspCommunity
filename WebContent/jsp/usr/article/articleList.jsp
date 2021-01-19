@@ -8,36 +8,41 @@
 <c:set var="pageTitle" value="게시판 리스트 페이지"/>
 
 <%@ include file="../../part/head.jspf"%>
-	<h1>
-		${articleBoardName } 게시판 리스트
-	</h1>
+	
+<div class="boardList con">
+<div class="boardNameTitle">
+<a href="/jspCommunity/usr/article/list?boardId=${articles[0].boardId }">${articleBoardName } 게시판</a>
+</div>
 	<div>
-		<form action="write" method="POST">
+		<form class="write" action="write" method="POST">
 			<input type="hidden" name="boardId"
 				value="${param.boardId }"> <input
 				type="hidden" name="memberId" value="1"> <input
-				type="submit" value="글 작성">
+				type="submit" value="글쓰기">
 		</form>
 	</div>
-	<hr>
-	<c:forEach var="article" items="${articles }">
-	<div>
-	<div>번호 : ${article.id }</div>
-	<div>작성자 : ${article.extra__writer }</div>
-	<div>작성일 : ${article.regDate }</div>
-	<div>제목 : <a href="/jspCommunity/usr/article/detail?id=${article.id }">${article.title }</a></div>	
-	<form action="modify" style="display: inline-block" method="POST">
-			<input type="hidden" name="memberId"
-				value="${article.memberId }"> <input type="hidden"
-				name="id" value="${article.id }"> <input type="submit"
-				value="수정">
-		</form>
-		<form action="doDelete" style="display: inline-block" method="POST">
-			<input type="hidden" name="id" value="${article.id }">
-			<input type="submit" value="삭제">
-		</form>		
-		</div>
-	<hr>
-	</c:forEach>
+  <div class="articleList">
+    <div class="article articleTag flex flex-ai-c">
+      <span class="cell-id">번호</span>
+      <span class="cell-title">제목</span>
+      <span class="cell-writer">이름</span>
+      <span class="cell-regDate">날짜</span>
+      <span class="cell-hit">조회수</span>
+    </div>
+    
+	<c:forEach var="article" items="${articles }">    
+	<div class="article flex flex-ai-c">
+	<span class="cell-id">${article.id }</span>
+	<span class="flex cell-title title"><a href="/jspCommunity/usr/article/detail?id=${article.id }">${article.title }</a></span>	
+    <span class="cell-writer">${article.extra__writer }</span>
+    <span class="cell-regDate">${article.regDate }</span>
+    <span class="cell-hit">${article.hitCount}</span>	
+    </div>  
+    </c:forEach>	
+		
+  </div>
+  </div>
+  
+ 
 
 <%@ include file="../../part/foot.jspf"%>

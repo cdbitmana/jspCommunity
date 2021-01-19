@@ -4,14 +4,14 @@
    <c:set var="pageTitle" value="로그인"/>
 <%@ include file="../../part/head.jspf"%>
 
-<h1>로그인</h1>
+<div class="con loginForm">
+<div class="loginTitle">로그인</div>
 <form action="doLogin" method="POST">
-<div>아이디
-<input name="loginId">
-</div>
-<div>비밀번호
-<input name="loginPw">
-</div>
-<input type="submit" value="완료">
+<input id="loginIdForm" class="flex flex-jc-c" name="loginId" placeholder="아이디">
+<input id="loginPwForm" type="password" name="loginPw" placeholder="비밀번호">
+  <div class="loginSubmit">
+<button id="loginSubmit" type="submit">완료
+  </div>
 </form>
+</div>
 <%@ include file="../../part/foot.jspf"%>

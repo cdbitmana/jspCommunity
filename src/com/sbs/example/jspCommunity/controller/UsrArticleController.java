@@ -6,16 +6,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Article;
+import com.sbs.example.jspCommunity.dto.Board;
 import com.sbs.example.jspCommunity.service.ArticleService;
 
-public class ArticleController {
+public class UsrArticleController {
 
 	private ArticleService articleService;
 
-	public ArticleController() {
+	public UsrArticleController() {
 		articleService = Container.articleService;
 	}
 
@@ -39,9 +41,11 @@ public class ArticleController {
 
 	public String doWrite(HttpServletRequest request, HttpServletResponse response) {
 
+		
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-		int memberId = Container.session.getLoginedMemeberId();
+		HttpSession session = request.getSession();
+		int memberId = (int)session.getAttribute("loginedMemberId");
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
@@ -72,7 +76,14 @@ public class ArticleController {
 	public String doDelete(HttpServletRequest request, HttpServletResponse response) {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
-		int memberId = Container.session.getLoginedMemeberId();
+		HttpSession session = request.getSession();
+		int memberId = 0;
+		if(session.getAttribute("loginedMemberId") == null) {
+			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
+			request.setAttribute("replaceUrl", "/jspCommunity/usr/member/login");
+			return "common/redirect";
+		}
+		memberId= (int)session.getAttribute("loginedMemberId");
 		
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
@@ -103,24 +114,36 @@ public class ArticleController {
 	}
 
 	public String write(HttpServletRequest request, HttpServletResponse response) {
-		int memberId = Container.session.getLoginedMemeberId();
 		
-		if(memberId == 0) {
+		HttpSession session = request.getSession();
+		int memberId = 0;
+		if(session.getAttribute("loginedMemberId") == null) {
 			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-			request.setAttribute("historyBack", true);
+			request.setAttribute("replaceUrl", "/jspCommunity/usr/member/login");
 			return "common/redirect";
 		}
+		memberId= (int)session.getAttribute("loginedMemberId");
+		
+		
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		Board board = articleService.getBoardById(boardId);
 		
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("boardId", boardId);
+		request.setAttribute("board", board);
 		return "usr/article/writeForm";
 
 	}
 
 	public String modify(HttpServletRequest request, HttpServletResponse response) {
-		
-		int memberId = Container.session.getLoginedMemeberId();
+		HttpSession session = request.getSession();
+		int memberId = 0;
+		if(session.getAttribute("loginedMemberId") == null) {
+			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
+			request.setAttribute("replaceUrl", "/jspCommunity/usr/member/login");
+			return "common/redirect";
+		}
+		memberId= (int)session.getAttribute("loginedMemberId");
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		Article article = articleService.getArticleById(id);

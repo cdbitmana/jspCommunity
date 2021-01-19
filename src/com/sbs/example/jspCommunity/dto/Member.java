@@ -13,6 +13,8 @@ public class Member {
 	private String loginPw;
 	private String name;
 	private String nickName;
+	private String email;
+	private String phoneNo;
 	private int authLevel;
 	
 
@@ -26,6 +28,8 @@ public class Member {
 		this.loginPw = (String)memberMap.get("loginPw");
 		this.name = (String)memberMap.get("name");
 		this.nickName = (String)memberMap.get("nickName");
+		this.email = (String)memberMap.get("email");
+		this.phoneNo = (String)memberMap.get("phoneNo");
 		this.authLevel = (int)memberMap.get("authLevel");
 	}
 	

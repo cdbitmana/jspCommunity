@@ -145,7 +145,8 @@ public class UsrArticleController {
 		}
 		memberId= (int)session.getAttribute("loginedMemberId");
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+		String title = request.getParameter("title");
+		String body = request.getParameter("body");
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
 			request.setAttribute("alertMsg", "해당 게시물은 존재하지 않습니다.");
@@ -159,6 +160,8 @@ public class UsrArticleController {
 		}
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("id", id);
+		request.setAttribute("title", title);
+		request.setAttribute("body", body);
 		return "usr/article/modifyForm";
 		
 	}

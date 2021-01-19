@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 <c:set var="pageTitle" value="게시판 수정 페이지"/>
 <%@ include file="../../part/head.jspf"%>
 	<div class="con articleModifyBox">
@@ -13,9 +11,9 @@
 		 <input
 			type="hidden" name="id" value="${id }"> 		
 			<input class="articleModifyTitle" type="text"
-			name="title">
+			name="title" value="${title }">
 			<span>본문</span>
-		<textarea class="articleModifyBody" name="body"  ></textarea>
+		<textarea class="articleModifyBody" name="body"  >${body }</textarea>
 		<input class="articleModifySubmit" type="submit" value="등록">
 	</form>    
     </div>

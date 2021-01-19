@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
-<link href="${pageContext.request.contextPath}/css/app.css"
+<link href="${pageContext.request.contextPath}/css/app.css?ver=2.4"
 	rel="stylesheet" type="text/css">
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="pc-top-bar pc-ver">
-		<div class="height-100p con flex">
+		<div class="height-100p flex">
 			<a class="flex flex-ai-c logo height-100p"
 				href="/jspCommunity/usr/home/main">LOGO</a>
 			<div class="menu-box">

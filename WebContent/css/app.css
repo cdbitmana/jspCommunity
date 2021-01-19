@@ -1,4 +1,9 @@
 /* 폰트 불러오기 */
+
+@font-face { 
+ font-family: 'Noto Sans KR', sans-serif;
+ src: url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+}
 @font-face {
     font-family: 'SDSamliphopangche_Outline';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
@@ -41,11 +46,17 @@
     font-weight: 300;
     src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
   }
+  @font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /* 폰트 불러오기 */
 
 /* 커스텀 */
 html{
-    font-family: 'LotteMartDream';
+  font-family: 'S-CoreDream-5Medium';
 }
 body , ul , li {
 list-style:none;
@@ -87,10 +98,12 @@ background-color:#b7b5fd;
 position:relative;
 z-index:3;
 }
-
-.pc-top-bar > .con {
-justify-content:space-between;
+.pc-top-bar > div{
+  max-width:1400px;
+  margin:0 auto;
+  justify-content:space-between;
 }
+
 .pc-top-bar .logo {
 font-size:2.5rem;
 font-family: 'SDSamliphopangche_Outline';
@@ -144,8 +157,7 @@ color:black;
 }
 .pc-top-bar  .usermenu{
     font-family: 'Recipekorea';
-    position:absolute;
-    left:90%;
+    position:relative;
 }
 .pc-top-bar  .usermenu > a{
     padding:0 15px;
@@ -252,6 +264,7 @@ height:80px;
 background-color:#b7b5fd;
 border-top:3px solid black;
 justify-content:space-around;
+z-index:3;
 }
 
 .bottom-bar > .home {
@@ -384,8 +397,8 @@ font-size:1.8rem;
   }
   :root{
          --cell-id__width:80px;
-         --cell-writer__width:160px;
-         --cell-regDate__width:160px;
+         --cell-writer__width:100px;
+         --cell-regDate__width:200px;
          --cell-hit__width:70px;
          --cell-title__width:calc(100% - var(--cell-id__width) - var(--cell-writer__width) - var(--cell-regDate__width) - var(--cell-hit__width))
          }
@@ -406,20 +419,26 @@ font-size:1.8rem;
          }
   .cell-title.title {
     text-align:left;
+    height:100%;
   }
   .cell-title.title > a {
     width:100%;
+    height:100%;
   }
     .article{
-      padding:5px 0;
+      
       border-top:1px solid gray;
     border-bottom:1px solid gray;   
+    }
+    .article>a>span{
+      padding:8px 0;
     }
     .article:hover{
         background-color:#afafaf49;
       }
       .articleTag{
         background-color:#afafaf49;
+        padding:8px 0;
       }
   @media (max-width:700px){
     :root{
@@ -489,6 +508,9 @@ font-size:1.8rem;
     position:relative;
     margin-top:15px;
   }
+  .articleDetailRegDate{
+    padding-left:10px;
+  }
   .articleDetailWriter{
     position:relative;
     padding-right:10px;
@@ -519,11 +541,13 @@ font-size:1.8rem;
     background-color:#DDDDDD;
     border-radius:3px;
   }
+  
   .articleDetailModify > input, .articleDetailDelete > input{
-    border:none;
     background-color:white;
+    border:none;
     cursor:pointer;
-    margin:0 10px;
+    margin:0 7px;
+    font-family: 'S-CoreDream-5Medium';
   }
   /* 게시물 상세보기 끝 */
 
@@ -535,7 +559,7 @@ font-size:1.8rem;
     margin-bottom:20px;
   }
   .articleModifyBox  span {
-    display:inline-block;
+    display:block;
     margin-left:40px;
     margin-top:30px;
   }

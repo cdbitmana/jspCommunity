@@ -74,7 +74,8 @@ public class ArticleDao {
 
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+		sql.append(
+				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount ,IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate, M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
@@ -83,15 +84,15 @@ public class ArticleDao {
 		sql.append("ORDER BY A.id DESC");
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
-		
-		if(!articleMapList.isEmpty()) {
+
+		if (!articleMapList.isEmpty()) {
 			articles = new ArrayList<>();
 			for (Map<String, Object> articleMap : articleMapList) {
-				
+
 				articles.add(new Article(articleMap));
-			}	
+			}
 		}
-		
+
 		return articles;
 	}
 
@@ -111,63 +112,62 @@ public class ArticleDao {
 
 	}
 
-	public int doModify(Map<String,Object> modifyArgs) {
+	public int doModify(Map<String, Object> modifyArgs) {
 
 		SecSql sql = new SecSql();
 
 		sql.append("UPDATE article SET");
 		sql.append("updateDate = NOW()");
-		
+
 		boolean needToUpdate = false;
-		String title = (String)modifyArgs.get("title");
-		String body = (String)modifyArgs.get("body");
-		if(title.length() != 0) {
+		String title = (String) modifyArgs.get("title");
+		String body = (String) modifyArgs.get("body");
+		if (title.length() != 0) {
 			needToUpdate = true;
-			sql.append(",title = ?", modifyArgs.get("title"));	
+			sql.append(",title = ?", modifyArgs.get("title"));
 		}
-		if(body.length() != 0) {
+		if (body.length() != 0) {
 			needToUpdate = true;
-			sql.append(",`body` = ?", modifyArgs.get("body"));	
+			sql.append(",`body` = ?", modifyArgs.get("body"));
 		}
-		
+
 		sql.append("WHERE id = ?", modifyArgs.get("id"));
 
-		if(needToUpdate == false) {
+		if (needToUpdate == false) {
 			return 0;
 		}
 		MysqlUtil.update(sql);
-		
-		return (int)modifyArgs.get("id");
+
+		return (int) modifyArgs.get("id");
 
 	}
 
 	public void doDelete(int id) {
 
 		SecSql sql = new SecSql();
-		
+
 		sql.append("DELETE FROM article");
-		sql.append("WHERE id = ?" , id);
-		
+		sql.append("WHERE id = ?", id);
+
 		MysqlUtil.delete(sql);
 
 	}
 
 	public Board getBoardById(int boardId) {
 		SecSql sql = new SecSql();
-		
-		sql.append("SELECT * FROM `board` WHERE id = ?",boardId);
-		
-		Map<String,Object> boardMap = MysqlUtil.selectRow(sql);
-		
+
+		sql.append("SELECT * FROM `board` WHERE id = ?", boardId);
+
+		Map<String, Object> boardMap = MysqlUtil.selectRow(sql);
+
 		Board board = null;
-		
-		if(!boardMap.isEmpty()) {
+
+		if (!boardMap.isEmpty()) {
 			board = new Board(boardMap);
 		}
-		
+
 		return board;
-		
-		
+
 	}
 
 }

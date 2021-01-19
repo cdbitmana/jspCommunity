@@ -33,7 +33,7 @@
 	<c:forEach var="article" items="${articles }">    
 	<div class="article flex flex-ai-c">
 	<span class="cell-id">${article.id }</span>
-	<span class="flex cell-title title"><a href="/jspCommunity/usr/article/detail?id=${article.id }">${article.title }</a></span>	
+	<a class="flex cell-title title" href="/jspCommunity/usr/article/detail?id=${article.id }"><span >${article.title }</span></a>	
     <span class="cell-writer">${article.extra__writer }</span>
     <span class="cell-regDate">${article.regDate }</span>
     <span class="cell-hit">${article.hitCount}</span>	

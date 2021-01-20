@@ -50,4 +50,13 @@ public class ArticleService {
 	public Board getBoardById(int boardId) {
 		return articleDao.getBoardById(boardId);
 	}
+
+	public List<Board> getBoards() {
+		
+		return articleDao.getBoards();
+	}
+
+	public List<Article> getArticlesForPrint() {
+		return articleDao.getArticlesForPrint();
+	}
 }

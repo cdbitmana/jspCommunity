@@ -23,7 +23,8 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 
 		String jspPath = null;
 		if (controllerName.equals("home")) {
-			jspPath = "usr/home/main";
+			UsrHomeController homeController = Container.usrHomeController;
+			jspPath = homeController.showMain(request,response);
 		} else if (controllerName.equals("member")) {
 			UsrMemberController memberController = Container.usrMemberController;
 

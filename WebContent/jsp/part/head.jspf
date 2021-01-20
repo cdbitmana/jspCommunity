@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
-<link href="${pageContext.request.contextPath}/css/app.css?ver=2.4"
+<link href="${pageContext.request.contextPath}/css/app.css?ver=2.7"
 	rel="stylesheet" type="text/css">
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -29,13 +29,13 @@
 									게시판</a></li>
 							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2">자유
 									게시판</a></li>
-
 						</ul></li>
 					<li><a class="flex flex-ai-c height-100p" href="">방명록</a></li>
 				</ul>
 			</div>
 			<div class="flex flex-ai-c height-100p usermenu">
 				<c:if test="${sessionScope.loginedMemberId > 0 }">
+				<span>${sessionScope.loginedMember.name }</span>
 					<a href="../member/logout">로그아웃</a>
 				</c:if>
 				<c:if test="${sessionScope.loginedMemberId == null }">
@@ -54,9 +54,21 @@
 	</div>
 
 
-	<div class="mobile-side-bar mobile-ver">
+<div class="mobile-side-bar mobile-ver">
+  <div class="mobile-side-bar_top">
+    <div class="flex height-100p usermenu">
+				<c:if test="${sessionScope.loginedMemberId > 0 }">
+				<span>${sessionScope.loginedMember.name }</span>
+					<a href="../member/logout">로그아웃</a>
+				</c:if>
+				<c:if test="${sessionScope.loginedMemberId == null }">
+					<a href="../member/login">로그인</a>
+					<a href="../member/join">회원가입</a>
+				</c:if>
+			</div>
 		<a href="/jspCommunity/usr/home/main" class="logo">LOGO</a> <a
 			href="#" class="side-bar-close"><i class="fas fa-times"></i></a>
+    </div>
 		<div class="menu-box">
 			<ul>
 				<li><a class="flex flex-ai-c flex-jc-c height-100p" href="">게시판</a>

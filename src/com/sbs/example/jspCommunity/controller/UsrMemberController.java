@@ -50,7 +50,7 @@ public class UsrMemberController {
 		int id = memberService.doJoin(loginId,loginPw,name,nickName,email,phoneNo);
 		
 		request.setAttribute("alertMsg", id+"번 회원으로 가입되었습니다.");
-		request.setAttribute("replaceUrl", "/jspCommunity/usr/article/list?boardId=1");
+		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
 		
 		return "common/redirect";
 	}

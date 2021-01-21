@@ -67,11 +67,10 @@ a{
 text-decoration:none;
 color:inherit;
 }
-input{
+input{ 
     padding:0;
-    display:block;
     margin:0;
-    box-sizing:border-box;    
+    box-sizing:border-box;  
   }
 .con{
 max-width:1200px;
@@ -88,6 +87,9 @@ align-items:center;
 }
 .flex-jc-c {
 justify-content:center;
+}
+.flex-dir-col {
+  flex-direction: column;
 }
 /* 커스텀 */
 
@@ -346,16 +348,28 @@ font-size:1.8rem;
 .joinForm{
     font-family: 'Recipekorea';
     margin-top:45px;
+    
 }
 .joinTitle{
     font-size:3rem;
     text-align: center;
   margin-bottom:30px;
 }
-.joinForm input {
-  margin:10px auto;
+.joinForm input{
+  margin:10px 0;
+}
+.joinForm input:not(.loginIdCheckBox) {
    width:200px;
     height:32px;
+}
+.joinForm__loginId{
+  position:relative;
+}
+.loginIdCheckBox{
+position: absolute;
+left:105%;
+width:32px;
+height:32px;
 }
 .joinSubmit{
    margin-top:50px;

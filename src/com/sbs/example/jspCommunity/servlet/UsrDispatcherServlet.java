@@ -24,7 +24,7 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 		String jspPath = null;
 		if (controllerName.equals("home")) {
 			UsrHomeController homeController = Container.usrHomeController;
-			jspPath = homeController.showMain(request,response);
+			jspPath = homeController.showMain(request, response);
 		} else if (controllerName.equals("member")) {
 			UsrMemberController memberController = Container.usrMemberController;
 
@@ -38,6 +38,8 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = memberController.doLogin(request, response);
 			} else if (actionMethodName.equals("logout")) {
 				jspPath = memberController.doLogout(request, response);
+			} else if (actionMethodName.equals("getLoginIdDup")) {
+				jspPath = memberController.getLoginIdDup(request, response);
 			}
 
 		} else if (controllerName.equals("article")) {

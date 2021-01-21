@@ -71,6 +71,7 @@ input{
     padding:0;
     margin:0;
     box-sizing:border-box;  
+    display:block;
   }
 .con{
 max-width:1200px;
@@ -357,13 +358,16 @@ font-size:1.8rem;
 }
 .joinForm input{
   margin:10px 0;
+  display:inline-block;
 }
+
 .joinForm input:not(.loginIdCheckBox) {
    width:200px;
     height:32px;
 }
 .joinForm__loginId{
   position:relative;
+  width:200px;
 }
 .loginIdCheckBox{
 position: absolute;

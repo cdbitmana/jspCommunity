@@ -14,6 +14,7 @@
 		
 		if(loginId.length == 0){
 		$('.rs').text('아이디를 입력해주세요.');
+		$('.rs').css('color','black');
 		$('.loginIdCheckBox').prop("checked",false);
 					$('.loginIdInput').focus();
 		return;
@@ -25,7 +26,8 @@
 				loginId
 			},
 			function(data) {
-				if ( data == "YES" ) {
+			console.log(data);
+				if ( data.resultCode.substr(0,2) == "S-" ) {
 					$('.rs').text('해당 아이디는 사용가능합니다.');
 					$('.rs').css('color','green');
 					DoJoinForm__checkedLoginId = loginId;
@@ -35,9 +37,10 @@
 					$('.loginIdCheckBox').prop("checked",false);
 					$('.loginIdInput').focus();
 					$('.rs').css('color','red');
+					DoJoinForm__checkedLoginId = "";
 				}
 			},
-			"html"
+			"json"
 		);
 	}
 	
@@ -46,6 +49,7 @@
 		alert("처리중입니다.");
 		return false;
 		}
+		
 		if (joinForm.loginId.value == "") {
 			alert("아이디를 입력해 주세요.");
 			return false;
@@ -81,9 +85,9 @@
 		onsubmit="return joinFormCheck();">
 		<div class="joinForm__loginId">
 		<input class="loginIdInput" name="loginId" placeholder="아이디"> 
-		<input class="loginIdCheckBox" onclick="DoJoinForm__checkLoginIdDup(this);" name="btnLoginIdDupCheck" type="checkbox">
-		<div class="rs"></div>
+		<input class="loginIdCheckBox" onclick="DoJoinForm__checkLoginIdDup(this);" name="btnLoginIdDupCheck" type="checkbox">		
 		</div>
+		<div class="rs"></div>
 		<input type="password" name="loginPw" placeholder="비밀번호">
 		<input name="name" placeholder="이름">
 		<input name="nickName" placeholder="닉네임">

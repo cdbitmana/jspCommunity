@@ -22,7 +22,7 @@
 	<input type="submit" value="삭제">
 	</form>
 	</c:if>
-      <span class="articleDetailHit">${article.hitCount}</span>
+      <span class="articleDetailHit">조회수: ${article.hitCount}</span>
       </div>	
     
     <div class="articleDetailBody">

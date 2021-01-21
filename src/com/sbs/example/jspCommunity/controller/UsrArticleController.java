@@ -26,15 +26,17 @@ public class UsrArticleController {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		List<Article> articles = articleService.getArticlesForPrintByBoardId(boardId);
-		
+		Board board = articleService.getBoardById(boardId);
+		/*
 		if(articles == null) {
 			request.setAttribute("alertMsg", "게시물이 없습니다.");
 			request.setAttribute("historyBack", "true");
 			return "common/redirect";
 		}
+		*/
 		
 		request.setAttribute("articles", articles);
-	
+		request.setAttribute("board", board);
 		return "usr/article/articleList";
 
 	}

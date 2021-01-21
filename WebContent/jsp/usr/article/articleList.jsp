@@ -3,20 +3,20 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="articleBoardName" value="${articles[0].extra__boardName }"/>
-<c:set var="articleId" value="${articles[0].id }"/>
+
+
 <c:set var="pageTitle" value="게시판 리스트 페이지"/>
 
 <%@ include file="../../part/head.jspf"%>
 	
 <div class="boardList con">
 <div class="boardNameTitle">
-<a href="/jspCommunity/usr/article/list?boardId=${articles[0].boardId }">${articleBoardName } 게시판</a>
+<a href="/jspCommunity/usr/article/list?boardId=${board.id }">${board.name } 게시판</a>
 </div>
 	<div>
 		<form class="write" action="write" method="POST">
 			<input type="hidden" name="boardId"
-				value="${param.boardId }"> <input
+				value="${board.id}"> <input
 				type="hidden" name="memberId" value="1"> <input
 				type="submit" value="글쓰기">
 		</form>
@@ -26,7 +26,7 @@
       <span class="cell-id">번호</span>
       <span class="cell-title">제목</span>
       <span class="cell-writer">이름</span>
-      <span class="cell-regDate">날짜</span>
+      <span class="cell-regDate">작성시간</span>
       <span class="cell-hit">조회수</span>
     </div>
     

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
-<link href="${pageContext.request.contextPath}/css/app.css?ver=2.8"
+<link href="${pageContext.request.contextPath}/css/app.css"
 	rel="stylesheet" type="text/css">
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"

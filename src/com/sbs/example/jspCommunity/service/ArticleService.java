@@ -59,4 +59,8 @@ public class ArticleService {
 	public List<Article> getArticlesForPrint() {
 		return articleDao.getArticlesForPrint();
 	}
+
+	public List<Article> getArticlesForList(int boardId,String search,String keyword) {
+		return articleDao.getArticlesForList(boardId,search,keyword);
+	}
 }

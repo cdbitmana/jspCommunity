@@ -11,9 +11,9 @@ import com.sbs.example.jspCommunity.service.MemberService;
 
 public class Container {
 
-	
-	public static ArticleDao articleDao;
 	public static MemberDao memberDao;
+	public static ArticleDao articleDao;
+	
 	public static ArticleService articleService;
 	public static MemberService memberService;
 	public static UsrArticleController usrArticleController;
@@ -22,9 +22,9 @@ public class Container {
 	public static UsrHomeController usrHomeController;
 
 	static {
-		
-		articleDao = new ArticleDao();
 		memberDao = new MemberDao();
+		articleDao = new ArticleDao();
+		
 		articleService = new ArticleService();
 		memberService = new MemberService();
 		usrMemberController = new UsrMemberController();

@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.*;
 
 import mysqlutil.MysqlUtil;
 import mysqlutil.SecSql;
 
 public class ArticleDao {
+
+
 
 	public List<Article> getArticlesForPrintByBoardCode(String boardCode) {
 
@@ -210,6 +213,40 @@ public class ArticleDao {
 		}
 
 		return articles;
+	}
+
+	public List<Article> getArticlesForList(int boardId, String search,String keyword) {
+		
+		List<Article> articles = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON A.memberId = M.id");
+		sql.append("INNER JOIN `board` AS B");
+		sql.append("ON A.boardId = B.id");
+		sql.append("WHERE A.boardId = ?",boardId);
+		
+		if(keyword != null) {
+			if(search.equals("writer")) {				
+				sql.append("AND M.name LIKE '%" + keyword + "%'");
+			} else {
+				sql.append("AND `" +search + "` LIKE '%" + keyword + "%'");	
+			}
+			
+		}
+		
+		sql.append("ORDER BY A.id DESC");
+		
+		List<Map<String,Object>> articleMapList = MysqlUtil.selectRows(sql);
+		
+		for(Map<String,Object> articleMap : articleMapList) {
+			articles.add(new Article(articleMap));
+		}
+		
+		return articles;
+		
 	}
 
 }

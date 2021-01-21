@@ -66,4 +66,21 @@ public class MemberDao {
 		return MysqlUtil.insert(sql);
 	}
 
+	public Member getMemberByName(String name) {
+		
+		Member member = null;
+		
+		SecSql sql = new SecSql();
+		
+		sql.append("SELECT * FROM `member`");
+		sql.append("WHERE `name` = ?", name);
+		
+		Map<String,Object> memberMap = MysqlUtil.selectRow(sql);
+		
+		if(!memberMap.isEmpty()) {
+			member = new Member(memberMap);
+		}
+		return member;
+	}
+
 }

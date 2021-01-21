@@ -24,8 +24,11 @@ public class UsrArticleController {
 	public String showList(HttpServletRequest request, HttpServletResponse response) {
 		
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
-
-		List<Article> articles = articleService.getArticlesForPrintByBoardId(boardId);
+		String keyword = request.getParameter("keyword");
+		String search = request.getParameter("search");
+		
+		List<Article> articles = articleService.getArticlesForList(boardId,search,keyword);
+		
 		Board board = articleService.getBoardById(boardId);
 		/*
 		if(articles == null) {

@@ -67,6 +67,9 @@ a{
 text-decoration:none;
 color:inherit;
 }
+form{
+  margin:0;
+}
 input{ 
     padding:0;
     margin:0;
@@ -83,7 +86,7 @@ height:100%;
 .flex{
 display:flex;
 }
-.flex-ai-c {
+.flex-ai-c { 
 align-items:center;
 }
 .flex-jc-c {
@@ -91,6 +94,9 @@ justify-content:center;
 }
 .flex-dir-col {
   flex-direction: column;
+}
+.flex-jc-e {
+  justify-content: flex-end;
 }
 /* 커스텀 */
 
@@ -417,6 +423,59 @@ height:32px;
   .boardNameTitle{
     font-size:3rem;
     text-align:center;
+    margin-bottom:30px;
+  }
+  .searchForm{
+    height:100%;
+  }
+  .searchbox{
+    position:relative;
+    margin-right:10px;
+  }
+  .searcharea{
+    box-sizing: border-box;
+    
+    border:1px solid black;
+    width:80px;
+  }
+  .searcharea:hover{
+    cursor: pointer;
+  }
+  .searchcontent{
+    padding-left:5px;
+    width:55px;
+  }
+  .arrow{
+    color:#4d4b66;
+  }
+  .arrow > i{
+    font-size:24px;
+  }
+  .selectmenu{
+    display:none;
+    position:absolute;
+    background-color:white;
+    border:1px solid black;
+    width:80px;
+    box-sizing: border-box;
+    padding:5px;
+    z-index:5;
+  }
+  #searchselect{
+    display:none;
+  }
+  .searchInput {
+    display:inline-block;
+    height:28px;
+  }
+  .selectmenu:hover{
+    cursor: pointer;
+  }
+  .selectmenu > li:hover {
+    text-decoration: underline;
+  }
+  .write {
+    margin-left:20px;
   }
   .write > input{
     margin-left:auto;
@@ -638,9 +697,7 @@ height:32px;
   border:1px solid #DDDDDD;
   padding:15px;
 }
-.homeArticleBoardName{
-  font-size:0.7rem;
-}
+
 .homeArticleInfo {
   align-items:flex-end;
   border-bottom:1px solid black;

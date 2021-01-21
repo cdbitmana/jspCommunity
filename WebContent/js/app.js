@@ -5,3 +5,5 @@ $('.side-menu').click(function(){
 $('.side-bar-close').click(function(){
   $('.mobile-side-bar').css('transform','translatex(0)');
   });
+  
+  

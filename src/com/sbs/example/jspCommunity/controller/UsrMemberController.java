@@ -30,7 +30,7 @@ public class UsrMemberController {
 	}
 
 	public String showJoin(HttpServletRequest request, HttpServletResponse response) {
-		
+	
 		return "usr/member/joinForm";
 	}
 
@@ -59,12 +59,7 @@ public class UsrMemberController {
 	}
 
 	public String login(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginedMemberId") != null) {
-			request.setAttribute("alertMsg", "이미 로그인 상태입니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
-		}
+		
 		return "usr/member/loginForm";
 	}
 
@@ -89,9 +84,9 @@ public class UsrMemberController {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("loginedMemberId", member.getId());
+		session.setAttribute("isLoginedMemberId", member.getId());
 		session.setAttribute("isLogined", true);
-		session.setAttribute("loginedMember", member);
+		session.setAttribute("isLoginedMember", member);
 		
 		request.setAttribute("alertMsg", member.getName() + "님 로그인 되었습니다.");
 		request.setAttribute("historyGo", true);

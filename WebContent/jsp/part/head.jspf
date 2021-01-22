@@ -34,11 +34,11 @@
 				</ul>
 			</div>
 			<div class="flex flex-ai-c height-100p usermenu">
-				<c:if test="${sessionScope.loginedMemberId > 0 }">
-				<span>${sessionScope.loginedMember.name }</span>
+				<c:if test="${isLogined == true }">
+				<span>${isLoginedMember.name }</span>
 					<a href="../member/logout">로그아웃</a>
 				</c:if>
-				<c:if test="${sessionScope.loginedMemberId == null }">
+				<c:if test="${isLogined == false }">
 					<a href="../member/login">로그인</a>
 					<a href="../member/join">회원가입</a>
 				</c:if>
@@ -57,11 +57,11 @@
 <div class="mobile-side-bar mobile-ver">
   <div class="mobile-side-bar_top">
     <div class="flex height-100p usermenu">
-				<c:if test="${sessionScope.loginedMemberId > 0 }">
-				<span>${sessionScope.loginedMember.name }</span>
+				<c:if test="${isLogined == true }">
+				<span>${isLoginedMember.name }</span>
 					<a href="../member/logout">로그아웃</a>
 				</c:if>
-				<c:if test="${sessionScope.loginedMemberId == null }">
+				<c:if test="${isLogined == false }">
 					<a href="../member/login">로그인</a>
 					<a href="../member/join">회원가입</a>
 				</c:if>

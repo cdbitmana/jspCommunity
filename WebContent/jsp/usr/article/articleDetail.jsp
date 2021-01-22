@@ -8,7 +8,7 @@
     <div class="flex flex-ai-c articleDetailInfo">
     <span class="articleDetailWriter">${article.extra__writer}</span>
       <span class="articleDetailRegDate">${article.regDate}</span>
-       <c:if test="${article.memberId == sessionScope.loginedMemberId }">
+       <c:if test="${article.memberId == isLoginedMemberId }">
      <form class="articleDetailModify" action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">

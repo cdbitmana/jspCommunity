@@ -49,8 +49,8 @@ public class UsrArticleController {
 		
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-		HttpSession session = request.getSession();
-		int memberId = (int)session.getAttribute("loginedMemberId");
+		
+		int memberId = (int)request.getAttribute("isLoginedMemberId");
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
@@ -81,14 +81,9 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest request, HttpServletResponse response) {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
-		HttpSession session = request.getSession();
 		int memberId = 0;
-		if(session.getAttribute("loginedMemberId") == null) {
-			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-			request.setAttribute("replaceUrl", "/jspCommunity/usr/member/login");
-			return "common/redirect";
-		}
-		memberId= (int)session.getAttribute("loginedMemberId");
+		
+		memberId= (int)request.getAttribute("isLoginedMemberId");
 		
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
@@ -120,14 +115,10 @@ public class UsrArticleController {
 
 	public String write(HttpServletRequest request, HttpServletResponse response) {
 		
-		HttpSession session = request.getSession();
+		
 		int memberId = 0;
-		if(session.getAttribute("loginedMemberId") == null) {
-			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-			request.setAttribute("replaceUrl", "/jspCommunity/usr/member/login");
-			return "common/redirect";
-		}
-		memberId= (int)session.getAttribute("loginedMemberId");
+	
+		memberId= (int)request.getAttribute("isLoginedMemberId");
 		
 		
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
@@ -141,14 +132,10 @@ public class UsrArticleController {
 	}
 
 	public String modify(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+		
 		int memberId = 0;
-		if(session.getAttribute("loginedMemberId") == null) {
-			request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-			request.setAttribute("replaceUrl", "/jspCommunity/usr/member/login");
-			return "common/redirect";
-		}
-		memberId= (int)session.getAttribute("loginedMemberId");
+	
+		memberId= (int)request.getAttribute("isLoginedMemberId");
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");

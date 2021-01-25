@@ -8,9 +8,9 @@
 	let DoJoinForm__checkedLoginId = "";
 	
 	function DoJoinForm__checkLoginIdDup(el) {
-		const from = $(el).closest('form').get(0);
+		const form = $(el).closest('form').get(0);
 		
-		const loginId = from.loginId.value;
+		const loginId = form.loginId.value;
 		
 		if(loginId.length == 0){
 		$('.rs').text('아이디를 입력해주세요.');
@@ -26,14 +26,13 @@
 				loginId
 			},
 			function(data) {
-			console.log(data);
-				if ( data.resultCode.substr(0,2) == "S-" ) {
-					$('.rs').text('해당 아이디는 사용가능합니다.');
+				if ( data.success ) {
+					$('.rs').text(data.msg);
 					$('.rs').css('color','green');
 					DoJoinForm__checkedLoginId = loginId;
 				}
 				else {
-					$('.rs').text("해당 로그인 아이디는 이미 사용중 입니다.");
+					$('.rs').text(data.msg);
 					$('.loginIdCheckBox').prop("checked",false);
 					$('.loginIdInput').focus();
 					$('.rs').css('color','red');

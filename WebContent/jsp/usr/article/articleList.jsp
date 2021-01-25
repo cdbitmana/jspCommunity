@@ -29,6 +29,7 @@ function searchContent(e){
 	$('.searchcontent').text(selectedText);
 	searchMenuOpened = false;	
 }
+
 </script>
 <div class="boardList con">
 	<div class="boardNameTitle">
@@ -88,23 +89,44 @@ function searchContent(e){
 		</c:forEach>
 
 	</div>
-	
-	<div class="articleListPage">
+	<div class="flex flex-ai-c articleListPage">
+	<div class="articleListPage__prev">
 	<c:if test="${totalPages > 10 }">
-	<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=1">&lt;&lt;</a>
-	</c:if>
+	<a href="list?boardId=${board.id }&page=1
+	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
+	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
+	">&lt;&lt;</a>
+	</c:if>	
 <c:if test="${page > 10 }">
-<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=<fmt:formatNumber value="${Math.floor((page-10)/10)*10+1}" pattern="#"/>">이전</a>
+<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page-10)/10)*10+1}" pattern="#"/>
+	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
+	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
+">이전</a>
 </c:if>
+</div>
+	<div class="flex flex-jc-c flex-grow-1 pages">
 	<c:forEach var="page" items="${pages }">
-	<a href="list?boardId=${board.id }&page=${page}&searchType=${searchType}&keyword=${keyword}">${page }</a>
+	<a href="list?boardId=${board.id }&page=${page}
+	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
+	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
+	" >${page }</a>	
 	</c:forEach>
-	<c:if test="${page < Math.floor(totalPages / 10)*10+1}">
-<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=<fmt:formatNumber value="${Math.floor((page+10)/10)*10+1}" pattern="#"/>">다음</a>
+	</div>
+	
+	<div class="articleListPage__next">
+	<c:if test="${totalPages > 10 && page < Math.floor(totalPages / 10)*10+1}">
+<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page+10)/10)*10+1}" pattern="#"/>
+	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
+	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
+">다음</a>
 </c:if>
 <c:if test="${totalPages > 10 }">
-	<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=${totalPages}">&gt;&gt;</a>
+	<a href="list?boardId=${board.id }&page=${totalPages}
+	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
+	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
+	">&gt;&gt;</a>
 	</c:if>
+	</div>
 	</div>
 </div>
 

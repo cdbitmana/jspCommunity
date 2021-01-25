@@ -8,6 +8,7 @@ import com.sbs.example.jspCommunity.App;
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dao.MemberDao;
 import com.sbs.example.jspCommunity.dto.Member;
+import com.sbs.example.jspCommunity.dto.ResultData;
 import com.sbs.example.jspCommunity.util.Util;
 
 public class MemberService {
@@ -39,7 +40,7 @@ public class MemberService {
 		return memberDao.getMemberById(id);
 	}
 
-	public void sendTempLoginPwToEmail(Member actor) {
+	public ResultData sendTempLoginPwToEmail(Member actor) {
 		// 메일 제목과 내용 만들기
 		String siteName = App.getSite();
 		String siteLoginUrl = App.getLoginUrl();
@@ -49,10 +50,19 @@ public class MemberService {
 		body += "<a href=\"" + siteLoginUrl + "\" target=\"_blank\">로그인 하러가기</a>";
 
 		// 메일 발송
-		emailService.send(actor.getEmail(), title, body);
+		int sendRs = emailService.send(actor.getEmail(), title, body);
 
+		if(sendRs != 1) {
+			return new ResultData("F-1", "메일 발송에 실패하였습니다.");
+		}
+		
+		
 		// 고객의 패스워드를 방금 생성한 임시패스워드로 변경
 		setTempPassword(actor, tempPassword);
+		
+		String resultMsg = String.format("%s님의 새 임시 비밀번호가 %s(으)로 발송되었습니다.", actor.getName(),actor.getEmail());
+		
+		return new ResultData("S-1",resultMsg, "email" , actor.getEmail());
 	}
 
 	private void setTempPassword(Member actor, String tempPassword) {

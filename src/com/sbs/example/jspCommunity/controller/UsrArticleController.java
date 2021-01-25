@@ -33,7 +33,12 @@ public class UsrArticleController {
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
-		
+		if(keyword != null && keyword.contains("%")) {
+			keyword = keyword.replace("%" , "\\%");
+		}
+		if(keyword != null && keyword.contains("_")) {
+			keyword = keyword.replace("_","\\_");
+		}
 		List<Article> Allarticles = articleService.getArticlesForList(boardId,searchType,keyword);
 		
 		Board board = articleService.getBoardById(boardId);
@@ -41,7 +46,7 @@ public class UsrArticleController {
 		int itemsInAPage = 10;
 		int start = (page - 1) * itemsInAPage;
 		int end = start + itemsInAPage -1;
-		if(end > Allarticles.size()) {
+		if(end >= Allarticles.size()) {
 			end = Allarticles.size()-1;
 		}
 		
@@ -67,7 +72,7 @@ public class UsrArticleController {
 		}
 		
 		int pageEnd = pageStart + 9;
-		if (pageEnd > totalPages) {
+		if (pageEnd >= totalPages) {
 			pageEnd = totalPages;
 		}
 		
@@ -75,8 +80,7 @@ public class UsrArticleController {
 			pages.add(i);
 		}
 		
-		request.setAttribute("searchType", searchType);
-		request.setAttribute("keyword", keyword);
+		
 		request.setAttribute("totalPages", totalPages);
 		request.setAttribute("pages", pages);
 		request.setAttribute("articles", articles);

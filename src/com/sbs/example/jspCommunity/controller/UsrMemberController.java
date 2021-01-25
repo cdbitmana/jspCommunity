@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Member;
+import com.sbs.example.jspCommunity.dto.ResultData;
 import com.sbs.example.jspCommunity.service.MemberService;
 import com.sbs.example.jspCommunity.util.Util;
 
@@ -112,8 +113,6 @@ public class UsrMemberController {
 
 		Member member = memberService.getMemberByLoginId(loginId);
 
-		Map<String, Object> rs = new HashMap<>();
-
 		String resultCode = null;
 		String msg = null;
 
@@ -125,11 +124,8 @@ public class UsrMemberController {
 			msg = "사용 가능한 아이디입니다.";
 		}
 
-		rs.put("resultCode", resultCode);
-		rs.put("msg", msg);
-
-		request.setAttribute("rs", Util.getJsonText(rs));
-		return "common/pure";
+		request.setAttribute("data", new ResultData(resultCode,msg,"loginId",loginId));
+		return "common/json";
 	}
 
 	public String showFindLoginId(HttpServletRequest request, HttpServletResponse response) {
@@ -206,9 +202,14 @@ public class UsrMemberController {
 			return "usr/member/findLoginPwRs";
 		}
 		
-		memberService.sendTempLoginPwToEmail(member);
+		ResultData sendTempLoginPwToEmailRs = memberService.sendTempLoginPwToEmail(member);
 		
-		request.setAttribute("resultMsg", String.format("%s님의 새 임시 비밀번호가 %s로 발송되었습니다.", member.getName(),member.getEmail()));
+		if(sendTempLoginPwToEmailRs.isFail()) {
+			request.setAttribute("resultMsg", sendTempLoginPwToEmailRs.getMsg());
+			return "usr/member/findLoginPwRs";	
+		}
+		
+		request.setAttribute("resultMsg", sendTempLoginPwToEmailRs.getMsg());
 		return "usr/member/findLoginPwRs";
 		
 

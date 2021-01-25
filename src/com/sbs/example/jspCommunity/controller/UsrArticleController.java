@@ -26,14 +26,15 @@ public class UsrArticleController {
 		
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String keyword = request.getParameter("keyword");
-		String search = request.getParameter("search");
+		String searchType = request.getParameter("searchType");
+		
 		int page = 1;		
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		List<Article> Allarticles = articleService.getArticlesForList(boardId,search,keyword);
+		List<Article> Allarticles = articleService.getArticlesForList(boardId,searchType,keyword);
 		
 		Board board = articleService.getBoardById(boardId);
 		
@@ -74,6 +75,7 @@ public class UsrArticleController {
 			pages.add(i);
 		}
 		
+		request.setAttribute("searchType", searchType);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("totalPages", totalPages);
 		request.setAttribute("pages", pages);

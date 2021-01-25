@@ -52,7 +52,7 @@ function searchContent(e){
 				<li onclick="searchContent(this);">글쓴이</li>
 			</ul>
 
-			<select name="search" id="searchselect">
+			<select name="searchType" id="searchselect">
 				<option value="title">제목</option>
 				<option value="body">내용</option>
 				<option value="writer">글쓴이</option>
@@ -91,19 +91,19 @@ function searchContent(e){
 	
 	<div class="articleListPage">
 	<c:if test="${totalPages > 10 }">
-	<a href="list?boardId=${board.id }&page=1">&lt;&lt;</a>
+	<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=1">&lt;&lt;</a>
 	</c:if>
 <c:if test="${page > 10 }">
-<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page-10)/10)*10+1}" pattern="#"/>">이전</a>
+<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=<fmt:formatNumber value="${Math.floor((page-10)/10)*10+1}" pattern="#"/>">이전</a>
 </c:if>
 	<c:forEach var="page" items="${pages }">
-	<a href="list?boardId=${board.id }&page=${page}">${page }</a>
+	<a href="list?boardId=${board.id }&page=${page}&searchType=${searchType}&keyword=${keyword}">${page }</a>
 	</c:forEach>
 	<c:if test="${page < Math.floor(totalPages / 10)*10+1}">
-<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page+10)/10)*10+1}" pattern="#"/>">다음</a>
+<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=<fmt:formatNumber value="${Math.floor((page+10)/10)*10+1}" pattern="#"/>">다음</a>
 </c:if>
 <c:if test="${totalPages > 10 }">
-	<a href="list?boardId=${board.id }&page=${totalPages}">&gt;&gt;</a>
+	<a href="list?boardId=${board.id }&searchType=${searchType}&keyword=${keyword}&page=${totalPages}">&gt;&gt;</a>
 	</c:if>
 	</div>
 </div>

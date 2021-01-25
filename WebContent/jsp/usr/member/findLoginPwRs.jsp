@@ -8,7 +8,17 @@
 <div class="con loginForm">
 <div class="loginTitle">로그인 비밀번호 찾기</div>
 <div class="flex flex-dir-col flex-jc-c flex-ai-c findLoginIdRs">
-<div>${resultMsg }</div>
+<div>${data.msg}</div>
+<c:if test="${data.isFail() }">
+<form name="loginForm"action="doFindLoginPw" method="POST" onsubmit="return loginFormCheck();">
+<input id="loginIdForm" class="flex flex-jc-c" name="loginId" placeholder="아이디" value="${data.body.get('loginId') }">
+<div class="findLoginIdFormNameCheckRs"></div>
+<input id="loginPwForm" type="email" name="email" placeholder="이메일 주소" value="${data.body.get('email') }">
+   <div class="loginSubmit">
+<button id="loginSubmit" type="submit">완료</button>
+  </div> 
+</form>
+</c:if>
 <div class="flex flex-jc-c flex-ai-c flex-jc-s-ar findLoginIdRs__login">
 <a href="login">로그인</a>
 </div>

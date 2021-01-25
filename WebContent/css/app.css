@@ -16,7 +16,7 @@
     font-weight: normal;
     font-style: normal;
 }
-@font-face {       
+@font-face {         
     font-family: 'Cafe24Ohsquare';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
     font-weight: normal;
@@ -375,6 +375,9 @@ font-size:1.8rem;
 .findLoginIdRs__login > a{
   border:1px solid black;
   padding:10px;
+}
+.findLoginIdFormNameCheckRs{
+ text-align:center;
 }
 /* 로그인 아이디 찾기 결과 화면 끝 */
 

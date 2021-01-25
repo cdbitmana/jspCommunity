@@ -50,12 +50,14 @@ function searchContent(e){
 			<ul class="selectmenu">
 				<li onclick="searchContent(this);">제목</li>
 				<li onclick="searchContent(this);">내용</li>
+				<li onclick="searchContent(this);">제목+내용</li>
 				<li onclick="searchContent(this);">글쓴이</li>
 			</ul>
 
 			<select name="searchType" id="searchselect">
 				<option value="title">제목</option>
 				<option value="body">내용</option>
+				<option value="titleandbody">제목+내용</option>
 				<option value="writer">글쓴이</option>
 			</select>
 		</div>

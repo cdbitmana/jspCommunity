@@ -103,7 +103,7 @@ public class UsrMemberController {
 		session.removeAttribute("loginedMember");
 
 		request.setAttribute("alertMsg", "로그아웃 되었습니다.");
-		request.setAttribute("replaceUrl", "/jspCommunity/usr/article/list?boardId=1");
+		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
 		return "common/redirect";
 
 	}
@@ -148,17 +148,26 @@ public class UsrMemberController {
 
 		Member member = memberService.getMemberByName(name);
 
+		String resultCode = "";
+		String msg = "";
+		
 		if (member == null) {
-			request.setAttribute("resultMsg", "일치하는 이름이 없습니다.");
-			return "usr/member/findLoginIdRs";
+			
+			resultCode = "F-1";
+			msg = "일치하는 이름이 없습니다.";
+		}else if (!member.getEmail().equals(email)) {			
+			resultCode = "F-1";
+			msg = "잘못된 이메일 주소입니다.";	
+			
+			
+		} else {
+			resultCode = "S-1";
+			msg = String.format("%s님의 아이디는 %s입니다.", member.getName(), member.getLoginId());	
 		}
-
-		if (!member.getEmail().equals(email)) {
-			request.setAttribute("resultMsg", "잘못된 이메일 주소입니다.");
-			return "usr/member/findLoginIdRs";
-		}
-
-		request.setAttribute("resultMsg", String.format("%s님의 아이디는 %s입니다.", member.getName(), member.getLoginId()));
+		
+	
+		ResultData data = new ResultData(resultCode , msg , "name" , name , "email", email);
+		request.setAttribute("data", data);
 		return "usr/member/findLoginIdRs";
 	}
 
@@ -190,29 +199,28 @@ public class UsrMemberController {
 
 		Member member = memberService.getMemberByLoginId(loginId);
 
-		if (member == null) {
-			request.setAttribute("resultMsg", "일치하는 회원이 존재하지 않습니다.");
-
-			return "usr/member/findLoginPwRs";
-		}
-
-		if (!member.getEmail().equals(email)) {
-			request.setAttribute("resultMsg", "잘못된 이메일 주소입니다.");
-
-			return "usr/member/findLoginPwRs";
-		}
-		
-		ResultData sendTempLoginPwToEmailRs = memberService.sendTempLoginPwToEmail(member);
-		
-		if(sendTempLoginPwToEmailRs.isFail()) {
-			request.setAttribute("resultMsg", sendTempLoginPwToEmailRs.getMsg());
-			return "usr/member/findLoginPwRs";	
+		String resultCode = "";
+		String msg = "";
+		ResultData sendTempLoginPwToEmailRs = null;
+		if (member == null) {			
+			resultCode = "F-1";
+			msg = "일치하는 아이디가 없습니다.";
+			sendTempLoginPwToEmailRs = new ResultData(resultCode , msg);
+		}else if (!member.getEmail().equals(email)) {			
+			resultCode = "F-1";
+			msg = "잘못된 이메일 주소입니다.";	
+			sendTempLoginPwToEmailRs = new ResultData(resultCode , msg);
+		} else {
+			sendTempLoginPwToEmailRs = memberService.sendTempLoginPwToEmail(member);
 		}
 		
-		request.setAttribute("resultMsg", sendTempLoginPwToEmailRs.getMsg());
+		
+				
+		request.setAttribute("data", sendTempLoginPwToEmailRs);
 		return "usr/member/findLoginPwRs";
-		
 
 	}
+
+	
 
 }

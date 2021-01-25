@@ -62,7 +62,7 @@ public class MemberService {
 		
 		String resultMsg = String.format("%s님의 새 임시 비밀번호가 %s(으)로 발송되었습니다.", actor.getName(),actor.getEmail());
 		
-		return new ResultData("S-1",resultMsg, "email" , actor.getEmail());
+		return new ResultData("S-1",resultMsg, "loginId", actor.getLoginId(), "email" , actor.getEmail());
 	}
 
 	private void setTempPassword(Member actor, String tempPassword) {

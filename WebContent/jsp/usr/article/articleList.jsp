@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="pageTitle" value="게시판 리스트 페이지" />
 
@@ -35,7 +35,8 @@ function searchContent(e){
 		<a href="/jspCommunity/usr/article/list?boardId=${board.id }">${board.name }
 			게시판</a>
 	</div>
-	<div class="flex flex-ai-c flex-jc-e">
+	
+	<div class="list-top flex flex-ai-c flex-jc-e">
 	
 <form class="flex flex-ai-c searchForm">
 		<div class="searchbox">
@@ -86,6 +87,24 @@ function searchContent(e){
 			</div>
 		</c:forEach>
 
+	</div>
+	
+	<div class="articleListPage">
+	<c:if test="${totalPages > 10 }">
+	<a href="list?boardId=${board.id }&page=1">&lt;&lt;</a>
+	</c:if>
+<c:if test="${page > 10 }">
+<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page-10)/10)*10+1}" pattern="#"/>">이전</a>
+</c:if>
+	<c:forEach var="page" items="${pages }">
+	<a href="list?boardId=${board.id }&page=${page}">${page }</a>
+	</c:forEach>
+	<c:if test="${page < Math.floor(totalPages / 10)*10+1}">
+<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page+10)/10)*10+1}" pattern="#"/>">다음</a>
+</c:if>
+<c:if test="${totalPages > 10 }">
+	<a href="list?boardId=${board.id }&page=${totalPages}">&gt;&gt;</a>
+	</c:if>
 	</div>
 </div>
 

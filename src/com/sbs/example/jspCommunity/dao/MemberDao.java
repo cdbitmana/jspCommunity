@@ -100,4 +100,50 @@ public class MemberDao {
 		return member;
 	}
 
+	public int modify(Map<String, Object> args) {
+		SecSql sql = new SecSql();
+		sql.append("UPDATE member");
+		sql.append("SET updateDate = NOW()");
+
+		boolean needToUpdate = false;
+
+		if (args.get("loginPw") != null) {
+			needToUpdate = true;
+			sql.append(", loginPw = ?", args.get("loginPw"));
+		}
+
+		if (args.get("name") != null) {
+			needToUpdate = true;
+			sql.append(", `name` = ?", args.get("name"));
+		}
+
+		if (args.get("nickName") != null) {
+			needToUpdate = true;
+			sql.append(", nickName = ?", args.get("nickName"));
+		}
+
+		if (args.get("email") != null) {
+			needToUpdate = true;
+			sql.append(", email = ?", args.get("email"));
+		}
+
+		if (args.get("phoneNo") != null) {
+			needToUpdate = true;
+			sql.append(", phoneNo = ?", args.get("phoneNo"));
+		}
+
+		if (args.get("authLevel") != null) {
+			needToUpdate = true;
+			sql.append(", authLevel = ?", args.get("authLevel"));
+		}
+
+		if ( needToUpdate == false ) {
+			return 0;
+		}
+
+		sql.append("WHERE id = ?", args.get("id"));
+
+		return MysqlUtil.update(sql);
+	}
+
 }

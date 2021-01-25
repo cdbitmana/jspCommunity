@@ -1,5 +1,6 @@
 package com.sbs.example.jspCommunity.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,20 +27,59 @@ public class UsrArticleController {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String keyword = request.getParameter("keyword");
 		String search = request.getParameter("search");
+		int page = 1;		
 		
-		List<Article> articles = articleService.getArticlesForList(boardId,search,keyword);
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<Article> Allarticles = articleService.getArticlesForList(boardId,search,keyword);
 		
 		Board board = articleService.getBoardById(boardId);
-		/*
-		if(articles == null) {
-			request.setAttribute("alertMsg", "게시물이 없습니다.");
-			request.setAttribute("historyBack", "true");
-			return "common/redirect";
-		}
-		*/
 		
+		int itemsInAPage = 10;
+		int start = (page - 1) * itemsInAPage;
+		int end = start + itemsInAPage -1;
+		if(end > Allarticles.size()) {
+			end = Allarticles.size()-1;
+		}
+		
+		List<Article> articles = new ArrayList<>();
+		
+		
+		for(int i = start ; i <= end ; i++) {
+			articles.add(Allarticles.get(i));			
+		}
+		
+		
+		int totalPages = Allarticles.size() / 10;
+		
+		if(Allarticles.size() % 10 != 0) {
+			totalPages++;
+		}
+		
+		List<Integer> pages = new ArrayList<>();
+		
+		int pageStart = page / itemsInAPage;
+		if(page % itemsInAPage != 0) {
+			pageStart = pageStart * itemsInAPage + 1;	
+		}
+		
+		int pageEnd = pageStart + 9;
+		if (pageEnd > totalPages) {
+			pageEnd = totalPages;
+		}
+		
+		for(int i = pageStart ; i <= pageEnd ; i++) {
+			pages.add(i);
+		}
+		
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("pages", pages);
 		request.setAttribute("articles", articles);
 		request.setAttribute("board", board);
+		request.setAttribute("page", page);
 		return "usr/article/articleList";
 
 	}

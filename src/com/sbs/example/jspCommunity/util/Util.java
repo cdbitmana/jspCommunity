@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -160,31 +161,29 @@ public class Util {
 		if (source.isDirectory()) {
 
 			File[] files = source.listFiles();
-			
+
 			List<File> filed = new ArrayList<>();
-			
-			for(int i = 0 ; i < files.length; i++) {
+
+			for (int i = 0; i < files.length; i++) {
 				boolean check = false;
-				for(int j = 0 ; j < exceptFiles.length; j++) {
-					if(files[i].getName().equals(exceptFiles[j])) {
+				for (int j = 0; j < exceptFiles.length; j++) {
+					if (files[i].getName().equals(exceptFiles[j])) {
 						check = true;
-					} 					
+					}
 				}
-				if(!check) {
+				if (!check) {
 					filed.add(files[i]);
 				}
 			}
-			
-			/* FilenameFilter 인터페이스 ( 리턴하기 때문에 걸러내기 어렵다. )
-			files = source.listFiles(new FilenameFilter() {
 
-				@Override
-				public boolean accept(File dir, String name) {
-
-					return name.equals("");
-				}
-			});
-			*/
+			/*
+			 * FilenameFilter 인터페이스 ( 리턴하기 때문에 걸러내기 어렵다. ) files = source.listFiles(new
+			 * FilenameFilter() {
+			 * 
+			 * @Override public boolean accept(File dir, String name) {
+			 * 
+			 * return name.equals(""); } });
+			 */
 			for (File file : filed) {
 
 				File temp = new File(copy + file.separator + file.getName());
@@ -422,7 +421,7 @@ public class Util {
 		}
 		return rs;
 	}
-	
+
 	// json파일에서 Map형태로 가져오기
 	public static Map getJsonMapFromFile(InputStream is) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -435,9 +434,10 @@ public class Util {
 
 		return null;
 	}
-	
+
 	// sendMail
-	public static int sendMail(String smtpServerId, String smtpServerPw, String from, String fromName, String to, String title, String body) {
+	public static int sendMail(String smtpServerId, String smtpServerPw, String from, String fromName, String to,
+			String title, String body) {
 		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enable", "true");
 		prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -472,6 +472,41 @@ public class Util {
 		}
 
 		return 1;
+	}
+
+	public static String getTempPassword(int length) {
+		int index = 0;
+		char[] charArr = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
+				'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+		StringBuffer sb = new StringBuffer();
+
+		for (int i = 0; i < length; i++) {
+			index = (int) (charArr.length * Math.random());
+			sb.append(charArr[index]);
+		}
+
+		return sb.toString();
+	}
+
+	public static Object sha256(String base) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(base.getBytes("UTF-8"));
+			StringBuffer hexString = new StringBuffer();
+
+			for (int i = 0; i < hash.length; i++) {
+				String hex = Integer.toHexString(0xff & hash[i]);
+				if (hex.length() == 1)
+					hexString.append('0');
+				hexString.append(hex);
+			}
+
+			return hexString.toString();
+
+		} catch (Exception ex) {
+			return "";
+		}
 	}
 
 }

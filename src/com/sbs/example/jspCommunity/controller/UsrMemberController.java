@@ -45,7 +45,7 @@ public class UsrMemberController {
 			return "common/redirect";
 		}
 		
-		String loginPw = request.getParameter("loginPw");
+		String loginPw = request.getParameter("loginPwReal");
 		String name = request.getParameter("name");
 		String nickName = request.getParameter("nickName");
 		String email = request.getParameter("email");
@@ -74,7 +74,7 @@ public class UsrMemberController {
 			request.setAttribute("historyBack", true);
 			return "common/redirect";
 		}
-		String loginPw = request.getParameter("loginPw");
+		String loginPw = request.getParameter("loginPwReal");
 		
 		if(!member.getLoginPw().equals(loginPw)) {
 			request.setAttribute("alertMsg", "비밀번호가 맞지 않습니다.");

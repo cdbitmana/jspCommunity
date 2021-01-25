@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="회원 가입" />
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous"></script>
 <script>
 	let DoJoinForm__submited = false;
 	let DoJoinForm__checkedLoginId = "";
@@ -72,6 +72,9 @@
 			alert("아이디는 중복될 수 없습니다.");
 			return false;
 		 }
+		 joinForm.loginPwReal.value = sha256(joinForm.loginPw.value);
+		 joinForm.loginPw.value = "";
+		 
 		DoJoinForm__submited = true;
 		return true;
 	}
@@ -88,11 +91,12 @@
 		<input class="loginIdCheckBox" onclick="DoJoinForm__checkLoginIdDup(this);" name="btnLoginIdDupCheck" type="checkbox">		
 		</div>
 		<div class="rs"></div>
+		<input type="hidden" name="loginPwReal">
 		<input type="password" name="loginPw" placeholder="비밀번호">
 		<input name="name" placeholder="이름">
 		<input name="nickName" placeholder="닉네임">
 		<input type="email" name="email"	placeholder="이메일">
-		<input name="phoneNo" placeholder="전화번호">
+		<input type="tel" name="phoneNo" placeholder="전화번호">
 		<div class="joinSubmit">
 			<input id="joinSubmit" type="submit" value="가입">
 		</div>

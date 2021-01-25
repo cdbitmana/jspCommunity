@@ -9,8 +9,8 @@
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-@font-face {
+} 
+@font-face { 
     font-family: 'Recipekorea';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Recipekorea.woff') format('woff');
     font-weight: normal;
@@ -429,12 +429,13 @@ height:32px;
     height:100%;
   }
   .searchbox{
+    height:100%;
     position:relative;
     margin-right:10px;
   }
   .searcharea{
-    box-sizing: border-box;
-    
+    height:100%;
+    box-sizing: border-box;    
     border:1px solid black;
     width:80px;
   }

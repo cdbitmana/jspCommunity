@@ -212,6 +212,7 @@ public class UsrMemberController {
 			sendTempLoginPwToEmailRs = new ResultData(resultCode , msg);
 		} else {
 			sendTempLoginPwToEmailRs = memberService.sendTempLoginPwToEmail(member);
+			
 		}
 		
 		

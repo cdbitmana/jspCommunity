@@ -30,10 +30,16 @@ function searchContent(e){
 	searchMenuOpened = false;	
 }
 
+$('body').on('click',function(e){	
+	if(!$(e.target).hasClass('searchcontent') && !$(e.target).hasClass('arrow') && !$(e.target).hasClass('selectmenu')){
+	$('.selectmenu').css('display','none');
+	searchMenuOpened = false;
+		}
+})
 </script>
 <div class="boardList con">
 	<div class="boardNameTitle">
-		<a href="/jspCommunity/usr/article/list?boardId=${board.id }">${board.name }
+		<a href="/jspCommunity/usr/article/list?boardId=${board.id }&page=1">${board.name }
 			게시판</a>
 	</div>
 	
@@ -44,7 +50,7 @@ function searchContent(e){
 
 			<div class="searcharea flex flex-ai-c" onclick="showSearchMenu();">
 				<span class="searchcontent">제목</span> <span class="arrow"><i
-					class="fas fa-caret-square-down"></i></span>
+					class="fas fa-caret-square-down arrow"></i></span>
 			</div>
 
 			<ul class="selectmenu">
@@ -83,7 +89,7 @@ function searchContent(e){
 			<div class="article flex flex-ai-c">
 				<span class="cell-id">${article.id }</span> <a
 					class="flex cell-title title"
-					href="/jspCommunity/usr/article/detail?id=${article.id }"><span>${article.title }</span></a>
+					href="/jspCommunity/usr/article/detail?id=${article.id }&page=${param.page}"><span>${article.title }</span></a>
 				<span class="cell-writer">${article.extra__writer }</span> <span
 					class="cell-regDate">${article.regDate }</span> <span
 					class="cell-hit">${article.hitCount}</span>
@@ -106,18 +112,26 @@ function searchContent(e){
 ">이전</a>
 </c:if>
 </div>
-	<div class="flex flex-jc-c flex-grow-1 pages">
+	<div class="flex flex-jc-c flex-ai-c flex-grow-1 pages">
 	<c:forEach var="page" items="${pages }">
-	<a href="list?boardId=${board.id }&page=${page}
-	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
+	<c:choose>
+	<c:when test="${page == param.page }">
+	<span class="currentPage">${page }</span>
+	</c:when>
+	<c:when test="${page != param.page }">
+	<a href="list?boardId=${board.id }&page=${page }
+	<c:if test="${param.keyword != null }">&keyword=${param.keyword}</c:if>
 	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
-	" >${page }</a>	
+	">${page }
+	</a>
+	</c:when>
+	</c:choose>	
 	</c:forEach>
 	</div>
 	
 	<div class="articleListPage__next">
 	<c:if test="${totalPages > 10 && page < Math.floor(totalPages / 10)*10+1}">
-<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page+10)/10)*10+1}" pattern="#"/>
+<a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page+9)/10)*10+1}" pattern="#"/>
 	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
 	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
 ">다음</a>

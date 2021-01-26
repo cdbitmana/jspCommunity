@@ -67,8 +67,9 @@ public class UsrArticleController {
 		List<Integer> pages = new ArrayList<>();
 		
 		int pageStart = page / itemsInAPage;
-		if(page % itemsInAPage != 0) {
-			pageStart = pageStart * itemsInAPage + 1;	
+		pageStart = pageStart * itemsInAPage + 1;	
+		if(page % itemsInAPage == 0) {
+			pageStart = pageStart - itemsInAPage;
 		}
 		
 		int pageEnd = pageStart + 9;

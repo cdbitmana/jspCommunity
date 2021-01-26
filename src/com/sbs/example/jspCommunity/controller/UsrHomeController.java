@@ -26,9 +26,14 @@ public class UsrHomeController {
 		
 		List<Board> boards = articleService.getBoards();
 		
-		List<Article> articles = articleService.getArticlesForPrint();
+		List<Article> articles = new ArrayList<>();
 		
-		request.setAttribute("articles", articles);
+		for(int i = 0 ; i < boards.size() ; i++) {
+			 articles = articleService.getArticlesForPrintByBoardId(boards.get(i).getId());
+			 request.setAttribute("articles" + boards.get(i).getCode(), articles);
+		}
+		
+		
 		request.setAttribute("boards", boards);
 		
 		return "usr/home/main";

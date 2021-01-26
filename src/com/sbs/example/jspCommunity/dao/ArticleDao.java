@@ -231,6 +231,9 @@ public class ArticleDao {
 		if(keyword != null) {
 			if(search.equals("writer")) {				
 				sql.append("AND M.name LIKE '%" + keyword + "%'");
+			} else if (search.equals("titleandbody")) {
+				sql.append("AND (title LIKE '%" + keyword + "%'");
+				sql.append("OR `body` LIKE '%" + keyword + "%')");
 			} else {
 				sql.append("AND `" +search + "` LIKE '%" + keyword + "%'");	
 			}

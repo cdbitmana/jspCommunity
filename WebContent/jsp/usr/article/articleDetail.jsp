@@ -30,7 +30,7 @@
     </div>
     
 	<div class="articleDetailToList">
-	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }">목록</a>
+	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }&page=${param.page}">목록</a>
 	</div>
 	</div>
 <%@ include file="../../part/foot.jspf"%>

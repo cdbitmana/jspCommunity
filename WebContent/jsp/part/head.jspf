@@ -25,9 +25,9 @@
 				<ul class="flex height-100p">
 					<li><a class="flex flex-ai-c flex-jc-c height-100p" href="">게시판</a>
 						<ul>
-							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=1">공지사항
+							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=1&page=1">공지사항
 									게시판</a></li>
-							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2">자유
+							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2&page=1">자유
 									게시판</a></li>
 						</ul></li>
 					<li><a class="flex flex-ai-c height-100p" href="">방명록</a></li>
@@ -73,9 +73,9 @@
 			<ul>
 				<li><a class="flex flex-ai-c flex-jc-c height-100p" href="">게시판</a>
 					<ul>
-						<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=1">공지사항
+						<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=1&page=1">공지사항
 								게시판</a></li>
-						<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2">자유
+						<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2&page=1">자유
 								게시판</a></li>
 					</ul></li>
 				<li><a class="flex flex-ai-c flex-jc-c height-100p" href="#">방명록</a></li>

@@ -55,15 +55,16 @@ function Editor__init() {
     
     var editor = new toastui.Editor({
       el: node,
-      previewStyle: 'vertical',
+      previewStyle: false,
       initialValue: initialValue,
-      height:600,
+      height:500,
       plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, codepenPlugin]
     });
-
-	$(node).data('data-toast-editor', editor);
+    $(node).data('data-toast-editor', editor);
   });
 }
+
+
 
 function EditorViewer__init() {
   $('.toast-ui-viewer').each(function(index, node) {
@@ -77,5 +78,6 @@ function EditorViewer__init() {
   });
 }
 
-EditorViewer__init();
+
+  EditorViewer__init();
 Editor__init();

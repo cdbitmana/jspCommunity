@@ -15,11 +15,12 @@ let DoWriteForm__submited = false;
 		writeForm.title.value = writeForm.title.value.trim();
 		
 		if (writeForm.title.value.length == 0) {
-			alert("제목은 입력해야 합니다.");
+			alert("제목을 입력해야 합니다.");
 			return false;
 		} 
 		
-		const editor = $(form).find('.toast-ui-editor').data('data-toast-editor');
+		const editor = $('form').find('.toast-ui-editor').data('data-toast-editor');
+		alert(editor);
 		const body = editor.getMarkdown().trim();
 		
 		if ( body.length == 0 ) {
@@ -47,8 +48,10 @@ let DoWriteForm__submited = false;
     <span>제목</span>
 			<input  class="writeTitleInput" type="text" name="title">	
     <span>본문</span>
-		<script type="text/x-template"></script>
- 		<div class="toast-ui-editor"></div>
+    <div class="writeBodyInput">
+		 <script type="text/x-template"></script>
+  <div class="toast-ui-editor"></div>
+  </div>
 		<input class="writeFormSubmit" type="submit" value="등록">
 	</form>
   </div>

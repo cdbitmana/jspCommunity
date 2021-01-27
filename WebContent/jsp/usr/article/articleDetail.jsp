@@ -16,6 +16,7 @@
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="hidden" name="title" value="${article.title }">
 	<input type="hidden" name="body" value="${article.body }">
+	<input type="hidden" name="page" value="${param.page }">
 	<input type="submit" value="수정">
 	</form>
     <form class="articleDetailDelete" action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">	

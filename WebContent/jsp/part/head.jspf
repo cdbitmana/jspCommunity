@@ -16,6 +16,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
   <!-- 토스트 UI 시작 -->
+
 <!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
@@ -30,10 +31,11 @@
 
 <!-- 토스트 UI 에디터, 신택스 하이라이트 플러그인 추가 -->
 <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.js" defer></script>
+
 <!-- 토스트 UI 끝 -->
 
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet" type="text/css">
-<script src="${pageContext.request.contextPath}/js/app.js"></script>
+<script src="${pageContext.request.contextPath}/js/app.js" defer></script>
 	
 </head>
 <body>
@@ -55,8 +57,13 @@
 			</div>
 			<div class="flex flex-ai-c height-100p usermenu">
 				<c:if test="${isLogined == true }">
+				<div class="flex flex-dir-col flex-jc-c flex-ai-c loginedMemberBox">
 				<span>${isLoginedMember.name }</span>
+				<div class="flex flex-jc-c flex-ai-c">				
+					<a href="../member/memberInfo">내 정보</a>
 					<a href="../member/logout">로그아웃</a>
+					</div>		
+					</div>		
 				</c:if>
 				<c:if test="${isLogined == false }">
 					<a href="../member/login">로그인</a>
@@ -78,8 +85,8 @@
   <div class="mobile-side-bar_top">
     <div class="flex height-100p usermenu">
 				<c:if test="${isLogined == true }">
-				<span>${isLoginedMember.name }</span>
-					<a href="../member/logout">로그아웃</a>
+				<div>${isLoginedMember.name }</div>
+				<a href="../member/logout">로그아웃</a>				
 				</c:if>
 				<c:if test="${isLogined == false }">
 					<a href="../member/login">로그인</a>

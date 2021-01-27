@@ -7,17 +7,17 @@
 @font-face {
     font-family: 'SDSamliphopangche_Outline';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
-    font-weight: normal;
+    font-weight: normal;    
     font-style: normal; 
-} 
+}
 @font-face {     
     font-family: 'Recipekorea';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Recipekorea.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-@font-face {        
-    font-family: 'Cafe24Ohsquare';
+} 
+@font-face {          
+    font-family: 'Cafe24Ohsquare';    
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
     font-weight: normal;
     font-style: normal;
@@ -167,6 +167,12 @@ padding:15px 10px;
 }
 .pc-top-bar  .usermenu > a{
     padding:0 15px;
+}
+.loginedMemberBox a {
+  font-size:0.8rem;
+  padding:5px;
+  margin:5px;
+  border:1px solid black; 
 }
 /* PC버전 탑 바 끝 */
 
@@ -328,14 +334,14 @@ font-size:1.8rem;
 .findMember > a{
   padding:10px;
 }
-.loginSubmit{
+.submitButtonBox{
    margin-top:20px;
         height: 45px;
         display: flex;
         align-items: center;
         justify-content: center;
 }
-#loginSubmit {
+.submitButton {
    width: 160px;
         height: 100%;
         font-family: 'yg-jalnan';
@@ -353,7 +359,7 @@ font-size:1.8rem;
         outline: none;
         overflow: hidden;
 }
-#loginSubmit:hover {
+.submitButton:hover {
         background-color: #b7b5fd;
         box-shadow: 0px 15px 20px #cbc9fc;
         color: #fff;
@@ -667,7 +673,11 @@ height:32px;
     margin-top:5px;
     width:80%;
   }
+  
   .writeBodyInput{
+    height:500px;
+  }
+  .toast-ui-editor{
     height:500px;
   }
   .writeFormSubmit{
@@ -746,7 +756,7 @@ height:32px;
     margin-top:20px;
     margin-bottom:20px;
   }
-  .articleModifyBox  span {
+  .articleModifyBox > span , .articleModifyBox > form > span {
     display:block;
     margin-left:40px;
     margin-top:30px;
@@ -818,3 +828,33 @@ height:32px;
 }
 
 /* 홈 메인 화면 끝 */
+
+/* 멤버정보 화면 시작 */
+.memberInfoBox{
+	margin-top:60px;
+	margin-bottom:60px;
+}
+.memberInfoBox > div {
+	margin-top:30px;
+}
+.form_group{
+	height:30px;
+	margin-top:20px;
+	line-height:30px;
+}
+.form_group > div{
+  float:left;
+  
+}
+.form_group_type {
+	width:100px;
+}
+.form_group_value {
+  width:250px;
+  height:100%;
+}
+.form_group_value > input {
+  width:100%;
+  height:30px;
+}
+/* 멤버정보 화면 끝 */

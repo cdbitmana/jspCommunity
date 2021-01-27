@@ -527,6 +527,7 @@ public class Util {
 				return Integer.parseInt((String)value);
 			}
 			catch ( NumberFormatException e ) {
+				return defaultValue;
 			}
 		}
 

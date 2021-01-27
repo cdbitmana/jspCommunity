@@ -48,6 +48,12 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = memberController.doLogout(request, response);
 			} else if (actionMethodName.equals("getLoginIdDup")) {
 				jspPath = memberController.getLoginIdDup(request, response);
+			} else if (actionMethodName.equals("memberInfo")) {
+				jspPath = memberController.showMemberInfo(request,response);
+			} else if (actionMethodName.equals("memberModifyForm")) {
+				jspPath = memberController.showMemberModifyForm(request,response);
+			} else if (actionMethodName.equals("doMemberModify")) {
+				jspPath = memberController.doMemberModify(request,response);
 			}
 
 		} else if (controllerName.equals("article")) {

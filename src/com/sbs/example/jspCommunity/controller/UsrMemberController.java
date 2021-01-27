@@ -98,9 +98,9 @@ public class UsrMemberController {
 
 		HttpSession session = request.getSession();
 
-		session.removeAttribute("loginedMemberId");
+		session.removeAttribute("isLoginedMemberId");
 		session.removeAttribute("isLogined");
-		session.removeAttribute("loginedMember");
+		session.removeAttribute("isLoginedMember");
 
 		request.setAttribute("alertMsg", "로그아웃 되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
@@ -220,6 +220,61 @@ public class UsrMemberController {
 		request.setAttribute("data", sendTempLoginPwToEmailRs);
 		return "usr/member/findLoginPwRs";
 
+	}
+
+	public String showMemberInfo(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("isLoginedMemberId") == null) {
+			request.setAttribute("alertMsg", "로그인 후 진행해주세요.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		
+		request.setAttribute("member", session.getAttribute("isLoginedMember"));
+		
+		return "usr/member/memberInfo";
+		
+	}
+
+	public String showMemberModifyForm(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("isLoginedMemberId") == null) {
+			request.setAttribute("alertMsg", "로그인 후 진행해주세요.");
+			request.setAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		
+		request.setAttribute("member", session.getAttribute("isLoginedMember"));
+		
+		return "usr/member/memberInfoModifyForm";
+	}
+
+	public String doMemberModify(HttpServletRequest request, HttpServletResponse response) {
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		String nickName = request.getParameter("nickName");
+		String email = request.getParameter("email");
+		String phoneNo = request.getParameter("phoneNo");
+		
+		
+		
+		memberService.doModifyMember(id,nickName,email,phoneNo);
+		
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("isLoginedMember");
+		
+		Member member = memberService.getMemberById(id);
+		
+		session.setAttribute("isLoginedMember" , member);
+		
+		request.setAttribute("alertMsg", "회원 정보가 수정되었습니다.");
+		request.setAttribute("replaceUrl", "../member/memberInfo");
+		return "common/redirect";
+		
+		
 	}
 
 	

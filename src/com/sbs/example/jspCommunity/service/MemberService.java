@@ -76,4 +76,16 @@ public class MemberService {
 		memberDao.modify(modifyParam);
 	}
 
+	public void doModifyMember(int id, String nickName, String email, String phoneNo) {
+		Map<String,Object> modifyParam = new HashMap<>();
+		modifyParam.put("id", id);
+		modifyParam.put("nickName", nickName);
+		modifyParam.put("email", email);
+		modifyParam.put("phoneNo", phoneNo);
+		modify(modifyParam);
+		
+	}
+
+	
+
 }

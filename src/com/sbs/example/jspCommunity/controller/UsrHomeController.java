@@ -33,7 +33,6 @@ public class UsrHomeController {
 			 request.setAttribute("articles" + boards.get(i).getCode(), articles);
 		}
 		
-		
 		request.setAttribute("boards", boards);
 		
 		return "usr/home/main";

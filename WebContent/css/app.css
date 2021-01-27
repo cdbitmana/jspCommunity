@@ -63,6 +63,9 @@ list-style:none;
 padding:0;
 margin:0;
 }
+body{
+	min-height:100vh;
+}
 a{
 text-decoration:none;
 color:inherit;
@@ -462,20 +465,28 @@ height:32px;
     margin-right:10px;
   }
   .searcharea{
+  position:relative;
     height:100%;
     box-sizing: border-box;    
-    border:1px solid black;
+    border:3px solid #4d4b66;
     width:100px;
   }
   .searcharea:hover{
     cursor: pointer;
   }
   .searchcontent{
-    padding-left:5px;
     width:75px;
   }
   .arrow{
-    color:#4d4b66;
+  position:absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width:18px;
+  text-align:center;
+    color:white;
+    background-color:#4d4b66;
+    box-sizing:border-box;
   }
   .arrow > i{
     font-size:24px;
@@ -710,6 +721,8 @@ height:32px;
     margin-top:10px;
     margin-bottom:30px;
     border-top:1px solid #afafaf;
+    min-height:300px;
+    border-bottom:1px solid #afafaf;
   }
   .articleDetailToList > a{
     padding:5px 10px;

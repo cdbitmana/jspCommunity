@@ -13,6 +13,7 @@ import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Article;
 import com.sbs.example.jspCommunity.dto.Board;
 import com.sbs.example.jspCommunity.service.ArticleService;
+import com.sbs.example.jspCommunity.util.Util;
 
 public class UsrArticleController {
 
@@ -28,11 +29,9 @@ public class UsrArticleController {
 		String keyword = request.getParameter("keyword");
 		String searchType = request.getParameter("searchType");
 		
-		int page = 1;		
+		int page = Util.getAsInt(request.getParameter("page"), 1);		
 		
-		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
+		
 		if(keyword != null && keyword.contains("%")) {
 			keyword = keyword.replace("%" , "\\%");
 		}
@@ -44,20 +43,11 @@ public class UsrArticleController {
 		Board board = articleService.getBoardById(boardId);
 		
 		int itemsInAPage = 10;
-		int start = (page - 1) * itemsInAPage;
-		int end = start + itemsInAPage -1;
-		if(end >= Allarticles.size()) {
-			end = Allarticles.size()-1;
-		}
 		
-		List<Article> articles = new ArrayList<>();
+		int limitStart = (page-1) *itemsInAPage;
+		List<Article> articles = articleService.getArticlesForPrintListByBoardId(boardId, limitStart, itemsInAPage, searchType,keyword);
 		
-		
-		for(int i = start ; i <= end ; i++) {
-			articles.add(Allarticles.get(i));			
-		}
-		
-		
+	
 		int totalPages = Allarticles.size() / 10;
 		
 		if(Allarticles.size() % 10 != 0) {

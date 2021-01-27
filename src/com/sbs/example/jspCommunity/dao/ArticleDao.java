@@ -252,4 +252,44 @@ public class ArticleDao {
 		
 	}
 
+	public List<Article> getArticlesForPrintListByBoardId(int boardId, int limitStart, int itemsInAPage,
+			String searchType, String keyword) {
+		List<Article> articles = new ArrayList<>();
+
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON A.memberId = M.id");
+		sql.append("INNER JOIN `board` AS B");
+		sql.append("ON A.boardId = B.id");
+		sql.append("WHERE A.boardId = ?",boardId);
+		
+		if(keyword != null) {
+			if(searchType.equals("writer")) {				
+				sql.append("AND M.name LIKE '%" + keyword + "%'");
+			} else if (searchType.equals("titleandbody")) {
+				sql.append("AND (title LIKE '%" + keyword + "%'");
+				sql.append("OR `body` LIKE '%" + keyword + "%')");
+			} else {
+				sql.append("AND `" +searchType + "` LIKE '%" + keyword + "%'");	
+			}
+			
+		}
+		sql.append("ORDER BY A.id DESC");
+		if(itemsInAPage != -1 ) {
+			sql.append("LIMIT ?, ?", limitStart, itemsInAPage);
+		}
+		
+		
+		
+		List<Map<String,Object>> articleMapList = MysqlUtil.selectRows(sql);
+		
+		for(Map<String,Object> articleMap : articleMapList) {
+			articles.add(new Article(articleMap));
+		}
+		
+		return articles;
+	}
+
 }

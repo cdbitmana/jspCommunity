@@ -31,7 +31,7 @@ function searchContent(e){
 }
 
 $('body').on('click',function(e){	
-	if(!$(e.target).hasClass('searchcontent') && !$(e.target).hasClass('arrow') && !$(e.target).hasClass('selectmenu')){
+	if(!$(e.target).hasClass('searchcontent') && !$(e.target).hasClass('arrow') && !$(e.target).hasClass('selectmenu') && !$(e.target).hasClass('fas')){
 	$('.selectmenu').css('display','none');
 	searchMenuOpened = false;
 		}
@@ -49,8 +49,7 @@ $('body').on('click',function(e){
 		<div class="searchbox">
 
 			<div class="searcharea flex flex-ai-c" onclick="showSearchMenu();">
-				<span class="searchcontent">제목</span> <span class="arrow"><i
-					class="fas fa-caret-square-down arrow"></i></span>
+				<span class="searchcontent">제목</span><span class="arrow"><i class="fas fa-caret-down"></i></span>
 			</div>
 
 			<ul class="selectmenu">
@@ -103,7 +102,7 @@ $('body').on('click',function(e){
 	<a href="list?boardId=${board.id }&page=1
 	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
 	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
-	">&lt;&lt;</a>
+	"><i class="fas fa-angle-double-left"></i></a>
 	</c:if>	
 <c:if test="${page > 10 }">
 <a href="list?boardId=${board.id }&page=<fmt:formatNumber value="${Math.floor((page-10)/10)*10+1}" pattern="#"/>
@@ -140,7 +139,7 @@ $('body').on('click',function(e){
 	<a href="list?boardId=${board.id }&page=${totalPages}
 	<c:if test="${param.keyword != null }">&keyword=${param.keyword }</c:if>
 	<c:if test="${param.searchType != null }">&searchType=${param.searchType }</c:if>
-	">&gt;&gt;</a>
+	"><i class="fas fa-angle-double-right"></i></a>
 	</c:if>
 	</div>
 	</div>

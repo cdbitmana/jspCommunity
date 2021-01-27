@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="게시판 상세 페이지"/>
+
 <%@ include file="../../part/head.jspf"%>
+
 <div class="con articleDetailBox">
 <span class="articleDetailTitle">${article.title}</span>
     <div class="flex flex-ai-c articleDetailInfo">
@@ -24,9 +26,11 @@
 	</c:if>
       <span class="articleDetailHit">조회수: ${article.hitCount}</span>
       </div>	
+      
     
     <div class="articleDetailBody">
-      ${article.body}
+      <script type="text/x-template">${article.body }</script>
+  <div class="toast-ui-viewer"></div>
     </div>
     
 	<div class="articleDetailToList">

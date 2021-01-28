@@ -97,8 +97,8 @@
 		<input name="nickName" placeholder="닉네임">
 		<input type="email" name="email"	placeholder="이메일">
 		<input type="tel" name="phoneNo" placeholder="전화번호">
-		<div class="joinSubmit">
-			<input id="joinSubmit" type="submit" value="가입">
+		<div class="submitButtonBox">
+			<input class="submitButton" type="submit" value="가입">
 		</div>
 	</form>
 </div>

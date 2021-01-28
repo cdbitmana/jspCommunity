@@ -58,7 +58,7 @@
 			<div class="flex flex-ai-c height-100p usermenu">
 				<c:if test="${isLogined == true }">
 				<div class="flex flex-dir-col flex-jc-c flex-ai-c loginedMemberBox">
-				<span>${isLoginedMember.name }</span>
+				<span>${loginedMember.name }</span>
 				<div class="flex flex-jc-c flex-ai-c">				
 					<a href="../member/memberInfo">내 정보</a>
 					<a href="../member/logout">로그아웃</a>
@@ -85,7 +85,7 @@
   <div class="mobile-side-bar_top">
     <div class="flex height-100p usermenu">
 				<c:if test="${isLogined == true }">
-				<div>${isLoginedMember.name }</div>
+				<div>${loginedMember.name }</div>
 				<a href="../member/logout">로그아웃</a>				
 				</c:if>
 				<c:if test="${isLogined == false }">

@@ -15,8 +15,10 @@ public class MemberService {
 
 	private MemberDao memberDao;
 	private EmailService emailService;
+	private AttrService attrService;
 	public MemberService() {
 		memberDao = Container.memberDao;
+		attrService = Container.attrService;
 		emailService = Container.emailService;
 	}
 
@@ -57,6 +59,7 @@ public class MemberService {
 		}
 		
 		
+		
 		// 고객의 패스워드를 방금 생성한 임시패스워드로 변경
 		setTempPassword(actor, tempPassword);
 		
@@ -69,16 +72,19 @@ public class MemberService {
 		Map<String, Object> modifyParam = new HashMap<>();
 		modifyParam.put("id", actor.getId());
 		modifyParam.put("loginPw", Util.sha256(tempPassword));
+		modifyParam.put("tempLoginPw", 1);
 		modify(modifyParam);
+		attrService.setValue("member__" + actor.getId() + "__extra__isUsingTempPassword", "1", null);
 	}
 
 	private void modify(Map<String, Object> modifyParam) {
 		memberDao.modify(modifyParam);
 	}
 
-	public void doModifyMember(int id, String nickName, String email, String phoneNo) {
+	public void doModifyMember(int id, String loginPw,String nickName, String email, String phoneNo) {
 		Map<String,Object> modifyParam = new HashMap<>();
 		modifyParam.put("id", id);
+		modifyParam.put("loginPw", loginPw);
 		modifyParam.put("nickName", nickName);
 		modifyParam.put("email", email);
 		modifyParam.put("phoneNo", phoneNo);

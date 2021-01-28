@@ -87,7 +87,7 @@ public class UsrArticleController {
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 		
-		int memberId = (int)request.getAttribute("isLoginedMemberId");
+		int memberId = (int)request.getAttribute("loginedMemberId");
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 
 		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
@@ -120,7 +120,7 @@ public class UsrArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		int memberId = 0;
 		
-		memberId= (int)request.getAttribute("isLoginedMemberId");
+		memberId= (int)request.getAttribute("loginedMemberId");
 		
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
@@ -155,7 +155,7 @@ public class UsrArticleController {
 		
 		int memberId = 0;
 	
-		memberId= (int)request.getAttribute("isLoginedMemberId");
+		memberId= (int)request.getAttribute("loginedMemberId");
 		
 		
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
@@ -172,7 +172,7 @@ public class UsrArticleController {
 		
 		int memberId = 0;
 	
-		memberId= (int)request.getAttribute("isLoginedMemberId");
+		memberId= (int)request.getAttribute("loginedMemberId");
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");

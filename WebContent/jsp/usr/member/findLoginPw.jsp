@@ -34,8 +34,8 @@ function loginFormCheck(){
 <form name="loginForm" action="doFindLoginPw" method="POST" onsubmit="return loginFormCheck();">
 <input id="loginIdForm" class="flex flex-jc-c" name="loginId" placeholder="아이디">
 <input id="loginPwForm" type="email" name="email" placeholder="이메일 주소">
-   <div class="loginSubmit">
-<button id="loginSubmit" type="submit">완료</button>
+   <div class="submitButtonBox">
+<button class="submitButton" type="submit">완료</button>
   </div> 
 </form>
 </div>

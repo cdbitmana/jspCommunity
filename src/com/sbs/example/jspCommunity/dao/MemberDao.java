@@ -111,6 +111,7 @@ public class MemberDao {
 			needToUpdate = true;
 			sql.append(", loginPw = ?", args.get("loginPw"));
 		}
+		
 
 		if (args.get("name") != null) {
 			needToUpdate = true;

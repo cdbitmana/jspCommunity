@@ -64,18 +64,18 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		boolean isLogined = false;
-		int isLoginedMemberId = -1;
-		Member isLoginedMember = null;
+		int loginedMemberId = -1;
+		Member loginedMember = null;
 		
 		if(session.getAttribute("isLogined") != null) {
 				isLogined = true;
-				isLoginedMemberId = (int)session.getAttribute("isLoginedMemberId");
-				isLoginedMember = Container.memberService.getMemberById(isLoginedMemberId);
+				loginedMemberId = (int)session.getAttribute("loginedMemberId");
+				loginedMember = Container.memberService.getMemberById(loginedMemberId);
 		}
 		
 		request.setAttribute("isLogined" , isLogined);
-		request.setAttribute("isLoginedMemberId" , isLoginedMemberId);
-		request.setAttribute("isLoginedMember" , isLoginedMember);
+		request.setAttribute("loginedMemberId" , loginedMemberId);
+		request.setAttribute("loginedMember" , loginedMember);
 		
 		// 로그인 필요 필터링 인터셉터
 		
@@ -88,6 +88,9 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		needToLoginactionUrls.add("/usr/article/doWrite");
 		needToLoginactionUrls.add("/usr/article/doModify");
 		
+		needToLoginactionUrls.add("/usr/member/memberInfo");
+		needToLoginactionUrls.add("/usr/member/memberModifyForm");
+		needToLoginactionUrls.add("/usr/member/doMemberModify");
 		if(needToLoginactionUrls.contains(actionUrl)) {
 			if((boolean)request.getAttribute("isLogined") == false) {
 				request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
@@ -106,6 +109,10 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		needToLogoutactionUrls.add("/usr/member/doLogin");
 		needToLogoutactionUrls.add("/usr/member/join");
 		needToLogoutactionUrls.add("/usr/member/doJoin");
+		needToLogoutactionUrls.add("/usr/member/findLoginId");
+		needToLogoutactionUrls.add("/usr/member/doFindLoginId");
+		needToLogoutactionUrls.add("/usr/member/findLoginPw");
+		needToLogoutactionUrls.add("/usr/member/doFindLoginPw");
 		
 		if(needToLogoutactionUrls.contains(actionUrl)) {
 			if((boolean)request.getAttribute("isLogined") == true) {

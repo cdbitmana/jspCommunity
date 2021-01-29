@@ -64,6 +64,7 @@
 
 	
 </script>
+<main class="con-min-width">
 <div class="boardList con">
 	<div class="boardNameTitle">
 		<a href="/jspCommunity/usr/article/list?boardId=${board.id }&page=1">${board.name }
@@ -187,5 +188,5 @@
 		<div class="articleList__writerMenuBox__search"><a href="">작성글 검색</a>
 		</div>
 	</div>
-
+</main>
 <%@ include file="../../part/foot.jspf"%>

@@ -7,27 +7,57 @@
 
 <%@ include file="../../part/head.jspf"%>
 
-<div>${articles }</div>
+<main class="con-min-width">
 
-<div class="con homeArticleList">
-	<c:forEach var="board" items="${boards }">
-		<span>${board.name}</span>			
-		<c:forEach var="article" items="${articlesnotice}" begin="0" end="4">		
-			<c:set var="boardId" value="${article.boardId }" /> 
-			<c:if test="${board.id == boardId}">
-				<a href="/jspCommunity/usr/article/detail?id=${article.id }">
-					<div class="homeArticle">				
-						<div class="flex homeArticleInfo">
-							<span class="homeArticleTitle">${article.title }</span> <span
-								class="homeArticleWriter">${article.extra__writer }</span> <span
-								class="homeArticleRegDate">${article.regDate }</span>
-						</div>
-						<div class="homeArticleBody">${article.body }</div>
-					</div>
-				</a>
-			</c:if>	
-		</c:forEach>
-	</c:forEach>
+<div class="con flex home-articleList-container-1">
+
+<div class="article-list-box article-list-box-1">
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=3&page=1">새소식</a></div>
+<div class="article-list-box-1__articles flex flex-dir-col">
+
+<c:forEach var="article" items="${articlesnews }" begin="0" end="4">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }">
+<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-writer">${article.extra__writer }</span>
+</a>
+</c:forEach>
+
+
 </div>
+</div>
+
+<div class="article-list-box article-list-box-1">
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=4&page=1">공략</a></div>
+<div class="article-list-box-1__articles flex flex-dir-col">
+
+<c:forEach var="article" items="${articlestip }" begin="0" end="4">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }">
+<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-writer">${article.extra__writer }</span>
+</a>
+</c:forEach>
+
+
+</div>
+</div>
+
+<div class="article-list-box article-list-box-1">
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=5&page=1">자료실</a></div>
+<div class="article-list-box-1__articles flex flex-dir-col">
+
+<c:forEach var="article" items="${articlesdata }" begin="0" end="4">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }">
+<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-writer">${article.extra__writer }</span>
+</a>
+</c:forEach>
+
+
+</div>
+</div>
+
+</div>
+
+</main>
 
 <%@ include file="../../part/foot.jspf"%>

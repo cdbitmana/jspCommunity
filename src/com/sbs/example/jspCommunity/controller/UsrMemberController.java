@@ -108,7 +108,9 @@ public class UsrMemberController {
 		session.setAttribute("isLogined", true);
 		session.setAttribute("loginedMember", member);
 
-		
+		request.setAttribute("loginedMemberId", member.getId());
+		request.setAttribute("isLogined", true);
+		request.setAttribute("loginedMember", member);
 
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
 		return "common/redirect";

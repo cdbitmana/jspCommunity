@@ -5,6 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+
 <title>${pageTitle }</title>
 
 <!-- 폰트어썸 불러오기 -->
@@ -36,80 +37,79 @@
 
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet" type="text/css">
 <script src="${pageContext.request.contextPath}/js/app.js" defer></script>
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<div class="pc-top-bar pc-ver">
-		<div class="height-100p flex">
-			<a class="flex flex-ai-c logo height-100p"
-				href="/jspCommunity/usr/home/main">Indie World</a>
-			<div class="menu-box">
-				<ul class="flex height-100p">
-					<li><a class="flex flex-ai-c flex-jc-c height-100p" href="">게시판</a>
-						<ul>
-							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=1&page=1">공지사항
-									게시판</a></li>
-							<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2&page=1">자유
-									게시판</a></li>
-						</ul></li>
-					<li><a class="flex flex-ai-c height-100p" href="">방명록</a></li>
-				</ul>
-			</div>
-			<div class="flex flex-ai-c height-100p usermenu">
-				<c:if test="${isLogined == true }">
-				<div class="flex flex-dir-col flex-jc-c flex-ai-c loginedMemberBox">
-				<span>${loginedMember.name }</span>
-				<div class="flex flex-jc-c flex-ai-c">				
-					<a href="../member/memberInfo">내 정보</a>
-					<a href="../member/logout">로그아웃</a>
-					</div>		
-					</div>		
-				</c:if>
-				<c:if test="${isLogined == false }">
-					<a href="../member/login">로그인</a>
-					<a href="../member/join">회원가입</a>
-				</c:if>
-			</div>
-		</div>
-	</div>
+<div class="body-content">
+
+<!-- 탑 메뉴 바 -->
+<div class="con-min-width top-menu-bar">
+<div class="con flex flex-ai-c height-100p">
+
+<!-- 탑 메뉴 바 로고 박스 -->
+<div class=" top-menu-bar__logobox">
+<a class="flex flex-ai-c" href="/jspCommunity/usr/home/main">
+<div class="top-menu-bar__logo-img"></div>
+<span class="top-menu-bar__logo">Indie World</span>
+</a>
+</div>
+<div class="flex-grow-1"></div>
+<!-- 탑 메뉴 바 계정 기능 -->
+<div class="top-menu-bar__memberBox flex flex-ai-c">
+<c:if test="${isLogined == false }">
+<div class="top-menu-bar__memberBox__login">
+<a class="" href="/jspCommunity/usr/member/login">로그인</a>
+</div>
+<div class="top-menu-bar__memberBox__join">
+<a class="" href="/jspCommunity/usr/member/join">회원가입</a>
+</div>
+</c:if>
+<c:if test="${isLogined}">
+<div class="top-menu-bar__memberBox__name">
+<div class="">${loginedMember.name }</div>
+</div>
+<div class="top-menu-bar__memberBox__modify">
+<a href="/jspCommunity/usr/member/memberInfo">회원정보수정</a>
+</div>
+<div class="top-menu-bar__memberBox__logout">
+<a class="" href="/jspCommunity/usr/member/logout">로그아웃</a>
+</div>
+</c:if>
+</div>
+
+</div>
+</div>
+
+<!-- 탑 바 -->
+<header class="con-min-width top-bar-pc">
+<!-- 탑 바 메뉴박스 -->
+<div class="top-bar-pc__container">
+<div class="con top-bar-pc__menuBox">
+<ul class="flex flex-ai-c top-bar-pc__menuBox__menu">
+<li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=3&page=1">새소식</a></li>
+<li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=4&page=1">공략</a></li>
+<li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=5&page=1">자료실</a></li>
+<li class="height-100p top-bar-pc__menuBox__menu-1"><a class="block" href="/jspCommunity/usr/article/list?boardId=1&page=1">게시판</a>
+<ul class="top-bar-pc__menuBox__menu-2 width-100p">
+<li><a href="/jspCommunity/usr/article/list?boardId=1&page=1">공지사항 게시판</a></li>
+<li><a href="/jspCommunity/usr/article/list?boardId=2&page=1">자유 게시판</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</header>
 
 
-	<div class="mobile-top-bar mobile-ver">
-		<a href="#" class="side-menu flex flex-ai-c"><i
-			class="fas fa-bars"></i></a> <a href="/jspCommunity/usr/home/main"
-			class="logo">Indie World</a>
-	</div>
 
 
-<div class="mobile-side-bar mobile-ver">
-  <div class="mobile-side-bar_top">
-    <div class="flex height-100p usermenu">
-				<c:if test="${isLogined == true }">
-				<div>${loginedMember.name }</div>
-				<a href="../member/logout">로그아웃</a>				
-				</c:if>
-				<c:if test="${isLogined == false }">
-					<a href="../member/login">로그인</a>
-					<a href="../member/join">회원가입</a>
-				</c:if>
-			</div>
-		<a href="/jspCommunity/usr/home/main" class="logo">LOGO</a> <a
-			href="#" class="side-bar-close"><i class="fas fa-times"></i></a>
-    </div>
-		<div class="menu-box">
-			<ul>
-				<li><a class="flex flex-ai-c flex-jc-c height-100p" href="">게시판</a>
-					<ul>
-						<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=1&page=1">공지사항
-								게시판</a></li>
-						<li><a class="flex flex-ai-c flex-jc-c height-100p" href="/jspCommunity/usr/article/list?boardId=2&page=1">자유
-								게시판</a></li>
-					</ul></li>
-				<li><a class="flex flex-ai-c flex-jc-c height-100p" href="#">방명록</a></li>
-			</ul>
-		</div>
-	</div>
 
+
+
+
+
+<!-- 바텀 바 -->
 	<div class="bottom-bar flex flex-ai-c">
 		<div class="back">
 			<i class="fas fa-arrow-left"></i>

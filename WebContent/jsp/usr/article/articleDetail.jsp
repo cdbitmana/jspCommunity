@@ -4,7 +4,7 @@
 <c:set var="pageTitle" value="게시판 상세 페이지"/>
 
 <%@ include file="../../part/head.jspf"%>
-
+<main class="con-min-width">
 <div class="con articleDetailBox">
 <span class="articleDetailTitle">${article.title}</span>
     <div class="flex flex-ai-c articleDetailInfo">
@@ -38,4 +38,5 @@
 	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }&page=${param.page}">목록</a>
 	</div>
 	</div>
+	</main>
 <%@ include file="../../part/foot.jspf"%>

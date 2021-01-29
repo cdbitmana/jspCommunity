@@ -92,6 +92,19 @@ public class MemberService {
 		
 	}
 
+	public void sendJoinMsgToEmail(Member member) {
+		String siteName = App.getSite();
+		String title = "Indie World에 가입하신 것을 축하드립니다!";
+		String body = "<h1>Indie World에 회원 가입 하셨습니다.</h1>";
+		body += "<p>"+member.getName()+"님, Indie World에 가입해주셔서 감사합니다.</p>";
+		body += "<p>Indie World에서 다양한 인디 게임의 소식과 정보를 찾아보세요.</p>";
+		
+		emailService.send(member.getEmail(), title, body);
+
+		
+		
+	}
+
 	
 
 }

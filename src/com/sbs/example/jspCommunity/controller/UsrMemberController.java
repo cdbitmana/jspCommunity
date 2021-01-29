@@ -56,6 +56,10 @@ public class UsrMemberController {
 		String email = request.getParameter("email");
 		String phoneNo = request.getParameter("phoneNo");
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, email, phoneNo);
+		
+		member = memberService.getMemberById(id);
+		
+		memberService.sendJoinMsgToEmail(member);
 
 		request.setAttribute("alertMsg", id + "번 회원으로 가입되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
@@ -227,7 +231,6 @@ public class UsrMemberController {
 			sendTempLoginPwToEmailRs = new ResultData(resultCode, msg);
 		} else {
 			sendTempLoginPwToEmailRs = memberService.sendTempLoginPwToEmail(member);
-
 		}
 
 		request.setAttribute("data", sendTempLoginPwToEmailRs);

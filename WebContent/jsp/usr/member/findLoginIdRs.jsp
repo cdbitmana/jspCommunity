@@ -39,15 +39,17 @@ function loginFormCheck(){
 <input id="loginIdForm" class="flex flex-jc-c" name="name" placeholder="이름" value="${data.body.get('name') }">
 <div class="findLoginIdFormNameCheckRs"></div>
 <input id="loginPwForm" type="email" name="email" placeholder="이메일 주소" value="${data.body.get('email') }">
-   <div class="loginSubmit">
-<button id="loginSubmit" type="submit">완료</button>
+   <div class="submitButtonBox">
+<button class="submitButton" type="submit">아이디 찾기</button>
   </div> 
 </form>
 </c:if>
+<c:if test="${data.isSuccess() }">
 <div class="flex flex-jc-c flex-ai-c flex-jc-s-ar findLoginIdRs__login">
 <a href="login">로그인</a>
 <a href="findLoginPw">비밀번호 찾기</a>
 </div>
+</c:if>
 </div>
 </div>
 <%@ include file="../../part/foot.jspf"%>

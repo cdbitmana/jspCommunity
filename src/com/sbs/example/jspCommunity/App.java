@@ -2,7 +2,7 @@ package com.sbs.example.jspCommunity;
 
 public class App {
 	public static String getSite() {
-		return "JSP Community";
+		return "Indie World";
 	}
 
 	public static String getContextName() {

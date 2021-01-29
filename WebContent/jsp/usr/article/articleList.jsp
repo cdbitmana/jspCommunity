@@ -73,6 +73,7 @@
 	<div class="list-top flex flex-ai-c flex-jc-e">
 
 		<form class="flex flex-ai-c searchForm">
+		<input type="hidden" name="page" value="1">
 			<div class="searchbox">
 
 				<div class="searcharea flex flex-ai-c" onclick="showSearchMenu();">

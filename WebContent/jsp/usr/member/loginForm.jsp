@@ -31,6 +31,7 @@ function loginFormCheck(){
 		
 }
 </script>
+<main class="con-min-width">
 <div class="con loginForm">
 <div class="loginTitle">로그인</div>
 <form name="loginForm"action="doLogin" method="POST" onsubmit="return loginFormCheck();">
@@ -47,4 +48,5 @@ function loginFormCheck(){
  
 </form>
 </div>
+</main>
 <%@ include file="../../part/foot.jspf"%>

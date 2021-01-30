@@ -107,7 +107,8 @@
 				type="submit" value="글쓰기">
 		</form>
 	</div>
-	<div class="articleList">
+	<!-- 게시물 리스트 PC버전 시작 -->
+	<div class="articleList articleList-pc">
 		<div class="article articleTag flex flex-ai-c">
 			<span class="cell-id">번호</span> <span class="cell-title">제목</span> <span
 				class="cell-writer">이름</span> <span class="cell-regDate">작성시간</span>
@@ -126,6 +127,31 @@
 		</c:forEach>
 
 	</div>
+	<!-- 게시물 리스트 PC버전 끝 -->
+	
+	<!-- 게시물 리스트 모바일 버전 시작 -->
+	<div class="articleList-mb">
+	
+	<c:forEach var="article" items="${articles }">
+			<div class="article-mb">
+			<a href="/jspCommunity/usr/article/detail?id=${article.id }&page=${param.page}">
+			<div class="article-mb-1">
+			<span class="cell-id-mb">${article.id }</span>
+			<span class="cell-title-mb">${article.title }</span>
+			</div>
+			<div class="article-mb-2">
+			<span class="cell-writer-mb">${article.extra__writer }</span>
+			<span class="cell-hit-mb">조회수 ${article.hitCount }</span>
+			<span class="cell-regDate-mb float-r">${article.regDate }</span>
+			</div>
+			</a>
+			</div>
+		</c:forEach>
+		
+	</div>
+	<!-- 게시물 리스트 모바일 버전 끝 -->	
+	
+	<!--  페이지 버튼 PC버전 시작 -->
 	<div class="flex flex-ai-c articleListPage">
 		<div class="articleListPage__prev">
 			<c:if test="${totalPages > 10 }">
@@ -144,7 +170,8 @@
 ">이전</a>
 			</c:if>
 		</div>
-		<div class="flex flex-jc-c flex-ai-c flex-grow-1 pages">
+		
+		<div class="flex flex-jc-c flex-ai-c flex-grow-1 pages">		
 			<c:forEach var="page" items="${pages }">
 				<c:choose>
 					<c:when test="${page == param.page }">
@@ -161,6 +188,9 @@
 				</c:choose>
 			</c:forEach>
 		</div>
+
+
+
 
 		<div class="articleListPage__next">
 			<c:if
@@ -181,6 +211,9 @@
 			</c:if>
 		</div>
 	</div>
+	<!--  페이지 버튼 PC버전 끝 -->
+
+	
 </div>
 
 <div class="articleList__writerMenuBox">

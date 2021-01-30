@@ -134,6 +134,7 @@ justify-content:center;
 }
 main{
 	margin-top:30px;
+	margin-bottom:30px;
 }
 /* 커스텀 */
 
@@ -160,26 +161,39 @@ main{
 	background-repeat:no-repeat;
 	background-position-y:-8px;
 }
+
 .top-menu-bar__logo{
 	font-family: 'Recipekorea';
 	margin-left:10px;
+	height:35px;
+	line-height:35px;
 }
 .top-bar-pc{
 		position:relative;
-	height:200px;
+	height:300px;
 	background:linear-gradient(
-	to right,
-	#4d4b6600 10%,
-	#4d4b6650 25%,
-	#4d4b6660 50%,
-	#4d4b66 75%,
-	#4d4b66 100%
+	to bottom,
+	rgba(255,255,255,0) 25%,
+	rgba(255,255,255,0) 50%,
+	rgba(255,255,255,0.3) 75%,
+	rgba(255,255,255,0.75) 85%,
+	rgba(255,255,255,1) 100%
 	), url("../image/top-bar/top-bar.jpg");	
-	background-position-y:-20px;
 	background-size:contain;
+	z-index:3;	
+}
+@media (max-width:590px){
+	.top-bar-pc{
+	background-size: cover;
+	background-repeat:no-repeat;
+	}
+}
+.top-menu-bar__logobox{
+	padding-left:5px;
 }
 .top-menu-bar__memberBox {
 	font-size:14px;
+	padding-right:5px;
 }
 .top-menu-bar__memberBox > div:hover > a{
 	text-decoration:underline;
@@ -190,7 +204,7 @@ main{
 }
 .top-bar-pc__container{
 	position:relative;
-	top:155px;
+	top:255px;
 	background-color:#03030363;	
 }
 
@@ -217,8 +231,11 @@ main{
 	display:none;
 	color:black;
 	border:1px solid #DDDDDD;
+	background-color:white;
 }
-.top-bar-pc__menuBox__menu-2 > li {
+
+.top-bar-pc__menuBox__menu-2 > li > a{
+	display:block;
 	padding:10px;
 }
 .top-bar-pc__menuBox__menu-1 {
@@ -243,7 +260,13 @@ main{
 /* 반응형 모바일 사이드 바 끝 */
 
 /* 반응형 하단바 시작 */
+@media (max-width:768px){
+	main {
+	margin-bottom:100px;
+	}
+}
 @media (min-width:769px){
+	
 	.bottom-bar{
 	display:none !important;
 	}
@@ -333,6 +356,7 @@ font-size:1.8rem;
 .findLoginIdRs__login > a{
   border:1px solid black;
   padding:10px;
+  margin:0 5px;
 }
 .findLoginIdFormNameCheckRs{
  text-align:center;
@@ -344,6 +368,7 @@ font-size:1.8rem;
     margin-top:45px;
     
 }
+
 .joinTitle{
     font-size:3rem;
     text-align: center;
@@ -360,7 +385,7 @@ font-size:1.8rem;
 }
 .joinForm__loginId{
   position:relative;
-  width:200px;
+  width:200px;  
 }
 .loginIdCheckBox{
 position: absolute;
@@ -402,10 +427,11 @@ height:32px;
       }
 /* 회원가입 폼 화면 끝 */
 
-/* 게시물 리스트 시작 */
+/* 게시물 리스트 PC버전 시작 */
 .boardList{
     position:relative;  
   margin-top:30px;
+  margin-bottom:30px;
   }
   .boardNameTitle{
     font-size:3rem;
@@ -422,6 +448,14 @@ height:32px;
     height:100%;
     position:relative;
     margin-right:10px;
+  }
+  @media(max-width:768px){
+  .searchbox{
+  width:100px;
+  }
+  .searchInput{
+  width:100px;
+  }
   }
   .searcharea{
   position:relative;
@@ -490,10 +524,22 @@ height:32px;
     cursor: pointer;
   }
   .articleList {
+  margin-left: 10px;
+  margin-right: 10px;
     border-top:2px solid black;    
     margin-top:8px;
     text-align:center; 
   }
+  @media(max-width:768px){
+  .articleList-pc{
+  display:none !important;
+  }
+ }
+ @media (min-width:769px){
+ .articleList-mb{
+ display:none !important;
+ }
+ }
   :root{
          --cell-id__width:80px;
          --cell-writer__width:100px;
@@ -553,15 +599,7 @@ height:32px;
         background-color:#afafaf49;
         padding:8px 0;
       }
-  @media (max-width:700px){
-    :root{
-         --cell-id__width:50px;
-         --cell-writer__width:60px;
-         --cell-regDate__width:60px;
-         --cell-hit__width:40px;
-         --cell-title__width:calc(100% - var(--cell-id__width) - var(--cell-writer__width) - var(--cell-regDate__width) - var(--cell-hit__width))
-         }
-  }
+
   .articleListPage {
     margin-top:25px;
   }
@@ -581,6 +619,31 @@ height:32px;
     width:150px;
     text-align:left;
   }
+  @media(max-width:768px){
+  .articleListPage__prev{
+  width:50px !important;
+  }
+  .articleListPage__next{
+  width:50px !important;
+  }
+  .articleListPage__prev > a{
+  padding:0 3px !important;
+  font-size:12px;
+  }
+  .articleListPage__next > a {
+    padding:0 3px !important;
+    font-size:12px;
+  }
+   .pages > a{
+   padding:0 3px !important;
+   font-size:12px;
+   }
+   .currentPage{
+   font-size:14px !important;
+   padding:0 5px !important;
+   }
+  }
+  
   .articleListPage__prev > a {
     padding:0 15px;
   }
@@ -608,14 +671,56 @@ height:32px;
     height:2px;
     background-color: black;
   }
-  /* 게시물 리스트 끝 */
-
+  /* 게시물 리스트 PC버전 끝 */
+  
+  /* 게시물 리스트 모바일 버전 시작 */
+  .articleList-mb{
+  margin-top:15px;
+  border-top:2px solid #DDDDDD;
+  margin-left:5px;
+  margin-right:5px;
+  }
+  .article-mb {
+  border-top:1px solid #DDDDDD;
+  border-bottom:1px solid #DDDDDD;
+  padding:5px;
+  }
+  :root{
+         --cell-id-mb__width:30px;
+         --cell-writer-mb__width:50px;
+         --cell-regDate-mb__width:150px;
+         --cell-hit-mb__width:30px;
+         --cell-title-mb__width:calc(100% - var(--cell-id__width) - var(--cell-writer__width) - var(--cell-regDate__width) - var(--cell-hit__width))
+         }
+  .cell-id-mb{
+  width:var(--cell-id-mb__width);  
+  }
+  .cell-title-mb{
+  width:var(--cell-title-mb__width);
+  }
+  .cell-regDate-mb{
+  width:var(--cell-regDate-mb__width);
+  font-size:12px;
+  text-align:right;
+  }
+  .cell-hit-mb{
+  width:var(--cell-hit-mb__width);
+  font-size:12px;
+  }
+  .cell-writer-mb{
+  width:var(--cell-writer-mb__width);
+  font-size:12px;
+  }
+  /* 게시물 리스트 모바일 버전 끝 */
   
 /* 게시물 작성 시작 */
 .writeForm{
     border:1.5px solid #afafaf60;
     margin-top:20px;
     margin-bottom:20px;
+  }
+  .writeFormContainer{
+  padding:0 10px;
   }
   .writeFormTitle{
     font-size:3rem;
@@ -629,14 +734,15 @@ height:32px;
   }
   .writeFormBox > span {
     display:block;
-    margin-left:40px;
+    margin-left:10px;
     margin-top:30px;
   }
   .writeTitleInput {
     height:35px;
   }
   .writeTitleInput , .writeBodyInput{
-    margin-left:40px;
+    margin-left:10px;
+    margin-right:10px;
     margin-top:5px;
     width:80%;
   }
@@ -663,6 +769,7 @@ height:32px;
 .articleDetailBox{
     margin-top:20px;
     margin-bottom:20px;
+    padding:0 15px;
   }
   .articleDetailTitle{
     font-size:3rem;
@@ -714,6 +821,20 @@ height:32px;
     margin:0 7px;
     font-family: 'S-CoreDream-5Medium';
   }
+  @media(min-width:769px){
+  .articleDetailInfo-mb{
+  display:none !important;
+  }
+  }
+  @media(max-width:768px){
+  .articleDetailInfo-pc{
+  display:none !important;
+  }
+  
+  }
+  .articleDetailInfo-mb > div:nth-child(2){
+  margin-top:5px;
+  }
   /* 게시물 상세보기 끝 */
 
   
@@ -722,6 +843,8 @@ height:32px;
     border:1.5px solid #afafaf60;
     margin-top:20px;
     margin-bottom:20px;
+  	margin-left:5px;
+  	margin-right:5px;
   }
   .articleModifyBox > span , .articleModifyBox > form > span {
     display:block;
@@ -760,23 +883,34 @@ height:32px;
 .article-list-box{
 	width:calc(100%/3);
 	padding:10px;
+	box-sizing:border-box;
+}
+@media (max-width:768px){
+	.article-list-box{
+	width:calc(100%/2);
+	}
 }
 .article-list-box-1__board {
 	padding:5px;
 	border-bottom:2px solid #DDDDDD;
 }
 .article-list-box-1__article{
-	padding:5px;
+	padding:5px 0;
 	border-bottom:1px solid #DDDDDD;
 }
 .article-list-box-1__articles span {
 	display:inline-block;
 }
 .article-list-box-1__articles span:nth-child(1){
-	width:70%;
+	width:65%;
 }
 .article-list-box-1__articles span:nth-child(2){
 	width:28%;
+}
+.article-list-box__articles-title{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 .article-list-box__articles-writer {
 	text-align:center;

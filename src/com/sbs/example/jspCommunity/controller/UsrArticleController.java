@@ -72,6 +72,7 @@ public class UsrArticleController {
 		}
 		
 		
+		
 		request.setAttribute("totalPages", totalPages);
 		request.setAttribute("pages", pages);
 		request.setAttribute("articles", articles);
@@ -101,16 +102,16 @@ public class UsrArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-		
+		int page = Integer.parseInt(request.getParameter("page"));
 		Map<String, Object> modifyArgs = new HashMap<>();
 		modifyArgs.put("id", id);
 		modifyArgs.put("title", title);
 		modifyArgs.put("body", body);
 
 		articleService.doModify(modifyArgs);
-		
+		request.setAttribute("page", page);
 		request.setAttribute("alertMsg", id+"번 게시물이 수정되었습니다.");
-		request.setAttribute("replaceUrl", String.format("detail?id=%d", id));
+		request.setAttribute("replaceUrl", "detail?id="+id+"&page="+page);
 		
 		return "common/redirect";
 	}
@@ -177,6 +178,7 @@ public class UsrArticleController {
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 		Article article = articleService.getArticleById(id);
+		int page = Integer.parseInt(request.getParameter("page"));
 		if(article == null) {
 			request.setAttribute("alertMsg", "해당 게시물은 존재하지 않습니다.");
 			request.setAttribute("historyBack", true);
@@ -187,6 +189,7 @@ public class UsrArticleController {
 			request.setAttribute("historyBack", true);
 			return "common/redirect";
 		}
+		request.setAttribute("page", page);
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("id", id);
 		request.setAttribute("title", title);

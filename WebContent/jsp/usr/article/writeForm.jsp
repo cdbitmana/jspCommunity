@@ -38,15 +38,20 @@ let DoWriteForm__submited = false;
 
 <c:set var="pageTitle" value="게시판 수정 페이지"/>
 
+	<main class="con-min-width">
 	
-<div class="con writeFormTitle">${board.name} 게시판</div>
-<div class="con writeForm">
+<div class="con">
+<div class="writeFormContainer">
+<div class="writeFormTitle">${board.name} 게시판</div>
+<div class="writeForm">
 	<form name="writeForm" class="writeFormBox" action="doWrite" style="display: inline-block" method="post" onsubmit="return writeFormCheck();">
 		<input type="hidden" name="memberId" value="${memberId }">
 		 <input	type="hidden" name="boardId" value="${boardId }">
 		 <input type="hidden" name="body">
     <span>제목</span>
-			<input  class="writeTitleInput" type="text" name="title">	
+    
+			<input  class="writeTitleInput" type="text" name="title">
+			
     <span>본문</span>
     <div class="writeBodyInput">
 		 <script type="text/x-template"></script>
@@ -54,5 +59,8 @@ let DoWriteForm__submited = false;
   </div>
 		<input class="writeFormSubmit" type="submit" value="등록">
 	</form>
+	</div>
   </div>
+  </div>
+  </main>
 <%@ include file="../../part/foot.jspf"%>

@@ -4,6 +4,7 @@
       
    <c:set var="pageTitle" value="회원 정보"/>
 <%@ include file="../../part/head.jspf"%>
+<main class="con-min-widht">
 <div class="con">
 <div class="flex flex-dir-col flex-ai-c flex-jc-c memberInfoBox">
 <div class="form_group id">
@@ -26,4 +27,5 @@
 </div>
 </div>
 </div>
+</main>
 <%@ include file="../../part/foot.jspf"%>

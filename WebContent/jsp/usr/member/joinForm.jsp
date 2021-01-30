@@ -81,14 +81,14 @@
 </script>
 
 
-
+<main class="con-min-width">
 <div class="con joinForm ">
 	<div class="joinTitle">회원가입</div>
 	<form class="flex flex-dir-col flex-jc-c flex-ai-c" name="joinForm" action="doJoin" method="POST"
 		onsubmit="return joinFormCheck();">
 		<div class="joinForm__loginId">
-		<input class="loginIdInput" name="loginId" placeholder="아이디"> 
-		<input class="loginIdCheckBox" onclick="DoJoinForm__checkLoginIdDup(this);" name="btnLoginIdDupCheck" type="checkbox">		
+		<input class="loginIdInput joinIdInput" name="loginId" placeholder="아이디"> 
+		<input class="loginIdCheckBox" onclick="DoJoinForm__checkLoginIdDup(this);" name="btnLoginIdDupCheck" type="checkbox">	
 		</div>
 		<div class="rs"></div>
 		<input type="hidden" name="loginPwReal">
@@ -102,4 +102,5 @@
 		</div>
 	</form>
 </div>
+</main>
 <%@ include file="../../part/foot.jspf"%>

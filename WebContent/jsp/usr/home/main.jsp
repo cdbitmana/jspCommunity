@@ -9,9 +9,9 @@
 
 <main class="con-min-width">
 
-<div class="con flex home-articleList-container-1">
+<div class="con home-articleList-container-1">
 
-<div class="article-list-box article-list-box-1">
+<div class="float-l article-list-box article-list-box-1">
 <div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=3&page=1">새소식</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
@@ -26,7 +26,7 @@
 </div>
 </div>
 
-<div class="article-list-box article-list-box-1">
+<div class="float-l article-list-box article-list-box-1">
 <div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=4&page=1">공략</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
@@ -41,7 +41,7 @@
 </div>
 </div>
 
-<div class="article-list-box article-list-box-1">
+<div class="float-l article-list-box article-list-box-1">
 <div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=5&page=1">자료실</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 

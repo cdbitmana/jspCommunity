@@ -16,6 +16,7 @@ if ( historyGo ) {
 }
 var replaceUrl = '<c:out value="${replaceUrl }"/>'.trim();
 	if (replaceUrl) {
+		replaceUrl = replaceUrl.replace('amp;','');
 		location.replace(replaceUrl);		
 	}
 </script>

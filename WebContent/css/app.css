@@ -146,6 +146,26 @@ main{
 }
 /* 바디컨텐트 끝 */
 
+/* 임시 비밀번호 경고 시작 */
+.warningBox{
+	width:300px;
+	height:35px;
+	background-color:#2C2F3F;
+	color:white;
+	border:1px solid white;
+	position:absolute;
+	top:0;
+	left:50%;
+	transform:translateX(-50%);
+	z-index:5;
+}
+.warningBox__close{
+	position:absolute;
+	top:0;
+	right:5px;
+}
+/* 임시 비밀번호 경고 끝 */
+
 /* PC버전 탑 바 시작 */
 
 .top-menu-bar{
@@ -913,7 +933,7 @@ height:32px;
 	text-overflow:ellipsis;
 }
 .article-list-box__articles-writer {
-	text-align:center;
+	text-align:right;
 }
 /* 홈 메인 화면 끝 */
 

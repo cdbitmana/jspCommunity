@@ -10,7 +10,6 @@ import mysqlutil.SecSql;
 public class AttrDao {
 	public int setValue(String relTypeCode, int relId, String typeCode, String type2Code, String value, String expireDate) {
 		SecSql sql = new SecSql();
-
 		sql.append("INSERT INTO attr (regDate, updateDate, expireDate, `relTypeCode`, `relId`, `typeCode`, `type2Code`, `value`)");
 		
 		if ( expireDate == null ) {
@@ -28,7 +27,6 @@ public class AttrDao {
 		}
 		
 		sql.append(", `value` = ?", value);
-
 		return MysqlUtil.update(sql);
 	}
 

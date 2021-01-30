@@ -94,7 +94,7 @@ public class UsrArticleController {
 		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
 		
 		request.setAttribute("alertMsg", newArticleId+ "번 게시물이 생성되었습니다.");
-		request.setAttribute("replaceUrl", String.format("detail?id=%d", newArticleId));
+		request.setAttribute("replaceUrl", String.format("detail?id=%d&page=1", newArticleId));
 		return "common/redirect";
 	}
 
@@ -146,7 +146,13 @@ public class UsrArticleController {
 		Article article = articleService.getArticleById(id);
 
 		request.setAttribute("article", article);
+		
+		articleService.doIncreaseArticleHitCount(article);
 
+		article = articleService.getArticleById(id);
+		
+		request.setAttribute("article", article);
+		
 		return "usr/article/articleDetail";
 
 	}

@@ -39,8 +39,30 @@
 <script src="${pageContext.request.contextPath}/js/app.js" defer></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
+
+
 <body>
+
 <div class="body-content">
+
+<!-- 임시 비밀번호 경고 메뉴 -->
+<c:if test="${sessionScope.isTempPw == true}">
+<div class="warningBox tempPwWarn flex flex-dir-col flex-ai-c">
+<div>임시 비밀번호를 사용중입니다.</div>
+<div> 비밀번호를 변경해 주세요.</div>
+<div class="warningBox__close"><i class="fas fa-times"></i></div>
+</div>
+</c:if>
+
+<!-- 비밀번호 사용 90일 경고창 시작 --> 
+<c:if test="${sessionScope.loginPwUsing90day == true}">
+<div class="warningBox loginPwWarn flex flex-dir-col flex-ai-c">
+<div>비밀번호를 사용한 지 90일이 지났습니다.</div>
+<div> 비밀번호를 변경해 주세요.</div>
+<div class="warningBox__close"><i class="fas fa-times"></i></div>
+</div>
+</c:if>
 
 <!-- 탑 메뉴 바 -->
 <div class="con-min-width top-menu-bar">
@@ -121,3 +143,4 @@
 			<i class="fas fa-arrow-right"></i>
 		</div>
 	</div>
+

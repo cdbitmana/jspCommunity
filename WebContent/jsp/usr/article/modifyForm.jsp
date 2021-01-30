@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="게시판 수정 페이지"/>
+<c:set var="pageTitle" value="${article.title }"/>
 <%@ include file="../../part/head.jspf"%>
 <script>
 let DoModifyForm__submited = false;
@@ -46,7 +46,7 @@ let DoModifyForm__submited = false;
 			<span>본문</span>
 			<div class="articleModifyBody">
 	  <script type="text/x-template"></script>
-  <div class="toast-ui-editor"></div>
+  <div class="toast-ui-editor">${body }</div>
   </div>		
 		<input class="articleModifySubmit" type="submit" value="등록">
 		

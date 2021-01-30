@@ -1,5 +1,7 @@
 package com.sbs.example.jspCommunity.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,11 +57,20 @@ public class UsrMemberController {
 		String nickName = request.getParameter("nickName");
 		String email = request.getParameter("email");
 		String phoneNo = request.getParameter("phoneNo");
+		
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, email, phoneNo);
 		
 		member = memberService.getMemberById(id);
 		
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.DATE, 90);
+		String nowAdd90day = format.format(now.getTime());
+		
+		attrService.setValue("member__" + member.getId() + "__extra__loginPwUsing90day", "0", nowAdd90day);
+		
 		memberService.sendJoinMsgToEmail(member);
+		
 
 		request.setAttribute("alertMsg", id + "번 회원으로 가입되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
@@ -77,7 +88,7 @@ public class UsrMemberController {
 		String loginId = request.getParameter("loginId");
 
 		Member member = memberService.getMemberByLoginId(loginId);
-
+		HttpSession session = request.getSession();
 		if (member == null) {
 			request.setAttribute("alertMsg", "존재하지 않는 아이디입니다.");
 			request.setAttribute("historyBack", true);
@@ -96,13 +107,18 @@ public class UsrMemberController {
 			attr = attrService.get("member__" + member.getId() + "__extra__isUsingTempPassword");	
 			if(attr.getValue().equals("1")) {
 				request.setAttribute("alertMsg", "임시 비밀번호를 사용중입니다. 비밀번호를 변경해 주세요.");
+				request.setAttribute("isTempPw", true);
+				session.setAttribute("isTempPw", true);
 			}
+		}
+		
+		if(attrService.get("member__"+member.getId()+"__extra__loginPwUsing90day") == null) {
+				request.setAttribute("alertMsg", "비밀번호를 사용한 지 90일이 경과되었습니다. 비밀번호를 변경해 주세요.");
+				session.setAttribute("loginPwUsing90day", true);
 		}
 		
 		
 		
-		
-		HttpSession session = request.getSession();
 
 		session.setAttribute("loginedMemberId", member.getId());
 		session.setAttribute("isLogined", true);
@@ -123,7 +139,7 @@ public class UsrMemberController {
 		session.removeAttribute("loginedMemberId");
 		session.removeAttribute("isLogined");
 		session.removeAttribute("loginedMember");
-
+		session.removeAttribute("isTempPw");
 		request.setAttribute("alertMsg", "로그아웃 되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
 		return "common/redirect";
@@ -274,7 +290,7 @@ public class UsrMemberController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String loginPw = request.getParameter("loginPwReal");
 		Member member = memberService.getMemberById(id);
-		
+		HttpSession session = request.getSession();
 		if(loginPw != null && loginPw.length() == 0) {
 			loginPw = null;
 		}
@@ -283,7 +299,19 @@ public class UsrMemberController {
 		
 		if( !member.getLoginPw().equals(loginPw) && tempPw.equals("1")) {
 			attrService.remove("member__"+member.getId()+"__extra__isUsingTempPassword");
+			session.removeAttribute("isTempPw");
 		}
+		
+		if(!member.getLoginPw().equals(loginPw)) {
+			System.out.println(loginPw);
+			SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+			Calendar now = Calendar.getInstance();
+			now.add(Calendar.DATE, 90);
+			String nowAdd90day = format.format(now.getTime());
+			
+			attrService.setValue("member__" + member.getId() + "__extra__loginPwUsing90day", "0", nowAdd90day);
+		}
+		
 		
 		String nickName = request.getParameter("nickName");
 		if(nickName != null && nickName.length() == 0) {
@@ -302,7 +330,7 @@ public class UsrMemberController {
 		
 		
 
-		HttpSession session = request.getSession();
+		
 
 		session.removeAttribute("loginedMember");
 

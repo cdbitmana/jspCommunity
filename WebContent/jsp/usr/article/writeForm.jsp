@@ -20,7 +20,6 @@ let DoWriteForm__submited = false;
 		} 
 		
 		const editor = $('form').find('.toast-ui-editor').data('data-toast-editor');
-		alert(editor);
 		const body = editor.getMarkdown().trim();
 		
 		if ( body.length == 0 ) {
@@ -36,7 +35,7 @@ let DoWriteForm__submited = false;
 	}
 </script>
 
-<c:set var="pageTitle" value="게시판 수정 페이지"/>
+<c:set var="pageTitle" value="${board.name } 게시물 작성"/>
 
 	<main class="con-min-width">
 	
@@ -45,6 +44,7 @@ let DoWriteForm__submited = false;
 <div class="writeFormTitle">${board.name} 게시판</div>
 <div class="writeForm">
 	<form name="writeForm" class="writeFormBox" action="doWrite" style="display: inline-block" method="post" onsubmit="return writeFormCheck();">
+	<input type="hidden" name="page" value="1">
 		<input type="hidden" name="memberId" value="${memberId }">
 		 <input	type="hidden" name="boardId" value="${boardId }">
 		 <input type="hidden" name="body">

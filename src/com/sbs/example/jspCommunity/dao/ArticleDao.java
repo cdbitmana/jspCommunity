@@ -111,6 +111,7 @@ public class ArticleDao {
 		sql.append("boardId = ?,", boardId);
 		sql.append("hitCount = ?", 0);
 
+		
 		return MysqlUtil.insert(sql);
 
 	}
@@ -290,6 +291,21 @@ public class ArticleDao {
 		}
 		
 		return articles;
+	}
+
+	public void doIncreaseArticleHitCount(Article article) {
+
+		SecSql sql = new SecSql();
+		
+		int hitCount = article.getHitCount();
+		
+		sql.append("UPDATE article SET");
+		sql.append("hitCount = ?",hitCount + 1);
+		sql.append("WHERE id = ?",article.getId());
+		
+		MysqlUtil.update(sql);
+
+		
 	}
 
 }

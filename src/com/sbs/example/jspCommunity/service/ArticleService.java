@@ -68,4 +68,8 @@ public class ArticleService {
 			String searchType, String keyword) {
 		return articleDao.getArticlesForPrintListByBoardId(boardId, limitStart, itemsInAPage,searchType,keyword);
 	}
+
+	public void doIncreaseArticleHitCount(Article article) {
+		articleDao.doIncreaseArticleHitCount(article);
+	}
 }

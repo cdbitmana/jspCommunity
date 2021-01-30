@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="메인" />
+<c:set var="pageTitle" value="Indie World" />
 
 <%@ include file="../../part/head.jspf"%>
 
@@ -16,7 +16,7 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesnews }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
@@ -31,7 +31,7 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlestip }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
@@ -46,7 +46,7 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesdata }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>

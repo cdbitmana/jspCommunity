@@ -30,7 +30,7 @@ let DoModifyForm__submited = false;
 		return true;
 	}
 </script>
-<main class="con-min-widht">
+<main class="con-min-width">
 	<div class="con">
 	<div class="articleModifyBox">
 <span>제목</span>

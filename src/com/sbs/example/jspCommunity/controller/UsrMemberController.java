@@ -140,6 +140,7 @@ public class UsrMemberController {
 		session.removeAttribute("isLogined");
 		session.removeAttribute("loginedMember");
 		session.removeAttribute("isTempPw");
+		session.removeAttribute("loginPwUsing90day");
 		request.setAttribute("alertMsg", "로그아웃 되었습니다.");
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
 		return "common/redirect";
@@ -249,8 +250,11 @@ public class UsrMemberController {
 			sendTempLoginPwToEmailRs = new ResultData(resultCode, msg);
 		} else {
 			sendTempLoginPwToEmailRs = memberService.sendTempLoginPwToEmail(member);
+			if(sendTempLoginPwToEmailRs.getResultCode().startsWith("S-")) {
+				session.removeAttribute("loginPwUsing90day");
+			}
 		}
-
+		
 		request.setAttribute("data", sendTempLoginPwToEmailRs);
 		return "usr/member/findLoginPwRs";
 
@@ -303,13 +307,13 @@ public class UsrMemberController {
 		}
 		
 		if(!member.getLoginPw().equals(loginPw)) {
-			System.out.println(loginPw);
 			SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 			Calendar now = Calendar.getInstance();
 			now.add(Calendar.DATE, 90);
 			String nowAdd90day = format.format(now.getTime());
 			
 			attrService.setValue("member__" + member.getId() + "__extra__loginPwUsing90day", "0", nowAdd90day);
+			session.removeAttribute("loginPwUsing90day");
 		}
 		
 		

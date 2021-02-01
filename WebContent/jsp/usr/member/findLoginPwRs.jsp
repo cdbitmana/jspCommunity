@@ -4,7 +4,7 @@
       
    <c:set var="pageTitle" value="로그인 비밀번호 찾기"/>
 <%@ include file="../../part/head.jspf"%>
-
+<main class="con-min-width">
 <div class="con loginForm">
 <div class="loginTitle">로그인 비밀번호 찾기</div>
 <div class="flex flex-dir-col flex-jc-c flex-ai-c findLoginIdRs">
@@ -26,4 +26,5 @@
 </c:if>
 </div>
 </div>
+</main>
 <%@ include file="../../part/foot.jspf"%>

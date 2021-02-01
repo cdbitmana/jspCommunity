@@ -136,7 +136,7 @@
 			<div class="article-mb">
 			<a href="/jspCommunity/usr/article/detail?id=${article.id }&page=${param.page}">
 			<div class="article-mb-1">
-			<span class="cell-id-mb">${article.id }</span>
+			<span class="cell-id-mb">${article.id } ) </span>
 			<span class="cell-title-mb">${article.title }</span>
 			</div>
 			<div class="article-mb-2">

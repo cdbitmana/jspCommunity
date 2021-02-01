@@ -31,7 +31,7 @@ function loginFormCheck(){
 }
 
 </script>
-
+<main class="con-min-width">
 <div class="con loginForm">
 <div class="loginTitle">로그인 아이디 찾기</div>
 <form name="loginForm"action="doFindLoginId" method="POST" onsubmit="return loginFormCheck();">
@@ -42,4 +42,5 @@ function loginFormCheck(){
   </div> 
 </form>
 </div>
+</main>
 <%@ include file="../../part/foot.jspf"%>

@@ -30,6 +30,7 @@ function loginFormCheck(){
 }
 
 </script>
+<main class="con-min-width">
 <div class="con loginForm">
 <div class="loginTitle">로그인 아이디 찾기</div>
 <div class="flex flex-dir-col flex-jc-c flex-ai-c findLoginIdRs">
@@ -52,4 +53,5 @@ function loginFormCheck(){
 </c:if>
 </div>
 </div>
+</main>
 <%@ include file="../../part/foot.jspf"%>

@@ -56,6 +56,39 @@
 </div>
 </div>
 
+
+<div class="float-l article-list-box article-list-box-1">
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=4&page=1">공지</a></div>
+<div class="article-list-box-1__articles flex flex-dir-col">
+
+<c:forEach var="article" items="${articlesnotice }" begin="0" end="4">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-writer">${article.extra__writer }</span>
+</a>
+</c:forEach>
+
+
+</div>
+</div>
+
+
+<div class="float-l article-list-box article-list-box-1">
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=4&page=1">자유</a></div>
+<div class="article-list-box-1__articles flex flex-dir-col">
+
+<c:forEach var="article" items="${articlesfree }" begin="0" end="4">
+<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-writer">${article.extra__writer }</span>
+</a>
+</c:forEach>
+
+
+</div>
+</div>
+
+
 </div>
 
 </main>

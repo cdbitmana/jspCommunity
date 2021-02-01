@@ -63,6 +63,8 @@ public class MemberService {
 		// 고객의 패스워드를 방금 생성한 임시패스워드로 변경
 		setTempPassword(actor, tempPassword);
 		
+		
+		
 		String resultMsg = String.format("%s님의 새 임시 비밀번호가 %s(으)로 발송되었습니다.", actor.getName(),actor.getEmail());
 		
 		return new ResultData("S-1",resultMsg, "loginId", actor.getLoginId(), "email" , actor.getEmail());
@@ -98,7 +100,7 @@ public class MemberService {
 		String body = "<h1>Indie World에 회원 가입 하셨습니다.</h1>";
 		body += "<p>"+member.getName()+"님, Indie World에 가입해주셔서 감사합니다.</p>";
 		body += "<p>Indie World에서 다양한 인디 게임의 소식과 정보를 찾아보세요.</p>";
-		
+		body += "<a href=\"http://localhost:8083/jspCommunity/usr/home/main\" target=\"_blank\">Indie World 바로가기</a>";
 		emailService.send(member.getEmail(), title, body);
 
 		

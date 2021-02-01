@@ -71,7 +71,7 @@ CREATE TABLE `attr` (
   `type2Code` char(50) NOT NULL,
   `value` char(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `attr` (
 
 LOCK TABLES `attr` WRITE;
 /*!40000 ALTER TABLE `attr` DISABLE KEYS */;
-INSERT INTO `attr` VALUES (1,'2021-01-30 15:36:51','2021-01-30 15:36:51','2021-01-29 16:36:51','member',1,'extra','loginPwUsing90day','0'),(14,'2021-02-01 09:21:21','2021-02-01 09:21:21','2021-05-02 09:21:21','member',1,'extra','loginPwUsing90day','0'),(17,'2021-02-01 10:20:26','2021-02-01 10:20:26','2021-05-02 10:20:26','member',1,'extra','loginPwUsing90day','0'),(18,'2021-02-01 10:20:48','2021-02-01 10:20:48','2021-05-02 10:20:48','member',3,'extra','loginPwUsing90day','0'),(19,'2021-02-01 10:23:50','2021-02-01 10:23:50','2021-05-02 10:23:50','member',4,'extra','loginPwUsing90day','0'),(20,'2021-02-01 11:02:29','2021-02-01 11:02:29',NULL,'member',2,'extra','isUsingTempPassword','1'),(21,'2021-02-01 11:05:14','2021-02-01 11:05:14',NULL,'member',2,'extra','isUsingTempPassword','1'),(22,'2021-02-01 11:07:05','2021-02-01 11:07:05',NULL,'member',3,'extra','isUsingTempPassword','1'),(24,'2021-02-01 11:09:00','2021-02-01 11:09:00','2021-05-02 11:09:00','member',1,'extra','loginPwUsing90day','0');
+INSERT INTO `attr` VALUES (1,'2021-02-01 11:34:32','2021-02-01 11:34:32','2021-05-02 11:34:32','member',1,'extra','loginPwUsing90day','0');
 /*!40000 ALTER TABLE `attr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +133,7 @@ CREATE TABLE `member` (
   `authLevel` tinyint(1) unsigned NOT NULL DEFAULT 2 COMMENT '0=탈퇴/1=로그인정지/2=일반/3=인증된,4=관리자',
   PRIMARY KEY (`id`),
   UNIQUE KEY `loginId` (`loginId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'2021-01-30 15:36:51','2021-02-01 11:09:00','user1','0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90','유저1','유저1','cdbitmana@gmail.com','010123456',1),(2,'2021-01-30 16:42:10','2021-02-01 11:05:14','user2','667192a89036e3afb9c38f8e636174f85c56d59fa91855dc9832448422820e3b','유저2','유저2','cdbitmana@gmail.com','01012345678',1),(3,'2021-02-01 10:20:48','2021-02-01 11:07:05','user3','bbf7f54428ed85b989ebab7b4883c7a7105c7490b041516eed0dadae7c118f09','유저3','유저3','cdbitmana@gmail.com','01012345678',1),(4,'2021-02-01 10:23:50','2021-02-01 10:23:50','user4','5269ef980de47819ba3d14340f4665262c41e933dc92c1a27dd5d01b047ac80e','유저4','유저4','cdbitmana@gmail.com','01012345678',1);
+INSERT INTO `member` VALUES (1,'2021-02-01 11:34:32','2021-02-01 11:34:32','user1','0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90','유저1','유저1','cdbitmana@gmail.com','01012345678',1);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -155,4 +155,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-01 11:20:58
+-- Dump completed on 2021-02-01 11:35:20

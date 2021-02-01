@@ -72,7 +72,7 @@
 <div class=" top-menu-bar__logobox">
 <a class="flex flex-ai-c" href="/jspCommunity/usr/home/main">
 <div class="top-menu-bar__logo-img"></div>
-<div class="top-menu-bar__logo">Indie World</div>
+<div class="top-menu-bar__logo logo-text">Indie World</div>
 </a>
 </div>
 <div class="flex-grow-1"></div>

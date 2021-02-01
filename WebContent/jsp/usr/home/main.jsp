@@ -58,7 +58,7 @@
 
 
 <div class="float-l article-list-box article-list-box-1">
-<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=4&page=1">공지</a></div>
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=1&page=1">공지</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesnotice }" begin="0" end="4">
@@ -74,7 +74,7 @@
 
 
 <div class="float-l article-list-box article-list-box-1">
-<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=4&page=1">자유</a></div>
+<div class="article-list-box-1__board"><a href="/jspCommunity/usr/article/list?boardId=2&page=1">자유</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesfree }" begin="0" end="4">

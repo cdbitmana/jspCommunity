@@ -18,7 +18,7 @@ import com.sbs.example.jspCommunity.service.AttrService;
 import com.sbs.example.jspCommunity.service.MemberService;
 import com.sbs.example.jspCommunity.util.Util;
 
-public class UsrMemberController {
+public class UsrMemberController extends Controller {
 
 	private MemberService memberService;
 	private AttrService attrService;
@@ -47,10 +47,9 @@ public class UsrMemberController {
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member != null) {
-			request.setAttribute("alertMsg", "이미 존재하는 아이디입니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack( request, "이미 존재하는 아이디입니다.");
 		}
+		
 
 		String loginPw = request.getParameter("loginPwReal");
 		String name = request.getParameter("name");
@@ -71,11 +70,7 @@ public class UsrMemberController {
 		
 		memberService.sendJoinMsgToEmail(member);
 		
-
-		request.setAttribute("alertMsg", id + "번 회원으로 가입되었습니다.");
-		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
-
-		return "common/redirect";
+		return msgAndReplace( request, id + "번 회원으로 가입되었습니다.", "/jspCommunity/usr/home/main");
 	}
 
 	public String login(HttpServletRequest request, HttpServletResponse response) {
@@ -89,17 +84,14 @@ public class UsrMemberController {
 
 		Member member = memberService.getMemberByLoginId(loginId);
 		HttpSession session = request.getSession();
-		if (member == null) {
-			request.setAttribute("alertMsg", "존재하지 않는 아이디입니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+		if (member == null) {			
+			return msgAndBack(request, "존재하지 않는 아이디입니다.");
 		}
+		
 		String loginPw = request.getParameter("loginPwReal");
 
-		if (!member.getLoginPw().equals(loginPw)) {
-			request.setAttribute("alertMsg", "비밀번호가 맞지 않습니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+		if (!member.getLoginPw().equals(loginPw)) {			
+			return msgAndBack(request, "비밀번호가 맞지 않습니다.");
 		}
 		
 		Attr attr = null;
@@ -141,9 +133,7 @@ public class UsrMemberController {
 		session.removeAttribute("loginedMember");
 		session.removeAttribute("isTempPw");
 		session.removeAttribute("loginPwUsing90day");
-		request.setAttribute("alertMsg", "로그아웃 되었습니다.");
-		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
-		return "common/redirect";
+		return msgAndReplace(request,"로그아웃 되었습니다.","/jspCommunity/usr/home/main");
 
 	}
 
@@ -177,9 +167,8 @@ public class UsrMemberController {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("loginedMemberId") != null) {
-			request.setAttribute("alertMsg", "로그아웃 후 진행해주세요.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			
+			return msgAndBack(request,"로그아웃 후 진행해주세요.");
 		}
 
 		String name = request.getParameter("name");
@@ -213,9 +202,7 @@ public class UsrMemberController {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("loginedMemberId") != null) {
-			request.setAttribute("alertMsg", "로그아웃 후 진행해주세요.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"로그아웃 후 진행해주세요.");
 		}
 
 		return "usr/member/findLoginPw";
@@ -226,9 +213,7 @@ public class UsrMemberController {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("loginedMemberId") != null) {
-			request.setAttribute("alertMsg", "로그아웃 후 진행해주세요.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"로그아웃 후 진행해주세요.");
 		}
 
 		String loginId = request.getParameter("loginId");
@@ -264,9 +249,8 @@ public class UsrMemberController {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("loginedMemberId") == null) {
-			request.setAttribute("alertMsg", "로그인 후 진행해주세요.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"로그인 후 진행해주세요.");
+			
 		}
 
 		request.setAttribute("member", session.getAttribute("loginedMember"));
@@ -279,9 +263,7 @@ public class UsrMemberController {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("loginedMemberId") == null) {
-			request.setAttribute("alertMsg", "로그인 후 진행해주세요.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"로그인 후 진행해주세요.");
 		}
 
 		request.setAttribute("member", session.getAttribute("loginedMember"));
@@ -340,9 +322,7 @@ public class UsrMemberController {
 
 		session.setAttribute("loginedMember", member);
 
-		request.setAttribute("alertMsg", "회원 정보가 수정되었습니다.");
-		request.setAttribute("replaceUrl", "../member/memberInfo");
-		return "common/redirect";
+		return msgAndReplace(request,"회원 정보가 수정되었습니다.","../member/memberInfo");
 
 	}
 

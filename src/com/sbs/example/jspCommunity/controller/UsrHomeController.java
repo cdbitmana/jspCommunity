@@ -14,7 +14,7 @@ import com.sbs.example.jspCommunity.dto.Article;
 import com.sbs.example.jspCommunity.dto.Board;
 import com.sbs.example.jspCommunity.service.ArticleService;
 
-public class UsrHomeController {
+public class UsrHomeController extends Controller {
 
 	private ArticleService articleService;
 

@@ -15,7 +15,7 @@ import com.sbs.example.jspCommunity.dto.Board;
 import com.sbs.example.jspCommunity.service.ArticleService;
 import com.sbs.example.jspCommunity.util.Util;
 
-public class UsrArticleController {
+public class UsrArticleController extends Controller {
 
 	private ArticleService articleService;
 
@@ -125,14 +125,10 @@ public class UsrArticleController {
 		
 		Article article = articleService.getArticleById(id);
 		if(article == null) {
-			request.setAttribute("alertMsg", "해당 게시물은 존재하지 않습니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"해당 게시물은 존재하지 않습니다.");
 		}
 		if(article.getMemberId() != memberId) {
-			request.setAttribute("alertMsg", "접근 권한이 없습니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"접근 권한이 없습니다.");
 		}
 		articleService.doDelete(id);
 		request.setAttribute("alertMsg", id+"번 게시물이 삭제되었습니다.");
@@ -186,14 +182,10 @@ public class UsrArticleController {
 		Article article = articleService.getArticleById(id);
 		int page = Integer.parseInt(request.getParameter("page"));
 		if(article == null) {
-			request.setAttribute("alertMsg", "해당 게시물은 존재하지 않습니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"해당 게시물은 존재하지 않습니다.");
 		}
 		if(article.getMemberId() != memberId) {
-			request.setAttribute("alertMsg", "접근 권한이 없습니다.");
-			request.setAttribute("historyBack", true);
-			return "common/redirect";
+			return msgAndBack(request,"접근 권한이 없습니다.");
 		}
 		request.setAttribute("page", page);
 		request.setAttribute("memberId", memberId);

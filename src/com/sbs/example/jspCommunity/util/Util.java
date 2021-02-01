@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +38,30 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Util {
+	
+	public static boolean isEmpty(Object obj) {
+		if( obj == null) {
+			return true;
+		}
+		
+		if( obj instanceof String) {
+			if( ((String)obj).trim().length() == 0) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	public static String getUrlEncoded(String url) {
+		try {
+			return URLEncoder.encode(url, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return url;
+		}
+	}
+	
 	public static String getNowDateStr() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date time = new Date();

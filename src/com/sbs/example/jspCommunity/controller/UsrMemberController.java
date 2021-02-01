@@ -121,6 +121,11 @@ public class UsrMemberController extends Controller {
 		request.setAttribute("loginedMember", member);
 
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
+		
+		if ( Util.isEmpty(request.getParameter("afterLoginUrl")) == false ) {
+			request.setAttribute("replaceUrl", request.getParameter("afterLoginUrl"));
+		}
+		
 		return "common/redirect";
 	}
 
@@ -153,8 +158,7 @@ public class UsrMemberController extends Controller {
 			msg = "사용 가능한 아이디입니다.";
 		}
 
-		request.setAttribute("data", new ResultData(resultCode, msg, "loginId", loginId));
-		return "common/json";
+		return json(request, new ResultData(resultCode, msg, "loginId", loginId));
 	}
 
 	public String showFindLoginId(HttpServletRequest request, HttpServletResponse response) {

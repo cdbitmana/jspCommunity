@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.mysql.cj.jdbc.interceptors.SessionAssociationInterceptor;
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Member;
+import com.sbs.example.jspCommunity.util.Util;
 
 import mysqlutil.MysqlUtil;
 
@@ -77,6 +78,17 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		request.setAttribute("loginedMemberId" , loginedMemberId);
 		request.setAttribute("loginedMember" , loginedMember);
 		
+		String currentUrl = request.getRequestURI();
+
+		if (request.getQueryString() != null) {
+			currentUrl += "?" + request.getQueryString();
+		}
+
+		String encodedCurrentUrl = Util.getUrlEncoded(currentUrl);
+
+		request.setAttribute("currentUrl", currentUrl);
+		request.setAttribute("encodedCurrentUrl", encodedCurrentUrl);
+		
 		// 로그인 필요 필터링 인터셉터
 		
 		List<String> needToLoginactionUrls = new ArrayList<>();
@@ -94,7 +106,7 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		if(needToLoginactionUrls.contains(actionUrl)) {
 			if((boolean)request.getAttribute("isLogined") == false) {
 				request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-				request.setAttribute("replaceUrl", "../member/login");
+				request.setAttribute("replaceUrl", "../member/login?afterLoginUrl=" + encodedCurrentUrl);
 
 				RequestDispatcher rd = request.getRequestDispatcher("/jsp/common/redirect.jsp");
 				rd.forward(request, response);

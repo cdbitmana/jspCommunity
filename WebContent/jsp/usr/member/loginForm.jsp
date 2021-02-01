@@ -35,6 +35,7 @@ function loginFormCheck(){
 <div class="con loginForm">
 <div class="loginTitle">로그인</div>
 <form name="loginForm"action="doLogin" method="POST" onsubmit="return loginFormCheck();">
+<input type="hidden" name="afterLoginUrl" value="${param.afterLoginUrl }"/>
 <input id="loginIdForm" class="flex flex-jc-c" name="loginId" placeholder="아이디">
 <input type="hidden" name="loginPwReal">
 <input id="loginPwForm" type="password" name="loginPw" placeholder="비밀번호">

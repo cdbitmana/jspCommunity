@@ -8,7 +8,6 @@
 <%@ include file="../../part/head.jspf"%>
 
 <main class="con-min-width">
-
 <div class="con home-articleList-container-1">
 
 <div class="float-l article-list-box article-list-box-1">

@@ -101,10 +101,10 @@
 			<input type="hidden" name="boardId" value="${board.id }"> <input
 				class="searchInput" type="text" name="keyword">
 		</form>
-		<form class="write" action="write" method="POST">
-			<input type="hidden" name="boardId" value="${board.id}"> <input
-				type="hidden" name="memberId" value="1"> <input
-				type="submit" value="글쓰기">
+		<form class="write" action="write" method="GET">
+			<input type="hidden" name="boardId" value="${board.id}"> 
+			<input type="hidden" name="memberId" value="1">			
+			 <input type="submit" value="글쓰기">
 		</form>
 	</div>
 	<!-- 게시물 리스트 PC버전 시작 -->

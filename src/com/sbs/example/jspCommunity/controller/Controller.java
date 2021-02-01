@@ -2,6 +2,8 @@ package com.sbs.example.jspCommunity.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sbs.example.jspCommunity.dto.ResultData;
+
 public class Controller {
 	
 	protected String msgAndBack(HttpServletRequest request , String msg) {
@@ -16,4 +18,8 @@ public class Controller {
 		return "common/redirect";
 	}
 	
+	protected String json(HttpServletRequest request, ResultData resultData) {
+		request.setAttribute("data", resultData);
+		return "common/json";
+	}
 }

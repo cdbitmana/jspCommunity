@@ -991,6 +991,9 @@ main {
 	text-align:center;
 	width:var(--reply__btns__width);
 }
+.reply__btns > div:hover {
+	text-decoration:underline;
+}
 .articleDetailBox__reply-modify{
 	display:none;
 	
@@ -1004,6 +1007,9 @@ main {
   cursor: pointer;
   font-size:16px;
   font-family:inherit;
+}
+.reply__btns__modify{
+	cursor:pointer;
 }
 .articleDetailModify > input,
 .articleDetailDelete > input {

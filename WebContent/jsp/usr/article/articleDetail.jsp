@@ -4,6 +4,109 @@
 <c:set var="pageTitle" value="${article.title }"/>
 
 <%@ include file="../../part/head.jspf"%>
+<script>
+function doLikeBtn(){
+
+	const memberId = ${article.memberId};
+	const articleId = ${article.id};
+	$.get(
+			"doLikeArticle",
+			{
+				memberId,
+				articleId
+			},
+			function(data) {
+			if(data.success){
+				$('.articleDetailBody__likeBtn > i').attr('class','fas fa-thumbs-up');
+				}
+			else{
+				$('.articleDetailBody__likeBtn > i').attr('class','far fa-thumbs-up');
+				}
+			},
+			"json"
+		);
+}
+
+
+function doDislikeBtn(){
+	const memberId = ${article.memberId};
+	const articleId = ${article.id};
+	$.get(
+			"doDislikeArticle",
+			{
+				memberId,
+				articleId
+			},
+			function(data) {
+			if(data.success){
+				$('.articleDetailBody__dislikeBtn > i').attr('class','fas fa-thumbs-down');
+				}
+			else{
+				$('.articleDetailBody__dislikeBtn > i').attr('class','far fa-thumbs-down');
+				}
+			},
+			"json"
+		);
+}
+
+let DoWriteForm__submited = false;
+
+function writeFormCheck(el) {
+	if ( DoWriteForm__submited ) {
+		alert('처리중입니다.');
+		return false;
+	}
+	
+	
+	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
+	const body = editor.getMarkdown().trim();
+	
+	if ( body.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		editor.focus();
+		
+		return false;
+	}
+	
+	writeReplyForm.body.value = body;
+	
+	return true;
+}
+
+function modifyFormOpen(el){
+	const form = $(el).parents().parents().siblings('.articleDetailBox__reply-modify');
+	$(form).css({
+		'display':'block',
+		'margin-top':'15px'
+		});
+}
+
+
+let DoModifyForm__submited = false;
+
+function modifyFormCheck(el) {
+	if ( DoModifyForm__submited ) {
+		alert('처리중입니다.');
+		return false;
+	}
+	
+	
+	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
+	const body = editor.getMarkdown().trim();
+	
+	if ( body.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		editor.focus();
+		
+		return false;
+	}
+	
+	$(el).closest('form').get(0).body.value = body;
+	
+	return true;
+}
+
+</script>
 <main class="con-min-width">
 <div class="con articleDetailBox">
 <span class="articleDetailTitle">${article.title}</span>
@@ -55,15 +158,117 @@
 	</c:if>  
 	</div> 
       </div>
-<!-- 게시물 상세보기 상단 정보 모바일 버전 끝 -->      
-    
-    <div class="articleDetailBody">
+<!-- 게시물 상세보기 상단 정보 모바일 버전 끝 -->
+    <div class="flex flex-dir-col articleDetailBody">
+    <div class="flex-grow-1 articleDetailBody__bodytext">
       <script type="text/x-template">${article.body }</script>
   <div class="toast-ui-viewer"></div>
+  </div>
+  <div class="flex flex-ai-c flex-jc-sa articleDetailBody__likeanddislike">
+  <div class="articleDetailBody__likeBtn" onclick="doLikeBtn();">
+  <c:if test="${isLikedArticle == true }">
+  <i class="fas fa-thumbs-up"></i>
+  </c:if>
+  <c:if test="${isLikedArticle == false }">  
+  <i class="far fa-thumbs-up"></i>
+  </c:if>
+  <span>좋아요</span></div>
+  <div class="articleDetailBody__dislikeBtn" onclick="doDislikeBtn();">
+   <c:if test="${isDislikedArticle == true }">  
+  <i class="fas fa-thumbs-down"></i>
+  </c:if>
+   <c:if test="${isDislikedArticle == false }">  
+  <i class="far fa-thumbs-down"></i>
+  </c:if>
+  <span>싫어요</span></div>
+  </div>
     </div>
     
 	<div class="articleDetailToList">
-	<a href="/jspCommunity/usr/article/list?boardId=${article.boardId }&page=${param.page}">목록</a>
+	<a href="${param.listUrl }">목록</a>
+	</div>
+	
+	<!-- 댓글 입력 창 시작 -->
+	<div class="articleDetailBox__reply">
+	
+	<!-- 댓글 입력 창(로그인 안했을 때) -->
+	<c:if test="${isLogined == false }">
+	<div class="flex flex-dir-col flex-jc-c flex-ai-c articleDetailBox__reply-isNotLogined">
+	<div class="articleDetailBox__reply-isNotLogined__text">로그인한 회원만 댓글을 작성할 수 있습니다.</div>
+	<c:url value="/usr/member/login" var="url">
+	<c:param name="afterLoginUrl" value="${currentUrl }"/>
+	</c:url>
+	<a href="${url }">로그인</a>
+	</div>
+	</c:if>
+	
+	<!-- 댓글 입력 창(로그인 했을 때) -->
+	<c:if test="${isLogined }">
+	<div class="articleDetailBox__reply-isLogined">
+	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
+	<input type="hidden" name="body">
+	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">
+	<input type="hidden" name="articleId" value="${article.id }">
+	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
+	<div class="writeReplyBodyInput">
+		 <script type="text/x-template"></script>
+  <div class="toast-ui-editor"></div>
+  </div>
+  <button class="submitWriteReply">등록</button>
+  
+  </form>
+	</div>
+	</c:if>
+	
+	<!-- 댓글 리스트 -->
+	<div class="articleDetailBox__articleReplyList">
+	<div class="articleDetailBox__articleReplyList__info">
+	<span>전체 댓글 수</span><span>${totalReplyCount }</span>
+	</div>
+	<div class="articleDetailBox__articleReplyList__replys">
+	
+	<c:forEach var="reply" items="${replys }">
+	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply">
+	<div class="flex articleDetailBox__articleReplyList__reply-1">
+	<div class="reply__writer">${reply.extra__writer }</div>
+	<div class="flex-grow-1 reply__body">${reply.body }</div>
+	<c:if test="${loginedMemberId == reply.memberId }">
+	<div class="reply__btns flex flex-ai-c flex-jc-sa">
+	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
+	<div class="reply__btns__delete">
+	<form class="reply__btns__delete-form" action="doDeleteArticleReply">
+	<input type="submit" value="삭제">
+	<input type="hidden" name="id" value="${reply.id }">
+	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
+	</form>
+	</div>
+	</div>
+	</c:if>
+	<div class="reply__regDate">${reply.regDate }</div>
+	
+	</div>	
+	
+	<div class="articleDetailBox__reply-modify">
+	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
+	<input type="hidden" name="body">
+	<input type="hidden" name="id" value="${reply.id }">
+	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">
+	<input type="hidden" name="articleId" value="${article.id }">
+	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
+	<div class="writeReplyBodyInput">
+		 <script type="text/x-template"></script>
+  <div class="toast-ui-editor"></div>
+  </div>
+  <button class="submitWriteReply">수정</button>  
+  </form>
+	</div>
+	
+	</div>
+	</c:forEach>
+	
+	</div>
+	</div>
+	
 	</div>
 	</div>
 	</main>

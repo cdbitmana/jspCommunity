@@ -15,7 +15,11 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesnews }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<c:url var="url" value="/usr/article/detail">
+<c:param name="id" value="${article.id }"></c:param>
+<c:param name="listUrl" value="/jspCommunity/usr/article/list?boardId=3&page=1"></c:param>
+</c:url>
+<a class="article-list-box-1__article" href="${url }">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
@@ -30,7 +34,11 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlestip }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<c:url var="url" value="/usr/article/detail">
+<c:param name="id" value="${article.id }"></c:param>
+<c:param name="listUrl" value="/jspCommunity/usr/article/list?boardId=4&page=1"></c:param>
+</c:url>
+<a class="article-list-box-1__article" href="${url}">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
@@ -45,7 +53,11 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesdata }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<c:url var="url" value="/usr/article/detail">
+<c:param name="id" value="${article.id }"></c:param>
+<c:param name="listUrl" value="/jspCommunity/usr/article/list?boardId=5&page=1"></c:param>
+</c:url>
+<a class="article-list-box-1__article" href="${url }">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
@@ -61,7 +73,11 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesnotice }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<c:url var="url" value="/usr/article/detail">
+<c:param name="id" value="${article.id }"></c:param>
+<c:param name="listUrl" value="/jspCommunity/usr/article/list?boardId=1&page=1"></c:param>
+</c:url>
+<a class="article-list-box-1__article" href="${url }">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
@@ -77,7 +93,11 @@
 <div class="article-list-box-1__articles flex flex-dir-col">
 
 <c:forEach var="article" items="${articlesfree }" begin="0" end="4">
-<a class="article-list-box-1__article" href="/jspCommunity/usr/article/detail?id=${article.id }&page=1">
+<c:url var="url" value="/usr/article/detail">
+<c:param name="id" value="${article.id }"></c:param>
+<c:param name="listUrl" value="/jspCommunity/usr/article/list?boardId=2&page=1"></c:param>
+</c:url>
+<a class="article-list-box-1__article" href="${url }">
 <span class="article-list-box__articles-title">${article.title }</span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>

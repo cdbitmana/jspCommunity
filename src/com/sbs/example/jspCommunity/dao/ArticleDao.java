@@ -12,8 +12,6 @@ import mysqlutil.SecSql;
 
 public class ArticleDao {
 
-
-
 	public List<Article> getArticlesForPrintByBoardCode(String boardCode) {
 
 		List<Article> articles = new ArrayList<>();
@@ -111,7 +109,6 @@ public class ArticleDao {
 		sql.append("boardId = ?,", boardId);
 		sql.append("hitCount = ?", 0);
 
-		
 		return MysqlUtil.insert(sql);
 
 	}
@@ -177,22 +174,22 @@ public class ArticleDao {
 	public List<Board> getBoards() {
 
 		SecSql sql = new SecSql();
-		
+
 		sql.append("SELECT * FROM `board`");
-		
+
 		List<Board> boards = null;
-		
-		List<Map<String,Object>> boardMapList = MysqlUtil.selectRows(sql);
-		
-		if(!boardMapList.isEmpty()) {
+
+		List<Map<String, Object>> boardMapList = MysqlUtil.selectRows(sql);
+
+		if (!boardMapList.isEmpty()) {
 			boards = new ArrayList<>();
-			for(Map<String,Object> boardMap : boardMapList) {
-				boards.add(new Board(boardMap));	
-			}			
+			for (Map<String, Object> boardMap : boardMapList) {
+				boards.add(new Board(boardMap));
+			}
 		}
-		
+
 		return boards;
-				
+
 	}
 
 	public List<Article> getArticlesForPrint() {
@@ -216,8 +213,8 @@ public class ArticleDao {
 		return articles;
 	}
 
-	public List<Article> getArticlesForList(int boardId, String search,String keyword) {
-		
+	public List<Article> getArticlesForList(int boardId, String search, String keyword) {
+
 		List<Article> articles = new ArrayList<>();
 
 		SecSql sql = new SecSql();
@@ -227,30 +224,30 @@ public class ArticleDao {
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
-		sql.append("WHERE A.boardId = ?",boardId);
-		
-		if(keyword != null) {
-			if(search.equals("writer")) {				
+		sql.append("WHERE A.boardId = ?", boardId);
+
+		if (keyword != null) {
+			if (search.equals("writer")) {
 				sql.append("AND M.name LIKE '%" + keyword + "%'");
 			} else if (search.equals("titleandbody")) {
 				sql.append("AND (title LIKE '%" + keyword + "%'");
 				sql.append("OR `body` LIKE '%" + keyword + "%')");
 			} else {
-				sql.append("AND `" +search + "` LIKE '%" + keyword + "%'");	
+				sql.append("AND `" + search + "` LIKE '%" + keyword + "%'");
 			}
-			
+
 		}
-		
+
 		sql.append("ORDER BY A.id DESC");
-		
-		List<Map<String,Object>> articleMapList = MysqlUtil.selectRows(sql);
-		
-		for(Map<String,Object> articleMap : articleMapList) {
+
+		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articleMap : articleMapList) {
 			articles.add(new Article(articleMap));
 		}
-		
+
 		return articles;
-		
+
 	}
 
 	public List<Article> getArticlesForPrintListByBoardId(int boardId, int limitStart, int itemsInAPage,
@@ -264,48 +261,136 @@ public class ArticleDao {
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
-		sql.append("WHERE A.boardId = ?",boardId);
-		
-		if(keyword != null) {
-			if(searchType.equals("writer")) {				
+		sql.append("WHERE A.boardId = ?", boardId);
+
+		if (keyword != null) {
+			if (searchType.equals("writer")) {
 				sql.append("AND M.name LIKE '%" + keyword + "%'");
 			} else if (searchType.equals("titleandbody")) {
 				sql.append("AND (title LIKE '%" + keyword + "%'");
 				sql.append("OR `body` LIKE '%" + keyword + "%')");
 			} else {
-				sql.append("AND `" +searchType + "` LIKE '%" + keyword + "%'");	
+				sql.append("AND `" + searchType + "` LIKE '%" + keyword + "%'");
 			}
-			
+
 		}
 		sql.append("ORDER BY A.id DESC");
-		if(itemsInAPage != -1 ) {
+		if (itemsInAPage != -1) {
 			sql.append("LIMIT ?, ?", limitStart, itemsInAPage);
 		}
-		
-		
-		
-		List<Map<String,Object>> articleMapList = MysqlUtil.selectRows(sql);
-		
-		for(Map<String,Object> articleMap : articleMapList) {
+
+		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articleMap : articleMapList) {
 			articles.add(new Article(articleMap));
 		}
-		
+
 		return articles;
 	}
 
 	public void doIncreaseArticleHitCount(Article article) {
 
 		SecSql sql = new SecSql();
-		
+
 		int hitCount = article.getHitCount();
-		
+
 		sql.append("UPDATE article SET");
-		sql.append("hitCount = ?",hitCount + 1);
-		sql.append("WHERE id = ?",article.getId());
-		
+		sql.append("hitCount = ?", hitCount + 1);
+		sql.append("WHERE id = ?", article.getId());
+
 		MysqlUtil.update(sql);
 
-		
 	}
+
+	public boolean isLikedArticle(int id, int memberId) {
+
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM `recommend`");
+		sql.append("WHERE `relType` = 'article'");
+		sql.append("AND `relType2` = 'like'");
+		sql.append("AND `relId` = ?", id);
+		sql.append("AND `memberId` = ?", memberId);
+
+		Map<String, Object> recommendMap = MysqlUtil.selectRow(sql);
+
+		if (!recommendMap.isEmpty()) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+	public void doLikeArticle(int id, int memberId) {
+
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO `recommend` SET");
+		sql.append("`relType` = 'article'");
+		sql.append(",`relType2` = 'like'");
+		sql.append(", `relId` = ?", id);
+		sql.append(", memberId = ?", memberId);
+
+		MysqlUtil.insert(sql);
+
+	}
+
+	public void removeLikeArticle(int id, int memberId) {
+
+		SecSql sql = new SecSql();
+
+		sql.append("DELETE FROM `recommend`");
+		sql.append("WHERE `relType` = 'article'");
+		sql.append("AND `relType2` = 'like'");
+		sql.append("AND `relId` = ?", id);
+		sql.append("AND memberId = ?", memberId);
+
+		MysqlUtil.delete(sql);
+	}
+
+	public boolean isDislikedArticle(int id, int memberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM `recommend`");
+		sql.append("WHERE `relType` = 'article'");
+		sql.append("AND `relType2` = 'dislike'");
+		sql.append("AND `relId` = ?", id);
+		sql.append("AND `memberId` = ?", memberId);
+
+		Map<String, Object> recommendMap = MysqlUtil.selectRow(sql);
+
+		if (!recommendMap.isEmpty()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public void doDislikeArticle(int id, int memberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO `recommend` SET");
+		sql.append("`relType` = 'article'");
+		sql.append(",`relType2` = 'dislike'");
+		sql.append(", `relId` = ?", id);
+		sql.append(", memberId = ?", memberId);
+
+		MysqlUtil.insert(sql);
+	}
+
+	public void removeDislikeArticle(int id, int memberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("DELETE FROM `recommend`");
+		sql.append("WHERE `relType` = 'article'");
+		sql.append("AND `relType2` = 'dislike'");
+		sql.append("AND `relId` = ?", id);
+		sql.append("AND memberId = ?", memberId);
+
+		MysqlUtil.delete(sql);
+	}
+
+
 
 }

@@ -5,12 +5,7 @@
 
 <footer class="con-min-width">
 <div class="con bottom-cr-bar">
-<div class=" bottom-cr-bar__logobox">
-<a class="flex flex-ai-c" href="/jspCommunity/usr/home/main">
-<div class="bottom-cr-bar__logo-img"></div>
-<div class="bottom-cr-bar__logo logo-text">Indie World</div>
-</a>
-</div>
+
 <div class="bottom-cr-bar__crtextbox">
 <div class="bottom-cr-bar__crtextbox__text">copyright <i class="fas fa-copyright"></i>. Indie World All rights reserved.</div>
 </div>

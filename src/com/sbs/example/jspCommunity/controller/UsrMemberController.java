@@ -123,6 +123,7 @@ public class UsrMemberController extends Controller {
 		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
 		
 		if ( Util.isEmpty(request.getParameter("afterLoginUrl")) == false ) {
+			
 			request.setAttribute("replaceUrl", request.getParameter("afterLoginUrl"));
 		}
 		

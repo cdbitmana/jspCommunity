@@ -66,8 +66,8 @@
 
 <!-- 탑 메뉴 바 -->
 <div class="con-min-width top-menu-bar">
-<div class="con flex flex-ai-c height-100p">
-
+<div class="con flex flex-dir-col height-100p">
+<div class="top-bar-line-1 flex flex-ai-c">
 <!-- 탑 메뉴 바 로고 박스 -->
 <div class=" top-menu-bar__logobox">
 <a class="flex flex-ai-c" href="/jspCommunity/usr/home/main">
@@ -98,14 +98,9 @@
 </div>
 </c:if>
 </div>
-
 </div>
-</div>
-
-<!-- 탑 바 -->
-<header class="con-min-width top-bar-pc">
 <!-- 탑 바 메뉴박스 -->
-<div class="top-bar-pc__container">
+<div class="top-bar-line-2">
 <div class="con top-bar-pc__menuBox">
 <ul class="flex flex-ai-c top-bar-pc__menuBox__menu">
 <li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=3&page=1">새소식</a></li>
@@ -120,7 +115,14 @@
 </ul>
 </div>
 </div>
+</div>
+</div>
 
+<!-- 탑 바 -->
+<header class="con-min-width top-bar-pc">
+
+<div class="top-bar-pc__container">
+</div>
 </header>
 
 

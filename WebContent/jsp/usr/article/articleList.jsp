@@ -119,7 +119,7 @@
 			<div class="article flex flex-ai-c">
 				<span class="cell-id">${article.id }</span> <a
 					class="flex cell-title title"
-					href="/jspCommunity/usr/article/detail?id=${article.id }&page=${param.page}"><span>${article.title }</span></a>
+					href="/jspCommunity/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span>${article.title }</span></a>
 				<span class="cell-writer articleList_writer">${article.extra__writer }</span>
 				 <span class="cell-regDate">${article.regDate }</span> 
 				 <span class="cell-hit">${article.hitCount}</span>
@@ -134,7 +134,7 @@
 	
 	<c:forEach var="article" items="${articles }">
 			<div class="article-mb">
-			<a href="/jspCommunity/usr/article/detail?id=${article.id }&page=${param.page}">
+			<a href="/jspCommunity/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}">
 			<div class="article-mb-1">
 			<span class="cell-id-mb">${article.id } ) </span>
 			<span class="cell-title-mb">${article.title }</span>

@@ -26,7 +26,7 @@ let DoWriteForm__submited = false;
 			alert('내용을 입력해주세요.');
 			editor.focus();
 			
-			return;
+			return false;
 		}
 		
 		writeForm.body.value = body;

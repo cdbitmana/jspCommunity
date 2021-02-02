@@ -72,4 +72,34 @@ public class ArticleService {
 	public void doIncreaseArticleHitCount(Article article) {
 		articleDao.doIncreaseArticleHitCount(article);
 	}
+
+	public boolean isLikedArticle(int id, int memberId) {
+		return articleDao.isLikedArticle(id,memberId);
+	}
+
+	public void doLikeArticle(int id, int memberId) {
+		articleDao.doLikeArticle(id,memberId);
+		
+	}
+
+	public void removeLikeArticle(int id, int memberId) {
+		articleDao.removeLikeArticle(id,memberId);
+		
+	}
+
+	public boolean isDislikedArticle(int id, int memberId) {
+		return articleDao.isDislikedArticle(id,memberId);
+	}
+
+	public void doDislikeArticle(int id, int memberId) {
+		articleDao.doDislikeArticle(id,memberId);
+		
+	}
+
+	public void removeDislikeArticle(int id, int memberId) {
+		articleDao.removeDislikeArticle(id,memberId);
+		
+	}
+
+	
 }

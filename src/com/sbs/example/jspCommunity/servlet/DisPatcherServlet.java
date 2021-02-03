@@ -136,8 +136,21 @@ public abstract class DisPatcherServlet extends HttpServlet {
 			}
 		}
 		
+		String profilesActive = System.getProperty("spring.profiles.active");
+		
+		boolean isProductionMode = false;
 
-		MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspCommunity");
+		if (profilesActive != null && profilesActive.equals("production")) {
+		  isProductionMode = true;
+		}
+				
+		if ( isProductionMode ) {
+		  MysqlUtil.setDBInfo("127.0.0.1", "sbsstLocal", "sbs123414", "jspCommunity");
+		}
+		else {
+		  MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "jspCommunity");			
+		}
+
 		
 		Map<String, Object> rs = new HashMap<>();
 		

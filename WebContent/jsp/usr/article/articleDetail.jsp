@@ -106,6 +106,10 @@ function modifyFormCheck(el) {
 	return true;
 }
 
+function modifyReplyCancel(el){
+const form = $(el).parents().parents('.articleDetailBox__reply-modify');
+	$(form).css('display','none');
+}
 </script>
 <main class="con-min-width">
 <div class="con articleDetailBox">
@@ -216,7 +220,7 @@ function modifyFormCheck(el) {
 		 <script type="text/x-template"></script>
   <div class="toast-ui-editor"></div>
   </div>
-  <button class="submitWriteReply">등록</button>
+  <button class="btn-square submitWriteReply">등록</button>
   
   </form>
 	</div>
@@ -225,7 +229,7 @@ function modifyFormCheck(el) {
 	<!-- 댓글 리스트 -->
 	<div class="articleDetailBox__articleReplyList">
 	<div class="articleDetailBox__articleReplyList__info">
-	<span>전체 댓글 수</span><span>${totalReplyCount }</span>
+	<span>전체 댓글 수</span><span> ${totalReplyCount }</span>
 	</div>
 	<div class="articleDetailBox__articleReplyList__replys">
 	
@@ -261,7 +265,9 @@ function modifyFormCheck(el) {
 		 <script type="text/x-template"></script>
   <div class="toast-ui-editor"></div>
   </div>
-  <button class="submitWriteReply">수정</button>  
+  <div class="flex flex-ai-c flex-jc-e articleDetailBox__reply-modifyform__btns">
+  <button class="btn-square submitReplyModify">수정</button><span class="btn-square submitReplyModifyCancel"  onclick="modifyReplyCancel(this);">취소</span>
+  </div>  
   </form>
 	</div>
 	

@@ -76,5 +76,5 @@ function EditorViewer__init() {
 }
 
 
-  EditorViewer__init();
+EditorViewer__init();
 Editor__init();

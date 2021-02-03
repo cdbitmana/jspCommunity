@@ -27,6 +27,7 @@ function doMemberModifyFormCheck(){
 <main class="con-min-widht">
 <div class="con">
 <div class="flex flex-dir-col flex-ai-c flex-jc-c memberInfoBox">
+<h1>회원정보 수정</h1>
 <form class="flex flex-dir-col flex-ai-c flex-jc-s-ar" name="memberModifyForm" action="doMemberModify" method="post" onsubmit="doMemberModifyFormCheck();">
 <input type="hidden" name="id" value="${member.id }">
 <input type="hidden" name="loginPwReal" value="${member.loginPw }">

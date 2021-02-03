@@ -979,6 +979,7 @@ main {
   --reply__writer__width: 100px;
   --reply__regDate__width: 150px;
   --reply__btns__width:80px;
+  --reply__body__width: calc(100% - var(--reply__regDate__width) - var(--reply__writer__width) - var(--reply__btns__width));
 }
 .reply__writer{
 	width:var(--reply__writer__width);
@@ -986,6 +987,12 @@ main {
 .reply__regDate{
 	text-align:center;
 	width:var(--reply__regDate__width);
+}
+.reply__body{
+	width:var(--reply__body__width);
+	 white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .reply__btns{
 	text-align:center;

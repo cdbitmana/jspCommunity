@@ -164,6 +164,7 @@ function modifyFormCheck(el) {
       <script type="text/x-template">${article.body }</script>
   <div class="toast-ui-viewer"></div>
   </div>
+  <c:if test="${isLogined }">
   <div class="flex flex-ai-c flex-jc-sa articleDetailBody__likeanddislike">
   <div class="articleDetailBody__likeBtn" onclick="doLikeBtn();">
   <c:if test="${isLikedArticle == true }">
@@ -182,6 +183,7 @@ function modifyFormCheck(el) {
   </c:if>
   <span>싫어요</span></div>
   </div>
+  </c:if>
     </div>
     
 	<div class="articleDetailToList">
@@ -205,7 +207,7 @@ function modifyFormCheck(el) {
 	<!-- 댓글 입력 창(로그인 했을 때) -->
 	<c:if test="${isLogined }">
 	<div class="articleDetailBox__reply-isLogined">
-	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
+	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="/jspCommunity/usr/reply/doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
 	<input type="hidden" name="body">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">
 	<input type="hidden" name="articleId" value="${article.id }">
@@ -236,7 +238,7 @@ function modifyFormCheck(el) {
 	<div class="reply__btns flex flex-ai-c flex-jc-sa">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
-	<form class="reply__btns__delete-form" action="doDeleteArticleReply">
+	<form class="reply__btns__delete-form" action="/jspCommunity/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
@@ -249,7 +251,7 @@ function modifyFormCheck(el) {
 	</div>	
 	
 	<div class="articleDetailBox__reply-modify">
-	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
+	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="/jspCommunity/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
 	<input type="hidden" name="body">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">

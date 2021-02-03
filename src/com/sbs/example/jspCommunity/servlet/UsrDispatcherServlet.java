@@ -77,13 +77,18 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = articleController.doLike(request,response);
 			} else if (actionMethodName.equals("doDislikeArticle")) {
 				jspPath = articleController.doDislike(request,response);
-			} else if (actionMethodName.equals("doWriteArticleReply")) {
-				jspPath = articleController.doWriteArticleReply(request,response);
+			} 
+		} else if (controllerName.equals("reply")) {
+			UsrReplyController replyController = Container.usrReplyController;
+			
+			if (actionMethodName.equals("doWriteArticleReply")) {
+				jspPath = replyController.doWriteArticleReply(request,response);
 			} else if (actionMethodName.equals("doModifyArticleReply")) {
-				jspPath = articleController.doModifyArticleReply(request,response);
+				jspPath = replyController.doModifyArticleReply(request,response);
 			} else if (actionMethodName.equals("doDeleteArticleReply")) {
-				jspPath = articleController.doDeleteArticleReply(request,response);
+				jspPath = replyController.doDeleteArticleReply(request,response);
 			}
+			
 		}
 
 		return jspPath;

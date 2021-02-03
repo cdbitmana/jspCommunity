@@ -258,50 +258,6 @@ public class UsrArticleController extends Controller {
 		return json(request, new ResultData(resultCode, ""));
 	}
 
-	public String doWriteArticleReply(HttpServletRequest request, HttpServletResponse response) {
-
-		String body = request.getParameter("body");
-		int memberId = Integer.parseInt(request.getParameter("memberId"));
-		int articleId = Integer.parseInt(request.getParameter("articleId"));
-		
-		replyService.doWriteArticleReply(articleId, body, memberId);
-
-		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
-
-			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
-		}
-
-		return "common/redirect";
-	}
-
-	public String doModifyArticleReply(HttpServletRequest request, HttpServletResponse response) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String body = request.getParameter("body");
-		int memberId = Integer.parseInt(request.getParameter("memberId"));
-		int articleId = Integer.parseInt(request.getParameter("articleId"));
-		replyService.doModifyArticleReply(id,articleId,body,memberId);
-		
-		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
-
-			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
-		}
-
-		return "common/redirect";
-
-	}
-
-	public String doDeleteArticleReply(HttpServletRequest request, HttpServletResponse response) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
-		
-		replyService.doDeleteArticleReply(id);
-		
-		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
-
-			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
-		}
-
-		return "common/redirect";
-	}
+	
 
 }

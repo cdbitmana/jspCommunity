@@ -76,7 +76,7 @@ public class ArticleDao {
 		SecSql sql = new SecSql();
 
 		sql.append(
-				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount ,IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate, M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount,A.likeCount,A.dislikeCount ,IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate, M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
@@ -334,6 +334,14 @@ public class ArticleDao {
 
 		MysqlUtil.insert(sql);
 
+		sql = new SecSql();
+
+		sql.append("UPDATE article SET");
+		sql.append("likeCount = likeCount + 1");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
+
 	}
 
 	public void removeLikeArticle(int id, int memberId) {
@@ -347,6 +355,15 @@ public class ArticleDao {
 		sql.append("AND memberId = ?", memberId);
 
 		MysqlUtil.delete(sql);
+
+		sql = new SecSql();
+
+		sql.append("UPDATE article SET");
+		sql.append("likeCount = likeCount - 1");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
+
 	}
 
 	public boolean isDislikedArticle(int id, int memberId) {
@@ -377,6 +394,14 @@ public class ArticleDao {
 		sql.append(", memberId = ?", memberId);
 
 		MysqlUtil.insert(sql);
+		
+		sql = new SecSql();
+
+		sql.append("UPDATE article SET");
+		sql.append("dislikeCount = dislikeCount + 1");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
 	}
 
 	public void removeDislikeArticle(int id, int memberId) {
@@ -389,8 +414,14 @@ public class ArticleDao {
 		sql.append("AND memberId = ?", memberId);
 
 		MysqlUtil.delete(sql);
+		
+		sql = new SecSql();
+
+		sql.append("UPDATE article SET");
+		sql.append("dislikeCount = dislikeCount - 1");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
 	}
-
-
 
 }

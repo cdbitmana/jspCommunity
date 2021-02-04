@@ -13,6 +13,8 @@ public class Article {
 	private String body;
 	private int memberId;
 	private int hitCount;
+	private int likeCount;
+	private int dislikeCount;
 	private int boardId;
 	private String extra__writer;
 	private String extra__boardName;
@@ -26,6 +28,8 @@ public class Article {
 		this.body = (String) articleMap.get("body");
 		this.memberId = (int) articleMap.get("memberId");
 		this.hitCount = (int) articleMap.get("hitCount");
+		this.likeCount = (int) articleMap.get("likeCount");
+		this.dislikeCount = (int) articleMap.get("dislikeCount");
 		this.boardId = (int) articleMap.get("boardId");
 		this.extra__writer = (String) articleMap.get("extra__writer");
 		this.extra__boardName = (String) articleMap.get("extra__boardName");

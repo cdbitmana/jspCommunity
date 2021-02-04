@@ -31,9 +31,10 @@
 	}
 
 	
+
 	
 	$(document).on('click','.articleList_writer',function(e){
-		let menuTop = e.clientY;
+		let menuTop = e.pageY;
 		let menuLeft = e.clientX;
 		const writer = e.target.innerText;
 		
@@ -102,8 +103,10 @@
 				class="searchInput" type="text" name="keyword">
 		</form>
 		<form class="write" action="write" method="GET">
+		<input type="hidden" name="listUrl" value="${encodedCurrentUrl} ">	
 			<input type="hidden" name="boardId" value="${board.id}"> 
-			<input type="hidden" name="memberId" value="1">			
+			<input type="hidden" name="memberId" value="1">		
+			
 			 <input type="submit" value="글쓰기">
 		</form>
 	</div>
@@ -112,7 +115,8 @@
 		<div class="article articleTag flex flex-ai-c">
 			<span class="cell-id">번호</span> <span class="cell-title">제목</span> <span
 				class="cell-writer">이름</span> <span class="cell-regDate">작성시간</span>
-			<span class="cell-hit">조회수</span>
+			<span class="cell-hit">조회수</span><span class="cell-likeCount">좋아요</span>
+				 <span class="cell-dislikeCount">싫어요</span>
 		</div>
 
 		<c:forEach var="article" items="${articles }">
@@ -123,6 +127,8 @@
 				<span class="cell-writer articleList_writer">${article.extra__writer }</span>
 				 <span class="cell-regDate">${article.regDate }</span> 
 				 <span class="cell-hit">${article.hitCount}</span>
+				 <span class="cell-likeCount">${article.likeCount }</span>
+				 <span class="cell-dislikeCount">${article.dislikeCount }</span>
 			</div>
 		</c:forEach>
 
@@ -135,14 +141,16 @@
 	<c:forEach var="article" items="${articles }">
 			<div class="article-mb">
 			<a href="/jspCommunity/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}">
-			<div class="article-mb-1">
+			<div class="flex article-mb-1">
 			<span class="cell-id-mb">${article.id } ) </span>
-			<span class="cell-title-mb">${article.title }</span>
+			<span class="flex-grow-1 cell-title-mb">${article.title }</span>
 			</div>
-			<div class="article-mb-2">
+			<div class="flex flex-ai-c article-mb-2">
 			<span class="cell-writer-mb">${article.extra__writer }</span>
-			<span class="cell-hit-mb">조회수 ${article.hitCount }</span>
-			<span class="cell-regDate-mb float-r">${article.regDate }</span>
+			<span class="cell-hit-mb">조회수 ${article.hitCount }</span>			
+			<span class="cell-likeCount-mb">좋아요 ${article.likeCount }</span>
+			<span class="cell-dislikeCount-mb">싫어요 ${article.dislikeCount }</span>
+			<span class="flex-grow-1 cell-regDate-mb">${article.regDate }</span>
 			</div>
 			</a>
 			</div>
@@ -216,10 +224,11 @@
 	
 </div>
 
+
+</main>
 <div class="articleList__writerMenuBox">
 	<div><a href="">쪽지 보내기</a></div>
 		<div class="articleList__writerMenuBox__search"><a href="">작성글 검색</a>
 		</div>
 	</div>
-</main>
 <%@ include file="../../part/foot.jspf"%>

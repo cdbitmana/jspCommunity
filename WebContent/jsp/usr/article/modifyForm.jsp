@@ -36,9 +36,11 @@ let DoModifyForm__submited = false;
 <span>제목</span>
 
 	<form class="articleModifyForm" name="modifyForm" action="doModify" style="display:inline-block" method="post" onsubmit="return modifyFormCheck();">
+	
 		<input type="hidden" name="memberId" value="${memberId }">	
 		<input type="hidden" name="body"  >	
 		<input type="hidden" name="page" value="${page }">
+		<input type="hidden" name="afterModifyUrl" value="${param.afterModifyUrl }">
 		 <input
 			type="hidden" name="id" value="${id }"> 		
 			<input class="articleModifyTitle" type="text"

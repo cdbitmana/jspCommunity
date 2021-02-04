@@ -7,7 +7,7 @@
 <script>
 function doLikeBtn(){
 
-	const memberId = ${article.memberId};
+	const memberId = ${loginedMemberId};
 	const articleId = ${article.id};
 	$.get(
 			"doLikeArticle",
@@ -29,7 +29,7 @@ function doLikeBtn(){
 
 
 function doDislikeBtn(){
-	const memberId = ${article.memberId};
+	const memberId = ${loginedMemberId};
 	const articleId = ${article.id};
 	$.get(
 			"doDislikeArticle",
@@ -115,36 +115,51 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 <div class="con articleDetailBox">
 <span class="articleDetailTitle">${article.title}</span>
 <!-- 게시물 상세보기 상단 정보 PC버전 시작 -->
-    <div class="flex flex-ai-c articleDetailInfo articleDetailInfo-pc">
+    <div class="flex flex-ai-c flex-jc-sb articleDetailInfo articleDetailInfo-pc">
+    <div class="flex flex-ai-c articleDetailInfo-box1">
     <span class="articleDetailWriter">${article.extra__writer}</span>
       <span class="articleDetailRegDate">${article.regDate}</span>
        <c:if test="${article.memberId == loginedMemberId }">
      <form class="articleDetailModify" action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
+     <input type="hidden" name="afterModifyUrl" value="${currentUrl }">
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="hidden" name="title" value="${article.title }">
 	<input type="hidden" name="body" value="${article.body }">
-	<input type="hidden" name="page" value="${param.page }">
+	
 	<input type="submit" value="수정">
 	</form>
-    <form class="articleDetailDelete" action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">	
+    <form class="articleDetailDelete" action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">
+    <input type="hidden" name="listUrl" value="${param.listUrl }">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="submit" value="삭제">
-	</form>
+	</form>	
 	</c:if>
-      <span class="articleDetailHit">조회수: ${article.hitCount}</span>
+	</div>
+	<div class="articleDetailInfo-box2">
+      <span>조회수 ${article.hitCount}</span>
+      <span>좋아요 ${article.likeCount}</span>
+      <span>싫어요 ${article.dislikeCount}</span>
+      <span>댓글수 ${totalReplyCount}</span>
+      </div>
       </div>	
 <!-- 게시물 상세보기 상단 정보 PC버전 끝 -->
 
 <!-- 게시물 상세보기 상단 정보 모바일 버전 시작 -->
 <div class="articleDetailInfo articleDetailInfo-mb">
+<div class="articleDetailInfo-mb__box1 flex flex-ai-c flex-jc-sb">
 <div>
     <span class="articleDetailWriter">${article.extra__writer}</span>
       <span class="articleDetailRegDate">${article.regDate}</span>
-      <span class="articleDetailHit">조회수: ${article.hitCount}</span>
       </div>
       <div>
+      <span>조회수 ${article.hitCount}</span>
+      <span>댓글수 ${totalReplyCount}</span>
+      </div>
+      </div>
+      <div class="articleDetailInfo-mb__box2 flex flex-ai-c flex-jc-sb">
+      <div class="articleDetailInfo-mb__box2__left">      
       <c:if test="${article.memberId == loginedMemberId }">
      <form class="articleDetailModify" action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
@@ -160,6 +175,11 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<input type="submit" value="삭제">
 	</form>
 	</c:if>  
+	</div>
+	<div class="float-r articleDetailInfo-mb__box2__right">
+	  <span>좋아요 ${article.likeCount}</span>
+      <span>싫어요 ${article.dislikeCount}</span>
+	</div>
 	</div> 
       </div>
 <!-- 게시물 상세보기 상단 정보 모바일 버전 끝 -->

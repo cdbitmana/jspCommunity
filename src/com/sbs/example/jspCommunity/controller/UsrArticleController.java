@@ -94,8 +94,14 @@ public class UsrArticleController extends Controller {
 
 		int newArticleId = articleService.doWrite(title, body, memberId, boardId);
 
-		request.setAttribute("alertMsg", newArticleId + "번 게시물이 생성되었습니다.");
 		request.setAttribute("replaceUrl", String.format("detail?id=%d&page=1", newArticleId));
+
+		if (Util.isEmpty(request.getParameter("listUrl")) == false) {
+
+			request.setAttribute("replaceUrl", "/jspCommunity/usr/article/detail?id=" + newArticleId + "&listUrl="
+					+ request.getParameter("listUrl"));
+		}
+
 		return "common/redirect";
 	}
 
@@ -103,16 +109,20 @@ public class UsrArticleController extends Controller {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-		int page = Integer.parseInt(request.getParameter("page"));
+
 		Map<String, Object> modifyArgs = new HashMap<>();
 		modifyArgs.put("id", id);
 		modifyArgs.put("title", title);
 		modifyArgs.put("body", body);
 
 		articleService.doModify(modifyArgs);
-		request.setAttribute("page", page);
-		request.setAttribute("alertMsg", id + "번 게시물이 수정되었습니다.");
-		request.setAttribute("replaceUrl", "detail?id=" + id + "&page=" + page);
+		
+		request.setAttribute("replaceUrl", "/jspCommunity/usr/article/detail?id="+ id );
+
+		if (Util.isEmpty(request.getParameter("afterModifyUrl")) == false) {
+
+			request.setAttribute("replaceUrl", request.getParameter("afterModifyUrl"));
+		}
 
 		return "common/redirect";
 	}
@@ -131,9 +141,16 @@ public class UsrArticleController extends Controller {
 		if (article.getMemberId() != memberId) {
 			return msgAndBack(request, "접근 권한이 없습니다.");
 		}
+
 		articleService.doDelete(id);
-		request.setAttribute("alertMsg", id + "번 게시물이 삭제되었습니다.");
+
 		request.setAttribute("replaceUrl", String.format("list?boardId=%d", article.getBoardId()));
+
+		if (Util.isEmpty(request.getParameter("listUrl")) == false) {
+
+			request.setAttribute("replaceUrl", request.getParameter("listUrl"));
+		}
+
 		return "common/redirect";
 
 	}
@@ -202,14 +219,12 @@ public class UsrArticleController extends Controller {
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 		Article article = articleService.getArticleById(id);
-		int page = Integer.parseInt(request.getParameter("page"));
 		if (article == null) {
 			return msgAndBack(request, "해당 게시물은 존재하지 않습니다.");
 		}
 		if (article.getMemberId() != memberId) {
 			return msgAndBack(request, "접근 권한이 없습니다.");
 		}
-		request.setAttribute("page", page);
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("id", id);
 		request.setAttribute("title", title);
@@ -257,7 +272,5 @@ public class UsrArticleController extends Controller {
 
 		return json(request, new ResultData(resultCode, ""));
 	}
-
-	
 
 }

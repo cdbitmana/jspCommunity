@@ -98,11 +98,11 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		needToLoginactionUrls.add("/usr/article/doDelete");
 		needToLoginactionUrls.add("/usr/member/logout");
 		needToLoginactionUrls.add("/usr/article/doWrite");
-		needToLoginactionUrls.add("/usr/article/doModify");
-		
+		needToLoginactionUrls.add("/usr/article/doModify");		
 		needToLoginactionUrls.add("/usr/member/memberInfo");
 		needToLoginactionUrls.add("/usr/member/memberModifyForm");
 		needToLoginactionUrls.add("/usr/member/doMemberModify");
+		
 		if(needToLoginactionUrls.contains(actionUrl)) {
 			if((boolean)request.getAttribute("isLogined") == false) {
 				request.setAttribute("alertMsg", "로그인 후 이용해주세요.");

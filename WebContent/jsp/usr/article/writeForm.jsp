@@ -47,6 +47,7 @@ let DoWriteForm__submited = false;
 	<input type="hidden" name="page" value="1">
 		<input type="hidden" name="memberId" value="${memberId }">
 		 <input	type="hidden" name="boardId" value="${boardId }">
+		 <input type="hidden" name="listUrl" value="${param.listUrl }">
 		 <input type="hidden" name="body">
     <span>제목</span>
     
@@ -56,8 +57,11 @@ let DoWriteForm__submited = false;
     <div class="writeBodyInput">
 		 <script type="text/x-template"></script>
   <div class="toast-ui-editor"></div>
+  
   </div>
-		<input class="writeFormSubmit" type="submit" value="등록">
+  <div class="writeFormSubmit-box flex flex-jc-e">
+		<input class="btn-square writeFormSubmit" type="submit" value="등록">
+		</div>
 	</form>
 	</div>
   </div>

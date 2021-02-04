@@ -634,6 +634,8 @@ main {
   --cell-writer__width: 100px;
   --cell-regDate__width: 200px;
   --cell-hit__width: 70px;
+  --cell-likeCount__width:70px;
+  --cell-dislikeCount__width:70px;
   --cell-title__width: calc(
     100% - var(--cell-id__width) - var(--cell-writer__width) -
       var(--cell-regDate__width) - var(--cell-hit__width)
@@ -644,6 +646,9 @@ main {
 }
 .cell-title {
   width: var(--cell-title__width);
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cell-writer {
   width: var(--cell-writer__width);
@@ -653,6 +658,12 @@ main {
 }
 .cell-hit {
   width: var(--cell-hit__width);
+}
+.cell-likeCount{
+	width: var(--cell-likeCount__width);
+}
+.cell-dislikeCount{
+	width: var(--cell-dislikeCount__width);
 }
 .cell-title.title {
   text-align: left;
@@ -781,14 +792,19 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.article-mb-2{
+	margin-top:5px;
+}
 :root {
   --cell-id-mb__width: 30px;
   --cell-writer-mb__width: 50px;
-  --cell-regDate-mb__width: 150px;
-  --cell-hit-mb__width: 30px;
+  --cell-regDate-mb__width: 100px;
+  --cell-hit-mb__width: 80px;
+  --cell-likeCount-mb__width: 60px;
+  --cell-dislikeCount-mb__width: 60px;
   --cell-title-mb__width: calc(
     100% - var(--cell-id__width) - var(--cell-writer__width) -
-      var(--cell-regDate__width) - var(--cell-hit__width)
+      var(--cell-regDate__width) - var(--cell-hit__width) - var(--cell-likeCount__width) - var(--cell-dislikeCount__width)
   );
 }
 .cell-id-mb {
@@ -796,19 +812,30 @@ main {
 }
 .cell-title-mb {
   width: var(--cell-title-mb__width);
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cell-regDate-mb {
   width: var(--cell-regDate-mb__width);
-  font-size: 12px;
-  text-align: right;
+  font-size: 10px;
+  text-align:right;
 }
 .cell-hit-mb {
   width: var(--cell-hit-mb__width);
-  font-size: 12px;
+  font-size: 10px;
+}
+.cell-likeCount-mb {
+  width: var(--cell-likeCount-mb__width);
+  font-size: 10px;
+}
+.cell-dislikeCount-mb {
+  width: var(--cell-dislikeCount-mb__width);
+  font-size: 10px;
 }
 .cell-writer-mb {
   width: var(--cell-writer-mb__width);
-  font-size: 12px;
+  font-size: 10px;
 }
 /* 게시물 리스트 모바일 버전 끝 */
 
@@ -831,6 +858,7 @@ main {
 .writeFormBox {
   margin-top: 20px;
 }
+
 .writeFormBox > span {
   display: block;
   margin-left: 10px;
@@ -853,10 +881,13 @@ main {
 .writeBodyInput .toast-ui-editor {
   height: 500px !important;
 }
+.writeFormSubmit-box{
+	width:80%;
+	margin-left:10px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
 .writeFormSubmit {
-  margin-top: 20px;
-  margin-bottom: 40px;
-  margin-left: 40px;
   padding: 5px 10px;
   background-color: white;
   border: 1px solid black;
@@ -900,10 +931,7 @@ main {
   height: 14px;
   background-color: gray;
 }
-.articleDetailHit {
-  position: absolute;
-  right: 10px;
-}
+
 .articleDetailBody {
   position: relative;
   padding-top: 10px;
@@ -1069,6 +1097,9 @@ main {
   .articleDetailInfo-pc {
     display: none !important;
   }
+}
+.articleDetailInfo-mb * {
+	font-size:12px !important;
 }
 .articleDetailInfo-mb > div:nth-child(2) {
   margin-top: 5px;

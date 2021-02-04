@@ -1033,7 +1033,26 @@ main {
 	padding:10px 4px;
 	border-bottom:1px solid #DDDDDD;
 }
-
+@media (max-width:768px){
+	.articleDetailBox__articleReplyList__reply-1-pc{
+	display:none !important;
+	}
+}
+@media (min-width:769px){
+	.articleDetailBox__articleReplyList__reply-1-mb{
+	display:none !important;
+	}
+}
+.articleDetailBox__articleReplyList__reply-1-mb__box1 *{
+	font-size:12px !important;
+}
+.articleDetailBox__articleReplyList__reply-1-mb__box1 > div:nth-child(2) > div {
+	padding:0 5px;
+}
+.articleDetailBox__articleReplyList__reply-1-mb__box2 {
+	margin-top:10px;
+	font-size:18px;
+}
 :root {
   --reply__writer__width: 100px;
   --reply__regDate__width: 150px;

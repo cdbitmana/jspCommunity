@@ -251,11 +251,12 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<div class="articleDetailBox__articleReplyList__info">
 	<span>전체 댓글 수</span><span> ${totalReplyCount }</span>
 	</div>
-	<div class="articleDetailBox__articleReplyList__replys">
 	
+	<div class="articleDetailBox__articleReplyList__replys">	
 	<c:forEach var="reply" items="${replys }">
 	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply">
-	<div class="flex articleDetailBox__articleReplyList__reply-1">
+	<!-- 댓글 리스트 본문 PC버전 -->
+	<div class="flex articleDetailBox__articleReplyList__reply-1-pc">
 	<div class="reply__writer">${reply.extra__writer }</div>
 	<div class="flex-grow-1 reply__body">${reply.body }</div>
 	<c:if test="${loginedMemberId == reply.memberId }">
@@ -270,9 +271,32 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	</div>
 	</div>
 	</c:if>
-	<div class="reply__regDate">${reply.regDate }</div>
-	
+	<div class="reply__regDate">${reply.regDate }</div>	
 	</div>	
+	
+	<!-- 댓글 리스트 본문 모바일버전 -->
+	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply-1-mb">
+	<div class="flex flex-ai-c flex-jc-sb articleDetailBox__articleReplyList__reply-1-mb__box1">
+	<div>${reply.extra__writer }</div>
+	<div class="flex flex-ai-c">
+	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
+	<div class="reply__btns__delete">
+	<form class="reply__btns__delete-form" action="/jspCommunity/usr/reply/doDeleteArticleReply">
+	<input type="submit" value="삭제">
+	<input type="hidden" name="id" value="${reply.id }">
+	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
+	</form>
+	</div>
+	<div>${reply.regDate }</div>
+	</div>
+	</div>
+	<div class="articleDetailBox__articleReplyList__reply-1-mb__box2">
+	<div>${reply.body }</div>
+	</div>
+	</div>
+	
+	
+	
 	
 	<div class="articleDetailBox__reply-modify">
 	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="/jspCommunity/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">

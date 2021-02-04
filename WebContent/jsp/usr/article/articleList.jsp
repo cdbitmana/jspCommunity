@@ -123,7 +123,9 @@
 			<div class="article flex flex-ai-c">
 				<span class="cell-id">${article.id }</span> <a
 					class="flex cell-title title"
-					href="/jspCommunity/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span>${article.title }</span></a>
+					href="/jspCommunity/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span>${article.title }    
+					<c:if test="${article.replyCount > 0}">
+					(${article.replyCount })</c:if></span></a>
 				<span class="cell-writer articleList_writer">${article.extra__writer }</span>
 				 <span class="cell-regDate">${article.regDate }</span> 
 				 <span class="cell-hit">${article.hitCount}</span>

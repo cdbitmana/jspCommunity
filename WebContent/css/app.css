@@ -1084,7 +1084,6 @@ main {
 }
 .articleDetailBox__reply-modify{
 	display:none;
-	
 }
 .articleDetailBox__reply-modify .toast-ui-editor {
 	height:170px !important;

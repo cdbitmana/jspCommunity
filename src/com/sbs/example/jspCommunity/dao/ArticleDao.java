@@ -76,7 +76,7 @@ public class ArticleDao {
 		SecSql sql = new SecSql();
 
 		sql.append(
-				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount,A.likeCount,A.dislikeCount ,IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate, M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount,A.likeCount,A.dislikeCount , A.replyCount,IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate, M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");

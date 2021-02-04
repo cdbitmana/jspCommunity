@@ -279,6 +279,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<div class="flex flex-ai-c flex-jc-sb articleDetailBox__articleReplyList__reply-1-mb__box1">
 	<div>${reply.extra__writer }</div>
 	<div class="flex flex-ai-c">
+	<c:if test="${loginedMemberId == reply.memberId }">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
 	<form class="reply__btns__delete-form" action="/jspCommunity/usr/reply/doDeleteArticleReply">
@@ -287,6 +288,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	</div>
+	</c:if>
 	<div>${reply.regDate }</div>
 	</div>
 	</div>

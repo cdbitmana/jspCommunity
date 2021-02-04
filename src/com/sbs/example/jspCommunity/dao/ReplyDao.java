@@ -47,6 +47,14 @@ public class ReplyDao {
 		
 		MysqlUtil.insert(sql);
 		
+		sql = new SecSql();
+		
+		sql.append("UPDATE article SET");
+		sql.append("replyCount = replyCount + 1");
+		sql.append("WHERE id = ?" , articleId);
+		
+		MysqlUtil.update(sql);
+		
 	}
 
 	public void doModifyArticleReply(int id,int articleId, String body, int memberId) {

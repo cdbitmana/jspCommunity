@@ -71,7 +71,7 @@ public class UsrMemberController extends Controller {
 		
 		memberService.sendJoinMsgToEmail(member);
 		
-		return msgAndReplace( request, id + "번 회원으로 가입되었습니다.", App.getContextName()+"/usr/home/main");
+		return msgAndReplace( request, id + "번 회원으로 가입되었습니다.", App.getAppUrl()+"/usr/home/main");
 	}
 
 	public String login(HttpServletRequest request, HttpServletResponse response) {
@@ -121,7 +121,7 @@ public class UsrMemberController extends Controller {
 		request.setAttribute("isLogined", true);
 		request.setAttribute("loginedMember", member);
 
-		request.setAttribute("replaceUrl", App.getContextName()+"/usr/home/main");
+		request.setAttribute("replaceUrl", App.getAppUrl()+"/usr/home/main");
 		
 		if ( Util.isEmpty(request.getParameter("afterLoginUrl")) == false ) {
 			
@@ -140,7 +140,7 @@ public class UsrMemberController extends Controller {
 		session.removeAttribute("loginedMember");
 		session.removeAttribute("isTempPw");
 		session.removeAttribute("loginPwUsing90day");
-		return msgAndReplace(request,"로그아웃 되었습니다.", App.getContextName()+"/usr/home/main");
+		return msgAndReplace(request,"로그아웃 되었습니다.", App.getAppUrl()+"/usr/home/main");
 
 	}
 

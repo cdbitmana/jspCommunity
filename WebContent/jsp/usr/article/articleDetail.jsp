@@ -18,9 +18,11 @@ function doLikeBtn(){
 			function(data) {
 			if(data.success){
 				$('.articleDetailBody__likeBtn > i').attr('class','fas fa-thumbs-up');
+				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+data.likeCount);
 				}
 			else{
 				$('.articleDetailBody__likeBtn > i').attr('class','far fa-thumbs-up');
+				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+data.likeCount);
 				}
 			},
 			"json"
@@ -139,8 +141,8 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	</div>
 	<div class="articleDetailInfo-box2">
       <span>조회수 ${article.hitCount}</span>
-      <span>좋아요 ${article.likeCount}</span>
-      <span>싫어요 ${article.dislikeCount}</span>
+      <span class="articleDetailInfo-box2__likeCount">좋아요 ${article.likeCount}</span>
+      <span class="articleDetailInfo-box2__dislikeCount">싫어요 ${article.dislikeCount}</span>
       <span>댓글수 ${totalReplyCount}</span>
       </div>
       </div>	

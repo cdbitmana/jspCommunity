@@ -99,7 +99,7 @@ public class UsrArticleController extends Controller {
 
 		if (Util.isEmpty(request.getParameter("listUrl")) == false) {
 
-			request.setAttribute("replaceUrl", App.getContextName()+"/usr/article/detail?id=" + newArticleId + "&listUrl="
+			request.setAttribute("replaceUrl", App.getAppUrl()+"/usr/article/detail?id=" + newArticleId + "&listUrl="
 					+ request.getParameter("listUrl"));
 		}
 
@@ -118,7 +118,7 @@ public class UsrArticleController extends Controller {
 
 		articleService.doModify(modifyArgs);
 		
-		request.setAttribute("replaceUrl", App.getContextName()+"/usr/article/detail?id="+ id );
+		request.setAttribute("replaceUrl", App.getAppUrl()+"/usr/article/detail?id="+ id );
 
 		if (Util.isEmpty(request.getParameter("afterModifyUrl")) == false) {
 
@@ -240,18 +240,26 @@ public class UsrArticleController extends Controller {
 		int id = Integer.parseInt(request.getParameter("articleId"));
 
 		boolean isLikedArticle = articleService.isLikedArticle(id, memberId);
-
+		int likeCount = 0;
+		Article article = null;
 		String resultCode = null;
-
+		Map<String,Object> map = new HashMap<>();
+		
 		if (isLikedArticle) {
 			articleService.removeLikeArticle(id, memberId);
+			article = articleService.getArticleById(id);
+			likeCount = article.getLikeCount();
 			resultCode = "F-1";
+			map.put("likeCount", likeCount);
 		} else {
 			articleService.doLikeArticle(id, memberId);
+			article = articleService.getArticleById(id);
+			likeCount = article.getLikeCount();
 			resultCode = "S-1";
+			map.put("likeCount", likeCount);
 		}
 
-		return json(request, new ResultData(resultCode, ""));
+		return json(request, new ResultData(resultCode, "", map));
 
 	}
 

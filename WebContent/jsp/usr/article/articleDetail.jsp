@@ -120,7 +120,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
     <span class="articleDetailWriter">${article.extra__writer}</span>
       <span class="articleDetailRegDate">${article.regDate}</span>
        <c:if test="${article.memberId == loginedMemberId }">
-     <form class="articleDetailModify" action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
+     <form class="articleDetailModify" action="${contextName }/usr/article/modify" style="display:inline-block" method="post">	
      <input type="hidden" name="afterModifyUrl" value="${currentUrl }">
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
@@ -129,7 +129,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	
 	<input type="submit" value="수정">
 	</form>
-    <form class="articleDetailDelete" action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">
+    <form class="articleDetailDelete" action="${contextName }/usr/article/doDelete" style="display:inline-block" method="post">
     <input type="hidden" name="listUrl" value="${param.listUrl }">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
@@ -161,7 +161,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
       <div class="articleDetailInfo-mb__box2 flex flex-ai-c flex-jc-sb">
       <div class="articleDetailInfo-mb__box2__left">      
       <c:if test="${article.memberId == loginedMemberId }">
-     <form class="articleDetailModify" action="/jspCommunity/usr/article/modify" style="display:inline-block" method="post">	
+     <form class="articleDetailModify" action="${contextName }/usr/article/modify" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="hidden" name="title" value="${article.title }">
@@ -169,7 +169,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<input type="hidden" name="page" value="${param.page }">
 	<input type="submit" value="수정">
 	</form>
-    <form class="articleDetailDelete" action="/jspCommunity/usr/article/doDelete" style="display:inline-block" method="post">	
+    <form class="articleDetailDelete" action="${contextName }/usr/article/doDelete" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="submit" value="삭제">
@@ -231,7 +231,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<!-- 댓글 입력 창(로그인 했을 때) -->
 	<c:if test="${isLogined }">
 	<div class="articleDetailBox__reply-isLogined">
-	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="/jspCommunity/usr/reply/doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
+	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="${contextName }/usr/reply/doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
 	<input type="hidden" name="body">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">
 	<input type="hidden" name="articleId" value="${article.id }">
@@ -263,7 +263,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<div class="reply__btns flex flex-ai-c flex-jc-sa">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
-	<form class="reply__btns__delete-form" action="/jspCommunity/usr/reply/doDeleteArticleReply">
+	<form class="reply__btns__delete-form" action="${contextName }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
@@ -282,7 +282,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<c:if test="${loginedMemberId == reply.memberId }">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
-	<form class="reply__btns__delete-form" action="/jspCommunity/usr/reply/doDeleteArticleReply">
+	<form class="reply__btns__delete-form" action="${contextName }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
@@ -301,7 +301,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	
 	
 	<div class="articleDetailBox__reply-modify">
-	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="/jspCommunity/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
+	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="${contextName }/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
 	<input type="hidden" name="body">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">

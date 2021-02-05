@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mysql.cj.jdbc.interceptors.SessionAssociationInterceptor;
+import com.sbs.example.jspCommunity.App;
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Member;
 import com.sbs.example.jspCommunity.util.Util;
@@ -50,14 +51,32 @@ public abstract class DisPatcherServlet extends HttpServlet {
 		String requestUri = request.getRequestURI();
 		String[] requestUriBits = requestUri.split("/");
 
-		if (requestUriBits.length < 5) {
+		int minBitsCount = 5;
+		
+		if( App.isProductMode()) {
+			minBitsCount = 4;
+		}
+		
+		if (requestUriBits.length < minBitsCount) {
 			response.getWriter().append("올바른 요청이 아닙니다.");
 			return null;
 		}
+		
+		int controllerTypeNameIndex = 2;
+		int controllerNameIndex = 3;
+		int actionMethodNameIndex = 4;
 
-		String controllerType = requestUriBits[2];
-		String controllerName = requestUriBits[3];
-		String actionMethodName = requestUriBits[4];
+		if (App.isProductMode()) {
+			controllerTypeNameIndex = 1;
+			controllerNameIndex = 2;
+			actionMethodNameIndex = 3;
+		}
+
+		
+
+		String controllerType = requestUriBits[controllerTypeNameIndex];
+		String controllerName = requestUriBits[controllerNameIndex];
+		String actionMethodName = requestUriBits[actionMethodNameIndex];
 		
 		String actionUrl = "/" + controllerType + "/" + controllerName + "/" + actionMethodName; 
 		
@@ -136,21 +155,22 @@ public abstract class DisPatcherServlet extends HttpServlet {
 			}
 		}
 		
-		String profilesActive = System.getProperty("spring.profiles.active");
 		
-		boolean isProductionMode = false;
-
-		if (profilesActive != null && profilesActive.equals("production")) {
-		  isProductionMode = true;
-		}
-				
-		if ( isProductionMode ) {
+	
+		if ( App.isProductMode() ) {
 		  MysqlUtil.setDBInfo("127.0.0.1", "sbsstLocal", "sbs123414", "jspCommunity");
 		}
 		else {
-		  MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "jspCommunity");			
+		  MysqlUtil.setDBInfo("127.0.0.1", "sbsst", "sbs123414", "jspCommunity");		
+		  MysqlUtil.setDevMode(true);
 		}
 
+		if(App.isProductMode()) {
+			request.setAttribute("contextName", App.getContextName());	
+		}else {
+			request.setAttribute("contextName", "/"+App.getContextName());
+		}
+		
 		
 		Map<String, Object> rs = new HashMap<>();
 		

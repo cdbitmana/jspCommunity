@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sbs.example.jspCommunity.App;
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Attr;
 import com.sbs.example.jspCommunity.dto.Member;
@@ -70,7 +71,7 @@ public class UsrMemberController extends Controller {
 		
 		memberService.sendJoinMsgToEmail(member);
 		
-		return msgAndReplace( request, id + "번 회원으로 가입되었습니다.", "/jspCommunity/usr/home/main");
+		return msgAndReplace( request, id + "번 회원으로 가입되었습니다.", App.getContextName()+"/usr/home/main");
 	}
 
 	public String login(HttpServletRequest request, HttpServletResponse response) {
@@ -120,7 +121,7 @@ public class UsrMemberController extends Controller {
 		request.setAttribute("isLogined", true);
 		request.setAttribute("loginedMember", member);
 
-		request.setAttribute("replaceUrl", "/jspCommunity/usr/home/main");
+		request.setAttribute("replaceUrl", App.getContextName()+"/usr/home/main");
 		
 		if ( Util.isEmpty(request.getParameter("afterLoginUrl")) == false ) {
 			
@@ -139,7 +140,7 @@ public class UsrMemberController extends Controller {
 		session.removeAttribute("loginedMember");
 		session.removeAttribute("isTempPw");
 		session.removeAttribute("loginPwUsing90day");
-		return msgAndReplace(request,"로그아웃 되었습니다.","/jspCommunity/usr/home/main");
+		return msgAndReplace(request,"로그아웃 되었습니다.", App.getContextName()+"/usr/home/main");
 
 	}
 

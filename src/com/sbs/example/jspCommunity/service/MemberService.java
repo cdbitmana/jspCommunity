@@ -44,7 +44,7 @@ public class MemberService {
 
 	public ResultData sendTempLoginPwToEmail(Member actor) {
 		// 메일 제목과 내용 만들기
-		String siteName = App.getSite();
+		String siteName = App.getSiteName();
 		String siteLoginUrl = App.getLoginUrl();
 		String title = "[" + siteName + "] 임시 패스워드 발송";
 		String tempPassword = Util.getTempPassword(6);
@@ -95,12 +95,11 @@ public class MemberService {
 	}
 
 	public void sendJoinMsgToEmail(Member member) {
-		String siteName = App.getSite();
 		String title = "Indie World에 가입하신 것을 축하드립니다!";
 		String body = "<h1>Indie World에 회원 가입 하셨습니다.</h1>";
 		body += "<p>"+member.getName()+"님, Indie World에 가입해주셔서 감사합니다.</p>";
 		body += "<p>Indie World에서 다양한 인디 게임의 소식과 정보를 찾아보세요.</p>";
-		body += "<a href=\"http://localhost:8083/jspCommunity/usr/home/main\" target=\"_blank\">Indie World 바로가기</a>";
+		body += "<a href=\""+App.getMainUrl()+"\" target=\"_blank\">Indie World 바로가기</a>";
 		emailService.send(member.getEmail(), title, body);
 
 		

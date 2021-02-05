@@ -70,7 +70,7 @@
 <div class="top-bar-line-1 flex flex-ai-c">
 <!-- 탑 메뉴 바 로고 박스 -->
 <div class=" top-menu-bar__logobox">
-<a class="flex flex-ai-c" href="/jspCommunity/usr/home/main">
+<a class="flex flex-ai-c" href="${contextName }/usr/home/main">
 <div class="top-menu-bar__logo-img"></div>
 <div class="top-menu-bar__logo logo-text">Indie World</div>
 </a>
@@ -80,10 +80,10 @@
 <div class="top-menu-bar__memberBox flex flex-ai-c">
 <c:if test="${isLogined == false }">
 <div class="top-menu-bar__memberBox__login">
-<a class="" href="/jspCommunity/usr/member/login">로그인</a>
+<a class="" href="${contextName }/usr/member/login">로그인</a>
 </div>
 <div class="top-menu-bar__memberBox__join">
-<a class="" href="/jspCommunity/usr/member/join">회원가입</a>
+<a class="" href="${contextName }/usr/member/join">회원가입</a>
 </div>
 </c:if>
 <c:if test="${isLogined}">
@@ -91,10 +91,10 @@
 <div class="">${loginedMember.name }</div>
 </div>
 <div class="top-menu-bar__memberBox__modify">
-<a href="/jspCommunity/usr/member/memberInfo">회원정보수정</a>
+<a href="${contextName }/usr/member/memberInfo">회원정보수정</a>
 </div>
 <div class="top-menu-bar__memberBox__logout">
-<a class="" href="/jspCommunity/usr/member/logout">로그아웃</a>
+<a class="" href="${contextName }/usr/member/logout">로그아웃</a>
 </div>
 </c:if>
 </div>
@@ -103,13 +103,13 @@
 <div class="top-bar-line-2">
 <div class="con top-bar-pc__menuBox">
 <ul class="flex flex-ai-c top-bar-pc__menuBox__menu">
-<li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=3&page=1">새소식</a></li>
-<li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=4&page=1">공략</a></li>
-<li class="height-100p"><a class="block" href="/jspCommunity/usr/article/list?boardId=5&page=1">자료실</a></li>
-<li class="height-100p top-bar-pc__menuBox__menu-1"><a class="block" href="/jspCommunity/usr/article/list?boardId=1&page=1">게시판</a>
+<li class="height-100p"><a class="block" href="${contextName }/usr/article/list?boardId=3&page=1">새소식</a></li>
+<li class="height-100p"><a class="block" href="${contextName }/usr/article/list?boardId=4&page=1">공략</a></li>
+<li class="height-100p"><a class="block" href="${contextName }/usr/article/list?boardId=5&page=1">자료실</a></li>
+<li class="height-100p top-bar-pc__menuBox__menu-1"><a class="block" href="${contextName }/usr/article/list?boardId=1&page=1">게시판</a>
 <ul class="top-bar-pc__menuBox__menu-2 width-100p">
-<li><a href="/jspCommunity/usr/article/list?boardId=1&page=1">공지사항 게시판</a></li>
-<li><a href="/jspCommunity/usr/article/list?boardId=2&page=1">자유 게시판</a></li>
+<li><a href="${contextName }/usr/article/list?boardId=1&page=1">공지사항 게시판</a></li>
+<li><a href="${contextName }/usr/article/list?boardId=2&page=1">자유 게시판</a></li>
 </ul>
 </li>
 </ul>
@@ -139,7 +139,7 @@
 			<i class="fas fa-arrow-left"></i>
 		</div>
 		<div class="home">
-			<a href="/jspCommunity/usr/home/main"><i class="fas fa-home"></i></a>
+			<a href="${contextName }/usr/home/main"><i class="fas fa-home"></i></a>
 		</div>
 		<div class="forward">
 			<i class="fas fa-arrow-right"></i>

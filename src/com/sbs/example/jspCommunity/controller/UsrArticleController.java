@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sbs.example.jspCommunity.App;
 import com.sbs.example.jspCommunity.container.Container;
 import com.sbs.example.jspCommunity.dto.Article;
 import com.sbs.example.jspCommunity.dto.Board;
@@ -98,7 +99,7 @@ public class UsrArticleController extends Controller {
 
 		if (Util.isEmpty(request.getParameter("listUrl")) == false) {
 
-			request.setAttribute("replaceUrl", "/jspCommunity/usr/article/detail?id=" + newArticleId + "&listUrl="
+			request.setAttribute("replaceUrl", App.getContextName()+"/usr/article/detail?id=" + newArticleId + "&listUrl="
 					+ request.getParameter("listUrl"));
 		}
 
@@ -117,7 +118,7 @@ public class UsrArticleController extends Controller {
 
 		articleService.doModify(modifyArgs);
 		
-		request.setAttribute("replaceUrl", "/jspCommunity/usr/article/detail?id="+ id );
+		request.setAttribute("replaceUrl", App.getContextName()+"/usr/article/detail?id="+ id );
 
 		if (Util.isEmpty(request.getParameter("afterModifyUrl")) == false) {
 

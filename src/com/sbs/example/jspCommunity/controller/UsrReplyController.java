@@ -34,13 +34,17 @@ public class UsrReplyController extends Controller {
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int articleId = Integer.parseInt(request.getParameter("articleId"));
 		
-		replyService.doWriteArticleReply(articleId, body, memberId);
+		int newReplyId = replyService.doWriteArticleReply(articleId, body, memberId);
 
+	
+		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
+		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", newReplyId + "");
+		
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
-			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
+			request.setAttribute("replaceUrl",afterWriteReplyUrl);
 		}
-
+		
 		return "common/redirect";
 	}
 

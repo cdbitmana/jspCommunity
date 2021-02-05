@@ -18,8 +18,8 @@ public class ReplyService {
 		return replyDao.getArticleReplysByArticleId(id);
 	}
 
-	public void doWriteArticleReply(int articleId,String body, int memberId) {
-		replyDao.doWriteArticleReply(articleId,body,memberId);
+	public int doWriteArticleReply(int articleId,String body, int memberId) {
+		return replyDao.doWriteArticleReply(articleId,body,memberId);
 		
 	}
 

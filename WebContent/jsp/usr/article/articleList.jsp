@@ -38,7 +38,7 @@
 		let menuLeft = e.clientX;
 		const writer = e.target.innerText;
 		
-		$('.articleList__writerMenuBox > .articleList__writerMenuBox__search > a').attr('href','${contextName }/usr/article/list?boardId='+${param.boardId}+'&page=1&searchType=writer&keyword='+writer);
+		$('.articleList__writerMenuBox > .articleList__writerMenuBox__search > a').attr('href','${appUrl }/usr/article/list?boardId='+${param.boardId}+'&page=1&searchType=writer&keyword='+writer);
 		$('.articleList__writerMenuBox').css({
 				"display": "block",
 				"top": menuTop,
@@ -68,7 +68,7 @@
 <main class="con-min-width">
 <div class="boardList con">
 	<div class="boardNameTitle">
-		<a href="${contextName }/usr/article/list?boardId=${board.id }&page=1">${board.name }
+		<a href="${appUrl }/usr/article/list?boardId=${board.id }&page=1">${board.name }
 			게시판</a>
 	</div>
 
@@ -123,7 +123,7 @@
 			<div class="article flex flex-ai-c">
 				<span class="cell-id">${article.id }</span> <a
 					class="flex cell-title title"
-					href="${contextName }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span>${article.title }    
+					href="${appUrl }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span>${article.title }    
 					<c:if test="${article.replyCount > 0}">
 					(${article.replyCount })</c:if></span></a>
 				<span class="cell-writer articleList_writer">${article.extra__writer }</span>
@@ -142,7 +142,7 @@
 	
 	<c:forEach var="article" items="${articles }">
 			<div class="article-mb">
-			<a href="${contextName }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}">
+			<a href="${appUrl }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}">
 			<div class="flex article-mb-1">
 			<span class="cell-id-mb">${article.id } ) </span>
 			<span class="flex-grow-1 cell-title-mb">${article.title }</span>

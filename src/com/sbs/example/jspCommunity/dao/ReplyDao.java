@@ -13,7 +13,7 @@ public class ReplyDao {
 
 	public List<Reply> getArticleReplysByArticleId(int id) {
 		
-		List<Reply> replys = null;
+		List<Reply> replies = null;
 		
 		SecSql sql = new SecSql();
 		
@@ -26,16 +26,19 @@ public class ReplyDao {
 		List<Map<String,Object>> replyMapList = MysqlUtil.selectRows(sql);
 		
 		if(!replyMapList.isEmpty()) {
-			replys = new ArrayList<>();
+			replies = new ArrayList<>();
 			for(Map<String,Object> replyMap : replyMapList) {
-				replys.add(new Reply(replyMap));
+				replies.add(new Reply(replyMap));
 			}
 		}
 		
-		return replys;
+		return replies;
 	}
 	
-	public void doWriteArticleReply(int articleId,String body, int memberId) {
+	public int doWriteArticleReply(int articleId,String body, int memberId) {
+		
+		int newReplyId = 0;
+		
 		SecSql sql = new SecSql();
 		
 		sql.append("INSERT INTO reply SET");
@@ -45,7 +48,7 @@ public class ReplyDao {
 		sql.append(",`body` = ?",body);
 		sql.append(",`memberId` = ?",memberId);
 		
-		MysqlUtil.insert(sql);
+		newReplyId = MysqlUtil.insert(sql);
 		
 		sql = new SecSql();
 		
@@ -54,6 +57,8 @@ public class ReplyDao {
 		sql.append("WHERE id = ?" , articleId);
 		
 		MysqlUtil.update(sql);
+		
+		return newReplyId;
 		
 	}
 

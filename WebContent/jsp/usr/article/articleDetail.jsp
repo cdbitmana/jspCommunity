@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.sbs.example.jspCommunity.util.Util"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="${article.title }"/>
 
@@ -113,6 +114,26 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	$(form).css('display','none');
 }
 </script>
+
+<script>
+	$(function() {
+		if ( param.focusReplyId ) {
+			const $target = $('.articleDetailBox__articleReplyList__reply[data-id="' + param.focusReplyId + '"]');
+			$target.addClass('focus');
+		
+			setTimeout(function() {
+				const targetOffset = $target.offset();
+				
+				$(window).scrollTop(targetOffset.top - 100);
+				
+				setTimeout(function() {
+					$target.removeClass('focus');
+				}, 1000);
+			}, 1000);
+		}
+	});
+</script>
+
 <main class="con-min-width">
 <div class="con articleDetailBox">
 <span class="articleDetailTitle">${article.title}</span>
@@ -122,7 +143,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
     <span class="articleDetailWriter">${article.extra__writer}</span>
       <span class="articleDetailRegDate">${article.regDate}</span>
        <c:if test="${article.memberId == loginedMemberId }">
-     <form class="articleDetailModify" action="${contextName }/usr/article/modify" style="display:inline-block" method="post">	
+     <form class="articleDetailModify" action="${appUrl }/usr/article/modify" style="display:inline-block" method="post">	
      <input type="hidden" name="afterModifyUrl" value="${currentUrl }">
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
@@ -131,7 +152,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	
 	<input type="submit" value="수정">
 	</form>
-    <form class="articleDetailDelete" action="${contextName }/usr/article/doDelete" style="display:inline-block" method="post">
+    <form class="articleDetailDelete" action="${appUrl }/usr/article/doDelete" style="display:inline-block" method="post">
     <input type="hidden" name="listUrl" value="${param.listUrl }">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
@@ -163,7 +184,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
       <div class="articleDetailInfo-mb__box2 flex flex-ai-c flex-jc-sb">
       <div class="articleDetailInfo-mb__box2__left">      
       <c:if test="${article.memberId == loginedMemberId }">
-     <form class="articleDetailModify" action="${contextName }/usr/article/modify" style="display:inline-block" method="post">	
+     <form class="articleDetailModify" action="${appUrl }/usr/article/modify" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="hidden" name="title" value="${article.title }">
@@ -171,7 +192,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<input type="hidden" name="page" value="${param.page }">
 	<input type="submit" value="수정">
 	</form>
-    <form class="articleDetailDelete" action="${contextName }/usr/article/doDelete" style="display:inline-block" method="post">	
+    <form class="articleDetailDelete" action="${appUrl }/usr/article/doDelete" style="display:inline-block" method="post">	
 	<input type="hidden" name="memberId" value="${article.memberId }">
 	<input type="hidden" name="id" value="${article.id }">
 	<input type="submit" value="삭제">
@@ -233,11 +254,12 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<!-- 댓글 입력 창(로그인 했을 때) -->
 	<c:if test="${isLogined }">
 	<div class="articleDetailBox__reply-isLogined">
-	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="${contextName }/usr/reply/doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
+	<form name="writeReplyForm" class="articleDetailBox__reply-form" action="${appUrl }/usr/reply/doWriteArticleReply" method="POST" onsubmit="return writeFormCheck(this);">
+	<input type="hidden" name="afterWriteReplyUrl"
+				value="${Util.getNewUrl(currentUrl, 'focusReplyId', '[NEW_REPLY_ID]')}" />
 	<input type="hidden" name="body">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">
 	<input type="hidden" name="articleId" value="${article.id }">
-	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>
   <div class="toast-ui-editor"></div>
@@ -256,7 +278,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	
 	<div class="articleDetailBox__articleReplyList__replys">	
 	<c:forEach var="reply" items="${replys }">
-	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply">
+	<div data-id="${reply.id }" class="flex flex-dir-col articleDetailBox__articleReplyList__reply">
 	<!-- 댓글 리스트 본문 PC버전 -->
 	<div class="flex articleDetailBox__articleReplyList__reply-1-pc">
 	<div class="reply__writer">${reply.extra__writer }</div>
@@ -265,7 +287,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<div class="reply__btns flex flex-ai-c flex-jc-sa">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
-	<form class="reply__btns__delete-form" action="${contextName }/usr/reply/doDeleteArticleReply">
+	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
@@ -284,7 +306,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<c:if test="${loginedMemberId == reply.memberId }">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
-	<form class="reply__btns__delete-form" action="${contextName }/usr/reply/doDeleteArticleReply">
+	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
@@ -303,7 +325,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	
 	
 	<div class="articleDetailBox__reply-modify">
-	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="${contextName }/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
+	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="${appUrl }/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
 	<input type="hidden" name="body">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">

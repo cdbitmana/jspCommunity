@@ -129,8 +129,8 @@
 				<span class="cell-writer articleList_writer">${article.extra__writer }</span>
 				 <span class="cell-regDate">${article.regDate }</span> 
 				 <span class="cell-hit">${article.hitCount}</span>
-				 <span class="cell-likeCount">${article.likeCount }</span>
-				 <span class="cell-dislikeCount">${article.dislikeCount }</span>
+				 <span class="cell-likeCount">${article.extra__likeCount }</span>
+				 <span class="cell-dislikeCount">${article.extra__dislikeCount }</span>
 			</div>
 		</c:forEach>
 
@@ -150,8 +150,8 @@
 			<div class="flex flex-ai-c article-mb-2">
 			<span class="cell-writer-mb">${article.extra__writer }</span>
 			<span class="cell-hit-mb">조회수 ${article.hitCount }</span>			
-			<span class="cell-likeCount-mb">좋아요 ${article.likeCount }</span>
-			<span class="cell-dislikeCount-mb">싫어요 ${article.dislikeCount }</span>
+			<span class="cell-likeCount-mb">좋아요 ${article.extra__likeCount }</span>
+			<span class="cell-dislikeCount-mb">싫어요 ${article.extra__dislikeCount }</span>
 			<span class="flex-grow-1 cell-regDate-mb">${article.regDate }</span>
 			</div>
 			</a>

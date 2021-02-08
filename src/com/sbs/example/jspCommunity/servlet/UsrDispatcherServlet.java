@@ -77,7 +77,10 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = articleController.doLike(request,response);
 			} else if (actionMethodName.equals("doDislikeArticle")) {
 				jspPath = articleController.doDislike(request,response);
+			}  else if (actionMethodName.equals("doIncreaseArticleHit")) {
+				jspPath = articleController.doIncreaseArticleHit(request,response);
 			} 
+			
 		} else if (controllerName.equals("reply")) {
 			UsrReplyController replyController = Container.usrReplyController;
 			
@@ -87,7 +90,11 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = replyController.doModifyArticleReply(request,response);
 			} else if (actionMethodName.equals("doDeleteArticleReply")) {
 				jspPath = replyController.doDeleteArticleReply(request,response);
-			}
+			} else if (actionMethodName.equals("doLikeReply")) {
+				jspPath = replyController.doLikeReply(request,response);
+			} else if (actionMethodName.equals("doDisLikeReply")) {
+				jspPath = replyController.doDisLikeReply(request,response);
+			} 
 			
 		}
 

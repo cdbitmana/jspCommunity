@@ -69,10 +69,7 @@ public class ArticleService {
 		return articleDao.getArticlesForPrintListByBoardId(boardId, limitStart, itemsInAPage,searchType,keyword);
 	}
 
-	public void doIncreaseArticleHitCount(Article article) {
-		articleDao.doIncreaseArticleHitCount(article);
-	}
-
+	
 	public boolean isLikedArticle(int id, int memberId) {
 		return articleDao.isLikedArticle(id,memberId);
 	}
@@ -99,6 +96,10 @@ public class ArticleService {
 	public void removeDislikeArticle(int id, int memberId) {
 		articleDao.removeDislikeArticle(id,memberId);
 		
+	}
+
+	public void doIncreaseArticleHitCount(int articleId, int memberId) {
+		articleDao.doIncreaseArticleHitCount(articleId,memberId);
 	}
 
 	

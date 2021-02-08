@@ -50,6 +50,7 @@ public class UsrArticleController extends Controller {
 		int itemsInAPage = 10;
 
 		int limitStart = (page - 1) * itemsInAPage;
+		
 		List<Article> articles = articleService.getArticlesForPrintListByBoardId(boardId, limitStart, itemsInAPage,
 				searchType, keyword);
 
@@ -162,7 +163,6 @@ public class UsrArticleController extends Controller {
 
 		request.setAttribute("article", article);
 
-		articleService.doIncreaseArticleHitCount(article);
 
 		article = articleService.getArticleById(id);
 
@@ -177,18 +177,18 @@ public class UsrArticleController extends Controller {
 		boolean isLikedArticle = articleService.isLikedArticle(id, memberId);
 		boolean isDislikedArticle = articleService.isDislikedArticle(id, memberId);
 
-		List<Reply> replys = replyService.getArticleReplysByArticleId(id);
+		List<Reply> replies = replyService.getArticleReplysByArticleId(id);
 
 		int totalReplyCount = 0;
 
-		if (replys != null) {
-			totalReplyCount = replys.size();
+		if (replies != null) {
+			totalReplyCount = replies.size();
 		}
 
 		request.setAttribute("article", article);
 		request.setAttribute("isLikedArticle", isLikedArticle);
 		request.setAttribute("isDislikedArticle", isDislikedArticle);
-		request.setAttribute("replys", replys);
+		request.setAttribute("replys", replies);
 		request.setAttribute("totalReplyCount", totalReplyCount);
 
 		return "usr/article/articleDetail";
@@ -248,13 +248,13 @@ public class UsrArticleController extends Controller {
 		if (isLikedArticle) {
 			articleService.removeLikeArticle(id, memberId);
 			article = articleService.getArticleById(id);
-			likeCount = article.getLikeCount();
+			likeCount = article.getExtra__likeCount();
 			resultCode = "F-1";
 			map.put("likeCount", likeCount);
 		} else {
 			articleService.doLikeArticle(id, memberId);
 			article = articleService.getArticleById(id);
-			likeCount = article.getLikeCount();
+			likeCount = article.getExtra__likeCount();
 			resultCode = "S-1";
 			map.put("likeCount", likeCount);
 		}
@@ -268,18 +268,45 @@ public class UsrArticleController extends Controller {
 		int id = Integer.parseInt(request.getParameter("articleId"));
 
 		boolean isDislikedArticle = articleService.isDislikedArticle(id, memberId);
-
+		int dislikeCount = 0;
 		String resultCode = null;
-
+		Article article = null;
+		Map<String,Object> map = new HashMap<>();
 		if (isDislikedArticle) {
 			articleService.removeDislikeArticle(id, memberId);
+			article = articleService.getArticleById(id);
 			resultCode = "F-1";
+			dislikeCount = article.getExtra__dislikeCount();
+			map.put("dislikeCount", dislikeCount);
 		} else {
 			articleService.doDislikeArticle(id, memberId);
+			article = articleService.getArticleById(id);
+			dislikeCount = article.getExtra__dislikeCount();
 			resultCode = "S-1";
+			map.put("dislikeCount", dislikeCount);
 		}
 
-		return json(request, new ResultData(resultCode, ""));
+		return json(request, new ResultData(resultCode, "",map));
+	}
+
+	public String doIncreaseArticleHit(HttpServletRequest request, HttpServletResponse response) {
+
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int articleId = Integer.parseInt(request.getParameter("articleId"));
+		
+		articleService.doIncreaseArticleHitCount(articleId,memberId);
+		
+		
+		int hitCount = 0;
+		Article article = articleService.getArticleById(articleId);
+		
+		hitCount = article.getHitCount();
+		
+		Map<String,Object> map = new HashMap<>();
+		
+		map.put("hitCount", hitCount);
+		
+		return json(request, new ResultData("S-1", "",map));
 	}
 
 }

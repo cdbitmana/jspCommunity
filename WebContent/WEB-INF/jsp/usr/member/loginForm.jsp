@@ -39,9 +39,9 @@ function loginFormCheck(){
 <input id="loginIdForm" class="flex flex-jc-c" name="loginId" placeholder="아이디">
 <input type="hidden" name="loginPwReal">
 <input id="loginPwForm" type="password" name="loginPw" placeholder="비밀번호">
- <div class="findMember flex flex-ai-c flex-jc-c">
-  <a href="findLoginId">아이디 찾기</a>
-  <a href="findLoginPw">비밀번호 찾기</a>
+ <div class="findMember flex flex-ai-c flex-jc-sa">
+  <a class="btn-square" href="findLoginId">아이디 찾기</a>
+  <a class="btn-square" href="findLoginPw">비밀번호 찾기</a>
   </div>
   <div class="submitButtonBox">
 <button class="submitButton" type="submit">완료</button>

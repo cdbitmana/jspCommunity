@@ -177,6 +177,7 @@ main {
   color: #fff;
 
 }
+
 /* 커스텀 */
 
 /* 바디컨텐트 시작 */
@@ -394,9 +395,13 @@ main {
 }
 .findMember {
   margin-top: 20px;
+  width:230px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .findMember > a {
   padding: 10px;
+  
 }
 .findMember > a:hover {
   text-decoration: underline;
@@ -444,9 +449,8 @@ main {
   box-sizing: border-box;
 }
 .findLoginIdRs__login > a {
-  border: 1px solid black;
-  padding: 10px;
-  margin: 0 5px;
+ padding:10px;
+  
 }
 .findLoginIdFormNameCheckRs {
   text-align: center;
@@ -1022,6 +1026,10 @@ main {
 .articleDetailBox__articleReplyList {
   margin-top: 10px;
 }
+.articleDetailBox__articleReplyList__reply-1-pc__box-2{
+	height:18px;
+	margin-top:5px;
+}
 .articleDetailBox__articleReplyList__info{
 	padding:5px 0;
 }
@@ -1032,7 +1040,20 @@ main {
 .articleDetailBox__articleReplyList__reply{
 	padding:10px 4px;
 	border-bottom:1px solid #DDDDDD;
+	transition:all .3s;
 }
+.articleDetailBox__articleReplyList__reply.focus{
+	background-color:#DDDDDD;
+	transition:all .3s;
+}
+.articleDetailBox__articleReplyList__reply input{
+	transition:all .3s;
+}
+.articleDetailBox__articleReplyList__reply.focus input{
+	background-color:#DDDDDD;
+	transition:all .3s;
+}
+
 @media (max-width:768px){
 	.articleDetailBox__articleReplyList__reply-1-pc{
 	display:none !important;
@@ -1056,7 +1077,7 @@ main {
 :root {
   --reply__writer__width: 100px;
   --reply__regDate__width: 150px;
-  --reply__btns__width:80px;
+  --reply__btns__width:180px;
   --reply__body__width: calc(100% - var(--reply__regDate__width) - var(--reply__writer__width) - var(--reply__btns__width));
 }
 .reply__writer{
@@ -1079,9 +1100,26 @@ main {
 	text-align:center;
 	width:var(--reply__btns__width);
 }
-.reply__btns > div:hover {
+.reply__btns > div.click:hover {
+	cursor:pointer;
 	text-decoration:underline;
 }
+.reply__btns-mb-1{
+	width:130px;
+	
+}
+.reply__btns-mb-2{
+	width:80px;
+	font-size:12px;
+}
+.reply__btns-mb-2 input{
+	 background-color: white;
+  border: none;
+  cursor: pointer;
+  font-size:12px !important;
+  font-family:inherit;
+}
+
 .articleDetailBox__reply-modify{
 	display:none;
 }
@@ -1253,43 +1291,12 @@ footer {
   background-color: #2c2f3f80;
   color: white;
 }
-.bottom-cr-bar {
-  position: relative;
-}
+
 @media (max-width: 768px) {
   footer {
     display: none !important;
   }
 }
-.bottom-cr-bar__logobox {
-  position: absolute;
-  top: 15px;
-  left: 50px;
-}
-.bottom-cr-bar__logo-img {
-  width: 35px;
-  height: 35px;
-  background-image: url("../image/top-bar/joystick.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position-y: -8px;
-}
-.bottom-cr-bar__logo {
-  font-size: 1.5rem;
-  margin-left: 5px;
-}
-.bottom-cr-bar__crtextbox {
-  position: absolute;
-  top: 85px;
-  left: 50px;
-}
-.bottom-cr-bar__infobox {
-  position: absolute;
-  top: 65px;
-  right: 50px;
-}
-.bottom-cr-bar__infobox__text > div:nth-child(2) {
-  margin-top: 5px;
-}
+
 
 /* 하단 카피라이트 바 끝 */

@@ -31,4 +31,34 @@ public class ReplyService {
 		replyDao.doDeleteArticleReply(id);
 	}
 
+	public boolean isLikedReply(int id, int memberId) {
+		return replyDao.isLikedReply(id,memberId);
+	}
+
+	public void doDeleteReplyLike(int id, int memberId ) {
+		replyDao.doDeleteReplyLike(id,memberId);
+	}
+
+	public Reply getReplyById(int id) {
+		return replyDao.getReplyById(id);
+	}
+
+	public void doIncreaseReplyLike(int id, int memberId) {
+		replyDao.doIncreaseReplyLike(id,memberId);
+	}
+
+	public boolean isDisLikedReply(int id, int memberId) {
+		return replyDao.isDisLikedReply(id,memberId);
+	}
+
+	public void doDeleteReplyDisLike(int id, int memberId) {
+		replyDao.doDeleteReplyDisLike(id,memberId);
+		
+	}
+
+	public void doIncreaseReplyDisLike(int id, int memberId) {
+		replyDao.doIncreaseReplyDisLike(id,memberId);
+		
+	}
+
 }

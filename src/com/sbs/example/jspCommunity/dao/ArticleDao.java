@@ -55,13 +55,19 @@ public class ArticleDao {
 		Article article = null;
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT A.* , M.name AS extra__writer , B.name AS extra__boardName FROM article AS A ");
+		sql.append("SELECT A.* , M.name AS extra__writer , B.name AS extra__boardName");
+		sql.append(",IFNULL(SUM(IF(R.point > 0 , R.point , 0)) , 0) AS extra__likeCount");
+		sql.append(",IFNULL(SUM(IF(R.point < 0 , R.point * -1 , 0)) , 0) AS extra__dislikeCount");
+		sql.append(" FROM article AS A ");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
+		sql.append("LEFT JOIN recommend AS R");
+		sql.append("ON A.id = R.relId");
+		sql.append("AND R.relType = 'article'");
 		sql.append("WHERE A.id = ?", articleId);
-
+		sql.append("GROUP BY A.id");
 		Map<String, Object> articleMap = MysqlUtil.selectRow(sql);
 		if (articleMap != null) {
 			article = new Article(articleMap);
@@ -76,12 +82,23 @@ public class ArticleDao {
 		SecSql sql = new SecSql();
 
 		sql.append(
-				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount,A.likeCount,A.dislikeCount , A.replyCount,IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate, M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+				"SELECT A.id,A.updateDate,A.title,A.body,A.memberId,A.boardId,A.hitCount,"
+				+ "IFNULL(SUM(IF(R.point > 0 , R.point , 0)) , 0) AS extra__likeCount , "
+				+ "IFNULL(SUM(IF(R.point < 0 , R.point , 0)) , 0) AS extra__dislikeCount,"
+				+ "A.replyCount,"
+				+ "IF( DATE_FORMAT(A.regDate,'%d') = DATE_FORMAT(NOW(),'%d') , DATE_FORMAT( A.regDate , '%H:%i:%s') , A.regDate) AS regDate,"
+				+ " M.name AS extra__writer, "
+				+ "B.name AS extra__boardName "
+				+ "FROM article AS A");
+		sql.append("LEFT JOIN recommend AS R");
+		sql.append("ON A.id = R.relId");
+		sql.append("AND R.relType = 'article'");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
 		sql.append("WHERE A.boardId = ?", boardId);
+		sql.append("GROUP BY A.id");
 		sql.append("ORDER BY A.id DESC");
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
@@ -219,11 +236,17 @@ public class ArticleDao {
 
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName "
+				+ ",IFNULL(SUM(IF(R.point > 0 , R.point , 0)) , 0) AS extra__likeCount "
+				+ ",IFNULL(SUM(IF(R.point < 0 , R.point * -1, 0)) , 0) AS extra__dislikeCount"
+				+ " FROM article AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
+		sql.append("LEFT JOIN recommend AS R");
+		sql.append("ON A.id = R.relId");
+		sql.append("AND R.relType = 'article'");
 		sql.append("WHERE A.boardId = ?", boardId);
 
 		if (keyword != null) {
@@ -237,7 +260,7 @@ public class ArticleDao {
 			}
 
 		}
-
+		sql.append("GROUP BY A.id");
 		sql.append("ORDER BY A.id DESC");
 
 		List<Map<String, Object>> articleMapList = MysqlUtil.selectRows(sql);
@@ -256,11 +279,17 @@ public class ArticleDao {
 
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName FROM article AS A");
+		sql.append("SELECT A.* , M.name AS extra__writer, B.name AS extra__boardName"				
+				+ ",IFNULL(SUM(IF(R.point > 0 , R.point , 0)) , 0) AS extra__likeCount "
+				+ ",IFNULL(SUM(IF(R.point < 0 , R.point * -1, 0)) , 0) AS extra__dislikeCount"
+				+ " FROM article AS A");
 		sql.append("INNER JOIN `member` AS M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("INNER JOIN `board` AS B");
 		sql.append("ON A.boardId = B.id");
+		sql.append("LEFT JOIN recommend AS R");
+		sql.append("ON A.id = R.relId");
+		sql.append("AND R.relType = 'article'");
 		sql.append("WHERE A.boardId = ?", boardId);
 
 		if (keyword != null) {
@@ -274,6 +303,7 @@ public class ArticleDao {
 			}
 
 		}
+		sql.append("GROUP BY A.id");
 		sql.append("ORDER BY A.id DESC");
 		if (itemsInAPage != -1) {
 			sql.append("LIMIT ?, ?", limitStart, itemsInAPage);
@@ -288,19 +318,6 @@ public class ArticleDao {
 		return articles;
 	}
 
-	public void doIncreaseArticleHitCount(Article article) {
-
-		SecSql sql = new SecSql();
-
-		int hitCount = article.getHitCount();
-
-		sql.append("UPDATE article SET");
-		sql.append("hitCount = ?", hitCount + 1);
-		sql.append("WHERE id = ?", article.getId());
-
-		MysqlUtil.update(sql);
-
-	}
 
 	public boolean isLikedArticle(int id, int memberId) {
 
@@ -308,7 +325,7 @@ public class ArticleDao {
 
 		sql.append("SELECT * FROM `recommend`");
 		sql.append("WHERE `relType` = 'article'");
-		sql.append("AND `relType2` = 'like'");
+		sql.append("AND `point` = 1");
 		sql.append("AND `relId` = ?", id);
 		sql.append("AND `memberId` = ?", memberId);
 
@@ -328,7 +345,7 @@ public class ArticleDao {
 
 		sql.append("INSERT INTO `recommend` SET");
 		sql.append("`relType` = 'article'");
-		sql.append(",`relType2` = 'like'");
+		sql.append(",`point` = 1");
 		sql.append(", `relId` = ?", id);
 		sql.append(", memberId = ?", memberId);
 
@@ -336,11 +353,6 @@ public class ArticleDao {
 
 		sql = new SecSql();
 
-		sql.append("UPDATE article SET");
-		sql.append("likeCount = likeCount + 1");
-		sql.append("WHERE id = ?", id);
-
-		MysqlUtil.update(sql);
 
 	}
 
@@ -350,19 +362,13 @@ public class ArticleDao {
 
 		sql.append("DELETE FROM `recommend`");
 		sql.append("WHERE `relType` = 'article'");
-		sql.append("AND `relType2` = 'like'");
+		sql.append("AND `point` = 1");
 		sql.append("AND `relId` = ?", id);
 		sql.append("AND memberId = ?", memberId);
 
 		MysqlUtil.delete(sql);
 
-		sql = new SecSql();
-
-		sql.append("UPDATE article SET");
-		sql.append("likeCount = likeCount - 1");
-		sql.append("WHERE id = ?", id);
-
-		MysqlUtil.update(sql);
+		
 
 	}
 
@@ -371,7 +377,7 @@ public class ArticleDao {
 
 		sql.append("SELECT * FROM `recommend`");
 		sql.append("WHERE `relType` = 'article'");
-		sql.append("AND `relType2` = 'dislike'");
+		sql.append("AND `point` = -1");
 		sql.append("AND `relId` = ?", id);
 		sql.append("AND `memberId` = ?", memberId);
 
@@ -389,19 +395,13 @@ public class ArticleDao {
 
 		sql.append("INSERT INTO `recommend` SET");
 		sql.append("`relType` = 'article'");
-		sql.append(",`relType2` = 'dislike'");
+		sql.append(",`point` = -1");
 		sql.append(", `relId` = ?", id);
 		sql.append(", memberId = ?", memberId);
 
 		MysqlUtil.insert(sql);
+
 		
-		sql = new SecSql();
-
-		sql.append("UPDATE article SET");
-		sql.append("dislikeCount = dislikeCount + 1");
-		sql.append("WHERE id = ?", id);
-
-		MysqlUtil.update(sql);
 	}
 
 	public void removeDislikeArticle(int id, int memberId) {
@@ -409,19 +409,27 @@ public class ArticleDao {
 
 		sql.append("DELETE FROM `recommend`");
 		sql.append("WHERE `relType` = 'article'");
-		sql.append("AND `relType2` = 'dislike'");
+		sql.append("AND `point` = -1");
 		sql.append("AND `relId` = ?", id);
 		sql.append("AND memberId = ?", memberId);
 
 		MysqlUtil.delete(sql);
+
+	
+	}
+
+	public void doIncreaseArticleHitCount(int articleId, int memberId) {
 		
-		sql = new SecSql();
+		SecSql sql = new SecSql();
 
 		sql.append("UPDATE article SET");
-		sql.append("dislikeCount = dislikeCount - 1");
-		sql.append("WHERE id = ?", id);
+		sql.append("hitCount = hitCount + 1");
+		sql.append("WHERE id = ?", articleId);
 
 		MysqlUtil.update(sql);
+
 	}
+
+	
 
 }

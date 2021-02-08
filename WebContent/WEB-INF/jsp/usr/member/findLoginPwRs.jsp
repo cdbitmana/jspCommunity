@@ -21,7 +21,7 @@
 </c:if>
 <c:if test="${data.isSuccess() }">
 <div class="flex flex-jc-c flex-ai-c flex-jc-s-ar findLoginIdRs__login">
-<a href="login">로그인</a>
+<a class="btn-square" href="login">로그인</a>
 </div>
 </c:if>
 </div>

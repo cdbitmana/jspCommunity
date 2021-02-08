@@ -6,6 +6,78 @@
 
 <%@ include file="../../part/head.jspf"%>
 <script>
+
+function increaseHit(){
+	
+	let memberId = 0;
+	const articleId = ${article.id};
+	
+	if(${loginedMemberId}){
+	memberId = ${loginedMemberId};
+		}
+	
+	const date = new Date();
+	
+	const year = date.getFullYear();
+	const month = new String(date.getMonth());
+	const day = new String(date.getDate());
+	
+	const currentDate = new Date(year,month , day);
+	
+	if( JSON.parse(localStorage.getItem('member_'+ memberId + '_' + 'article_' + articleId))){
+		
+		const setYear = JSON.parse(localStorage.getItem('member_'+ memberId + '_' + 'article_' + articleId)).date.substr(0,4);
+        const setMonth = JSON.parse(localStorage.getItem('member_'+ memberId + '_' + 'article_' + articleId)).date.substr(5,2);
+		const setDay = JSON.parse(localStorage.getItem('member_'+ memberId + '_' + 'article_' + articleId)).date.substr(8,2);
+		const setDate = new Date(setYear,setMonth,setDay);
+
+		
+		if(currentDate.getTime() - setDate.getTime() > 86400000 ){
+			localStorage.removeItem('member_'+ memberId + '_' + 'article_' + articleId);
+			}
+		
+		}
+
+	
+	if( localStorage.getItem('member_'+ memberId + '_' + 'article_' + articleId)) {
+			return;
+		}
+
+	$.post(
+			"doIncreaseArticleHit",
+			{
+				memberId,
+				articleId
+			},
+			function(data) {
+			if(data.success){
+				$('.articleDetailHitCount').text('조회수 '+data.body.hitCount);
+				}
+			else{
+				}
+			},
+			"json"
+		);
+
+	const setMonth = new String(date.getMonth() -1);
+	const setDay = new String(date.getDate() +1);
+	
+	const setData = {
+			'memberId' : memberId,
+			'articleId' : ${article.id},
+			'date' : new Date(year,setMonth,setDay)
+			};
+	
+	localStorage.setItem('member_'+ memberId + '_' + 'article_' + articleId , JSON.stringify(setData));
+	
+}
+
+function countTime(){
+	setTimeout(increaseHit, 10000);
+}
+
+countTime();
+
 function doLikeBtn(){
 
 	const memberId = ${loginedMemberId};
@@ -19,11 +91,11 @@ function doLikeBtn(){
 			function(data) {
 			if(data.success){
 				$('.articleDetailBody__likeBtn > i').attr('class','fas fa-thumbs-up');
-				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+data.likeCount);
+				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+ data.body.likeCount);
 				}
 			else{
 				$('.articleDetailBody__likeBtn > i').attr('class','far fa-thumbs-up');
-				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+data.likeCount);
+				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+ data.body.likeCount);
 				}
 			},
 			"json"
@@ -43,9 +115,59 @@ function doDislikeBtn(){
 			function(data) {
 			if(data.success){
 				$('.articleDetailBody__dislikeBtn > i').attr('class','fas fa-thumbs-down');
+				$('.articleDetailInfo-box2__dislikeCount').text('싫어요 '+ data.body.dislikeCount);
 				}
 			else{
 				$('.articleDetailBody__dislikeBtn > i').attr('class','far fa-thumbs-down');
+				$('.articleDetailInfo-box2__dislikeCount').text('싫어요 '+ data.body.dislikeCount);
+				}
+			},
+			"json"
+		);
+}
+
+function doLikeReplyBtn(el,id){
+
+	const memberId = ${loginedMemberId};
+	const replyId = id;
+	$.get(
+			"${appUrl}/usr/reply/doLikeReply",
+			{
+				memberId,
+				replyId
+			},
+			function(data) {
+			if(data.success){
+				$(el).children('i').attr('class','fas fa-thumbs-up');
+				$(el).children('span').text('좋아요 '+data.body.replyLikeCount);
+				}
+			else{
+				$(el).children('i').attr('class','far fa-thumbs-up');
+				$(el).children('span').text('좋아요 '+data.body.replyLikeCount);
+				}
+			},
+			"json"
+		);
+}
+
+function doDisLikeReplyBtn(el,id){
+
+	const memberId = ${loginedMemberId};
+	const replyId = id;
+	$.get(
+			"${appUrl}/usr/reply/doDisLikeReply",
+			{
+				memberId,
+				replyId
+			},
+			function(data) {
+			if(data.success){
+				$(el).children('i').attr('class','fas fa-thumbs-down');
+				$(el).children('span').text('싫어요 '+data.body.replyDislikeCount);
+				}
+			else{
+				$(el).children('i').attr('class','far fa-thumbs-down');
+				$(el).children('span').text('싫어요 '+data.body.replyDislikeCount);
 				}
 			},
 			"json"
@@ -123,8 +245,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 		
 			setTimeout(function() {
 				const targetOffset = $target.offset();
-				
-				$(window).scrollTop(targetOffset.top - 100);
+				$(window).scrollTop(targetOffset.top);
 				
 				setTimeout(function() {
 					$target.removeClass('focus');
@@ -161,9 +282,9 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	</c:if>
 	</div>
 	<div class="articleDetailInfo-box2">
-      <span>조회수 ${article.hitCount}</span>
-      <span class="articleDetailInfo-box2__likeCount">좋아요 ${article.likeCount}</span>
-      <span class="articleDetailInfo-box2__dislikeCount">싫어요 ${article.dislikeCount}</span>
+      <span class="articleDetailHitCount">조회수 ${article.hitCount}</span>
+      <span class="articleDetailInfo-box2__likeCount">좋아요 ${article.extra__likeCount}</span>
+      <span class="articleDetailInfo-box2__dislikeCount">싫어요 ${article.extra__dislikeCount}</span>
       <span>댓글수 ${totalReplyCount}</span>
       </div>
       </div>	
@@ -200,8 +321,8 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	</c:if>  
 	</div>
 	<div class="float-r articleDetailInfo-mb__box2__right">
-	  <span>좋아요 ${article.likeCount}</span>
-      <span>싫어요 ${article.dislikeCount}</span>
+	  <span class="articleDetailInfo-box2__likeCount">좋아요 ${article.extra__likeCount}</span>
+      <span class="articleDetailInfo-box2__dislikeCount">싫어요 ${article.extra__dislikeCount}</span>
 	</div>
 	</div> 
       </div>
@@ -280,30 +401,53 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<c:forEach var="reply" items="${replys }">
 	<div data-id="${reply.id }" class="flex flex-dir-col articleDetailBox__articleReplyList__reply">
 	<!-- 댓글 리스트 본문 PC버전 -->
-	<div class="flex articleDetailBox__articleReplyList__reply-1-pc">
+	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply-1-pc">
+	<div class="flex articleDetailBox__articleReplyList__reply-1-pc__box-1">
+	
 	<div class="reply__writer">${reply.extra__writer }</div>
-	<div class="flex-grow-1 reply__body">${reply.body }</div>
+	<div class="flex-grow-1 reply__body">${reply.body }</div>	
+	
+	
+	<div class="flex flex-ai-c flex-jc-sa reply__btns">
+	<div class="reply__btns__like <c:if test="${isLogined }"> click</c:if>" <c:if test="${isLogined }">onclick="doLikeReplyBtn(this,${reply.id});"</c:if>><i class="far fa-thumbs-up"></i><span class="replyLikeCount">좋아요 ${reply.extra__likeCount }</span></div>
+	<div class="reply__btns__dislike <c:if test="${isLogined }"> click </c:if>" <c:if test="${isLogined }">onclick="doDisLikeReplyBtn(this,${reply.id});"</c:if>><i class="far fa-thumbs-down"></i><span class="replyDislikeCount">싫어요 ${reply.extra__dislikeCount }</span></div>
+	</div>
+	
+	
+	<div class="reply__regDate">${reply.regDate }</div>	
+	</div>
+	<div class="articleDetailBox__articleReplyList__reply-1-pc__box-2">
+	<div class="float-r reply__btns flex flex-ai-c flex-jc-sa">
 	<c:if test="${loginedMemberId == reply.memberId }">
-	<div class="reply__btns flex flex-ai-c flex-jc-sa">
-	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
-	<div class="reply__btns__delete">
+	<div class="reply__btns__modify click" onclick="modifyFormOpen(this);">수정</div>
+	<div class="reply__btns__delete click">
 	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	</div>
-	</div>
 	</c:if>
-	<div class="reply__regDate">${reply.regDate }</div>	
+	</div>	
+	</div>
 	</div>	
 	
 	<!-- 댓글 리스트 본문 모바일버전 -->
 	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply-1-mb">
 	<div class="flex flex-ai-c flex-jc-sb articleDetailBox__articleReplyList__reply-1-mb__box1">
 	<div>${reply.extra__writer }</div>
-	<div class="flex flex-ai-c">
+	<div class="flex flex-ai-c">	
+	<div class="flex flex-ai-c flex-jc-sa reply__btns-mb-1">
+	<div class="reply__btns__like <c:if test="${isLogined }"> click</c:if>" <c:if test="${isLogined }">onclick="doLikeReplyBtn(this,${reply.id});"</c:if>><i class="far fa-thumbs-up"></i><span class="replyLikeCount">좋아요 ${reply.extra__likeCount }</span></div>
+	<div class="reply__btns__dislike <c:if test="${isLogined }"> click </c:if>" <c:if test="${isLogined }">onclick="doDisLikeReplyBtn(this,${reply.id});"</c:if>><i class="far fa-thumbs-down"></i><span class="replyDislikeCount">싫어요 ${reply.extra__dislikeCount }</span></div>
+	</div>
+	<div>${reply.regDate }</div>
+	</div>
+	</div>
+	<div class="flex flex-ai-c articleDetailBox__articleReplyList__reply-1-mb__box2">
+	<div class="flex-grow-1">${reply.body }</div>
 	<c:if test="${loginedMemberId == reply.memberId }">
+	<div class="flex flex-ai-c flex-jc-sa reply__btns-mb-2">
 	<div class="reply__btns__modify" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete">
 	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
@@ -312,12 +456,8 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	</div>
+	</div>
 	</c:if>
-	<div>${reply.regDate }</div>
-	</div>
-	</div>
-	<div class="articleDetailBox__articleReplyList__reply-1-mb__box2">
-	<div>${reply.body }</div>
 	</div>
 	</div>
 	
@@ -330,7 +470,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	<input type="hidden" name="id" value="${reply.id }">
 	<input type="hidden" name="memberId" value="${sessionScope.loginedMemberId }">
 	<input type="hidden" name="articleId" value="${article.id }">
-	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
+	<input type="hidden" name="afterWriteReplyUrl" value="${Util.getNewUrl(currentUrl, 'focusReplyId', '[NEW_REPLY_ID]')}">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>
   <div class="toast-ui-editor"></div>

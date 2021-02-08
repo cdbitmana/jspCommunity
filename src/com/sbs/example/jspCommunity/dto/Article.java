@@ -1,5 +1,6 @@
 package com.sbs.example.jspCommunity.dto;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.*;
@@ -12,14 +13,17 @@ public class Article {
 	private String title;
 	private String body;
 	private int memberId;
-	private int hitCount;
-	private int likeCount;
-	private int dislikeCount;
+	private int hitCount;	
 	private int replyCount;
 	private int boardId;
+	
+	private Map<String, Object> extra;
+	
 	private String extra__writer;
 	private String extra__boardName;
 	private String extra__boardCode;
+	private int extra__likeCount;
+	private int extra__dislikeCount;
 
 	public Article(Map<String, Object> articleMap) {
 		this.id = (int) articleMap.get("id");
@@ -29,13 +33,27 @@ public class Article {
 		this.body = (String) articleMap.get("body");
 		this.memberId = (int) articleMap.get("memberId");
 		this.hitCount = (int) articleMap.get("hitCount");
-		this.likeCount = (int) articleMap.get("likeCount");
-		this.dislikeCount = (int) articleMap.get("dislikeCount");
 		this.replyCount = (int) articleMap.get("replyCount");
 		this.boardId = (int) articleMap.get("boardId");
-		this.extra__writer = (String) articleMap.get("extra__writer");
-		this.extra__boardName = (String) articleMap.get("extra__boardName");
-		this.extra__boardCode = (String) articleMap.get("extra__boardCode");
+		
+		if(articleMap.containsKey("extra__writer")) {
+			this.extra__writer = (String) articleMap.get("extra__writer");
+		}
+		
+		if(articleMap.containsKey("extra__boardCode")) {
+			this.extra__boardCode = (String) articleMap.get("extra__boardCode");
+		}
+		if(articleMap.containsKey("extra__boardName")) {
+			this.extra__boardName = (String) articleMap.get("extra__boardName");
+		}
+		if(articleMap.containsKey("extra__likeCount")) {
+			this.extra__likeCount = Integer.parseInt(String.valueOf(articleMap.get("extra__likeCount")));
+		}
+		if(articleMap.containsKey("extra__dislikeCount")) {
+			this.extra__dislikeCount = Integer.parseInt(String.valueOf(articleMap.get("extra__dislikeCount"))) ;
+		}
+		
+		this.extra = new LinkedHashMap<>();
 	}
 
 	

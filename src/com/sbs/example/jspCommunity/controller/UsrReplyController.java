@@ -56,9 +56,12 @@ public class UsrReplyController extends Controller {
 		int articleId = Integer.parseInt(request.getParameter("articleId"));
 		replyService.doModifyArticleReply(id,articleId,body,memberId);
 		
+		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
+		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", id + "");
+		
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
-			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
+			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
 
 		return "common/redirect";
@@ -80,6 +83,63 @@ public class UsrReplyController extends Controller {
 		}
 
 		return "common/redirect";
+	}
+
+	public String doLikeReply(HttpServletRequest request, HttpServletResponse response) {
+
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int id = Integer.parseInt(request.getParameter("replyId"));
+
+		boolean isLikedReply = replyService.isLikedReply(id, memberId);
+		int likeCount = 0;
+		Reply reply = null;
+		String resultCode = null;
+		Map<String,Object> map = new HashMap<>();
+		
+		if (isLikedReply) {
+			replyService.doDeleteReplyLike(id,memberId);
+			reply = replyService.getReplyById(id);
+			likeCount = reply.getExtra__likeCount();
+			resultCode = "F-1";
+			map.put("replyLikeCount", likeCount);
+		} else {
+			replyService.doIncreaseReplyLike(id,memberId);
+			reply = replyService.getReplyById(id);
+			likeCount = reply.getExtra__likeCount();
+			resultCode = "S-1";
+			map.put("replyLikeCount", likeCount);
+		}
+
+		return json(request, new ResultData(resultCode, "", map));
+
+	}
+
+	public String doDisLikeReply(HttpServletRequest request, HttpServletResponse response) {
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int id = Integer.parseInt(request.getParameter("replyId"));
+
+		boolean isDisLikedReply = replyService.isDisLikedReply(id, memberId);
+		int likeCount = 0;
+		Reply reply = null;
+		String resultCode = null;
+		Map<String,Object> map = new HashMap<>();
+		
+		if (isDisLikedReply) {
+			replyService.doDeleteReplyDisLike(id,memberId);
+			reply = replyService.getReplyById(id);
+			likeCount = reply.getExtra__dislikeCount();
+			resultCode = "F-1";
+			map.put("replyDislikeCount", likeCount);
+		} else {
+			replyService.doIncreaseReplyDisLike(id,memberId);
+			reply = replyService.getReplyById(id);
+			likeCount = reply.getExtra__dislikeCount();
+			resultCode = "S-1";
+			map.put("replyDislikeCount", likeCount);
+		}
+
+		return json(request, new ResultData(resultCode, "", map));
+
 	}
 
 }

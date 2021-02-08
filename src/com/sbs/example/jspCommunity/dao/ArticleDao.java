@@ -124,8 +124,8 @@ public class ArticleDao {
 		sql.append("`body` = ?,", body);
 		sql.append("memberId = ?,", memberId);
 		sql.append("boardId = ?,", boardId);
-		sql.append("hitCount = ?", 0);
-
+		sql.append("hitCount = ?,", 0);
+		sql.append("replyCount = 0");
 		return MysqlUtil.insert(sql);
 
 	}

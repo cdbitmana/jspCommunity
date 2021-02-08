@@ -298,7 +298,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
       <span class="articleDetailRegDate">${article.regDate}</span>
       </div>
       <div>
-      <span>조회수 ${article.hitCount}</span>
+      <span class="articleDetailHitCount">조회수 ${article.hitCount}</span>
       <span>댓글수 ${totalReplyCount}</span>
       </div>
       </div>

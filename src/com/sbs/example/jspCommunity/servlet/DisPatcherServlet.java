@@ -130,7 +130,7 @@ public abstract class DisPatcherServlet extends HttpServlet {
 				request.setAttribute("alertMsg", "로그인 후 이용해주세요.");
 				request.setAttribute("replaceUrl", "../member/login?afterLoginUrl=" + encodedCurrentUrl);
 
-				RequestDispatcher rd = request.getRequestDispatcher("/jsp/common/redirect.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp//common/redirect.jsp");
 				rd.forward(request, response);
 			}
 		}
@@ -153,7 +153,7 @@ public abstract class DisPatcherServlet extends HttpServlet {
 				request.setAttribute("alertMsg", "로그아웃 후 이용해주세요.");
 				request.setAttribute("historyBack", true);
 
-				RequestDispatcher rd = request.getRequestDispatcher("/jsp/common/redirect.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/common/redirect.jsp");
 				rd.forward(request, response);
 			}
 		}

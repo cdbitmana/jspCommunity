@@ -94,6 +94,8 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = replyController.doLikeReply(request,response);
 			} else if (actionMethodName.equals("doDisLikeReply")) {
 				jspPath = replyController.doDisLikeReply(request,response);
+			} else if (actionMethodName.equals("doWriteReplyReply")) {
+				jspPath = replyController.doWriteReplyReply(request,response);
 			} 
 			
 		}

@@ -14,8 +14,8 @@ public class ReplyService {
 		replyDao = Container.replyDao;
 	}
 
-	public List<Reply> getArticleReplysByArticleId(int id) {
-		return replyDao.getArticleReplysByArticleId(id);
+	public List<Reply> getReplysByArticleId(int id) {
+		return replyDao.getReplysByArticleId(id);
 	}
 
 	public int doWriteArticleReply(int articleId,String body, int memberId) {
@@ -59,6 +59,14 @@ public class ReplyService {
 	public void doIncreaseReplyDisLike(int id, int memberId) {
 		replyDao.doIncreaseReplyDisLike(id,memberId);
 		
+	}
+
+	public List<Reply> getReplys() {
+		return replyDao.getReplys();
+	}
+
+	public int doWriteReply(String relType, int relId, String body, int memberId) {
+		return replyDao.doWriteReply(relType,relId,body,memberId);
 	}
 
 }

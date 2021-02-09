@@ -142,4 +142,24 @@ public class UsrReplyController extends Controller {
 
 	}
 
+	public String doWriteReplyReply(HttpServletRequest request, HttpServletResponse response) {
+		
+		String body = request.getParameter("body");
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int replyId = Integer.parseInt(request.getParameter("replyId"));
+		String relType = "reply";
+		int newReplyId = replyService.doWriteReply(relType, replyId, body, memberId);
+
+	
+		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
+		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", newReplyId + "");
+		
+		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
+
+			request.setAttribute("replaceUrl",afterWriteReplyUrl);
+		}
+		
+		return "common/redirect";
+	}
+
 }

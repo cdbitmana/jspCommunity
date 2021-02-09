@@ -11,7 +11,7 @@ import mysqlutil.SecSql;
 
 public class ReplyDao {
 
-	public List<Reply> getArticleReplysByArticleId(int id) {
+	public List<Reply> getReplysByArticleId(int id) {
 
 		List<Reply> replies = null;
 
@@ -27,8 +27,7 @@ public class ReplyDao {
 		sql.append("LEFT JOIN recommend AS RC");
 		sql.append("ON R.id = RC.relId");
 		sql.append("AND RC.relType = 'reply'");
-		sql.append("WHERE R.relType = 'article'");
-		sql.append("AND R.relId = ?", id);
+		sql.append("WHERE R.relId = ?", id);		
 		sql.append("GROUP BY R.id");
 
 		List<Map<String, Object>> replyMapList = MysqlUtil.selectRows(sql);
@@ -55,6 +54,7 @@ public class ReplyDao {
 		sql.append(",`relId` = ?", articleId);
 		sql.append(",`body` = ?", body);
 		sql.append(",`memberId` = ?", memberId);
+		sql.append(",`status` = 1");
 
 		newReplyId = MysqlUtil.insert(sql);
 
@@ -87,10 +87,11 @@ public class ReplyDao {
 	public void doDeleteArticleReply(int id) {
 		SecSql sql = new SecSql();
 
-		sql.append("DELETE FROM `reply`");
+		sql.append("UPDATE `reply` SET");
+		sql.append("`status` = -1");
 		sql.append("WHERE id = ?", id);
 
-		MysqlUtil.delete(sql);
+		MysqlUtil.update(sql);
 	}
 
 	public boolean isLikedReply(int id, int memberId) {
@@ -202,6 +203,50 @@ public class ReplyDao {
 		sql.append(",memberId = ?" , memberId);
 		
 		MysqlUtil.update(sql);
+	}
+
+	public List<Reply> getReplys() {
+		List<Reply> replies = null;
+
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT R.* , M.nickName AS extra__writer"
+				
+				+ ",IFNULL(SUM(IF(RC.point > 0 , RC.point , 0)) , 0) AS extra__likeCount"
+				+ ",IFNULL(SUM(IF(RC.point < 0 , RC.point * -1 , 0)) , 0) AS extra__dislikeCount"
+				+ " FROM `reply` AS R");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON R.memberId = M.id");
+		sql.append("LEFT JOIN recommend AS RC");
+		sql.append("ON R.id = RC.relId");
+		sql.append("AND RC.relType = 'reply'");		
+		sql.append("GROUP BY R.id");
+
+		List<Map<String, Object>> replyMapList = MysqlUtil.selectRows(sql);
+
+		if (!replyMapList.isEmpty()) {
+			replies = new ArrayList<>();
+			for (Map<String, Object> replyMap : replyMapList) {
+				replies.add(new Reply(replyMap));
+			}
+		}
+
+		return replies;
+		
+	}
+
+	public int doWriteReply(String relType, int relId, String body, int memberId) {
+		SecSql sql = new SecSql();
+		
+		sql.append("INSERT INTO `reply` SET");
+		sql.append("regDate = NOW(), updateDate = NOW()");
+		sql.append(", `relType` = ?" , relType);
+		sql.append(", `relId` = ?" , relId);
+		sql.append(", `body` = ?" , body);
+		sql.append(", `memberId` = ?" , memberId);
+		sql.append(", `status` = 1");
+		
+		return MysqlUtil.insert(sql);
 	}
 
 }

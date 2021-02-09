@@ -169,6 +169,7 @@ main {
   cursor: pointer;
   outline: none;
   overflow: hidden;
+  padding:10px;
 }
 .btn-square:hover{
 
@@ -1030,15 +1031,23 @@ main {
 .articleDetailBox__articleReplyList {
   margin-top: 10px;
 }
+.articleDetailBox__articleReplyList__reply-1-pc__deletedReply{
+	color:#afafaf;
+	height:44px;
+}
+.articleDetailBox__articleReplyList__reply-1-mb__deletedReply{
+	color:#afafaf;
+	height:40px;
+}
 .articleDetailBox__articleReplyList__reply-1-pc__box-2{
 	height:18px;
-	margin-top:5px;
+	margin-top:10px;
 }
 .articleDetailBox__articleReplyList__info{
 	padding:5px 0;
 }
-.articleDetailBox__articleReplyList__replys{
-	padding:5px 0;
+.articleDetailBox__articleReplyList__replies{
+	padding-bottom:5px;
 	border-top:2px solid #afafaf;
 }
 .articleDetailBox__articleReplyList__reply{
@@ -1081,7 +1090,8 @@ main {
 :root {
   --reply__writer__width: 100px;
   --reply__regDate__width: 150px;
-  --reply__btns__width:180px;
+  --reply__btns-1__width:70px;
+  --reply__btns-2__width:180px;
   --reply__body__width: calc(100% - var(--reply__regDate__width) - var(--reply__writer__width) - var(--reply__btns__width));
 }
 .reply__writer{
@@ -1100,9 +1110,13 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.reply__btns{
+.reply__btns-1{
 	text-align:center;
-	width:var(--reply__btns__width);
+	width:var(--reply__btns-1__width);
+}
+.reply__btns-2{
+	width:var(--reply__btns-2__width);
+	text-align:center;
 }
 .reply__btns > div.click:hover {
 	cursor:pointer;
@@ -1163,6 +1177,118 @@ main {
 }
 .articleDetailInfo-mb > div:nth-child(2) {
   margin-top: 5px;
+}
+
+.reply__reply{
+	margin-right:15px;
+}
+
+.reply__reply-mb{
+	margin-right:15px;
+	font-size:12px;
+}
+.articleDetailBox__reply-reply{
+	display:none;
+}
+.articleDetailBox__reply-reply .toast-ui-editor{
+	height:170px !important;	
+}
+.replyreplies__arrow{
+	background-image:url("../image/replyArrow.png");
+	background-size:contain;
+	background-repeat:no-repeat;
+	width:10%;
+	height:15px;
+	background-position:center center;
+}
+.replyreplies__replyReplyList{
+	width:90%;
+}
+.replyReply-btns{
+	margin-top:10px;
+}
+.replyReply__submit{
+	font-size:14px;
+}
+.replyReply__cancel{
+	font-size:14px;
+	margin-left:5px;
+}
+.replyreplies{
+	margin-top:10px;
+}
+.replyreplies-mb{
+	margin-top:10px;
+}
+:root{
+  --replyreplies__writer__width: 100px;
+  --replyreplies__regDate__width: 150px;
+  --replyreplies__btns-1__width:180px;
+  --replyreplies__btns-2__width:90px;
+  --replyreplies__body__width:calc ( 100% - var(--replyreplies__writer_width) - var(--replyreplies__btns-1_width) var(--replyreplies__regDate_width) )
+  
+   --replyreplies__writer-mb__width: 80px;
+  --replyreplies__regDate-mb__width: 110px;
+  --replyreplies__btns-1-mb__width:140px;
+  --replyreplies__btns-2-mb__width:60px;
+	
+}
+.replyreplies__replyReplyList__replyContainer{
+	padding:10px;
+	margin-top:5px;
+	border:1px solid #ececec;
+	background-color:#f8f8f8;
+}
+.replyreplies__replyReplyList__replyContainer-mb{
+	padding:10px;
+	padding-bottom:0;
+	margin-top:5px;
+	border:1px solid #ececec;
+	background-color:#f8f8f8;
+	font-size:12px;
+}
+.replyreplies__writer{
+	width:var(--replyreplies__writer__width);
+}
+.replyreplies__regDate{
+	width:var(--replyreplies__regDate__width);
+	text-align:right;
+}
+.replyreplies__btns-1{
+	width:var(--replyreplies__btns-1__width);
+}
+.replyreplies__body{
+	width:var(--replyreplies__body__width);
+}
+.replyreplies__replyReplyList__replyContainer__box-2{
+	margin-top:10px;
+	height:18px;
+}
+.replyreplies__btns-2{
+	width:var(--replyreplies__btns-2__width);
+	margin-top:10px;
+}
+
+.replyreplies__writer-mb{
+	width:var(--replyreplies__writer-mb__width);
+}
+.replyreplies__btns-1-mb{
+	width:var(--replyreplies__btns-1-mb__width);
+	margin-top:10px;
+}
+.replyreplies__btns-1-mb > span:not(:first-child) {
+	margin-left:8px;
+}
+.replyreplies__btns-2-mb{
+	width:var(--replyreplies__btns-2-mb__width);
+}
+.replyreplies__regDate-mb{
+	width:var(--replyreplies__regDate-mb__width);
+	text-align:right;
+}
+.replyreplies__body-mb{
+	margin-top:10px;
+	font-size:18px;
 }
 /* 게시물 상세보기 끝 */
 

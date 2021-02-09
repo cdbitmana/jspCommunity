@@ -50,7 +50,7 @@ public class UsrArticleController extends Controller {
 		int itemsInAPage = 10;
 
 		int limitStart = (page - 1) * itemsInAPage;
-		
+
 		List<Article> articles = articleService.getArticlesForPrintListByBoardId(boardId, limitStart, itemsInAPage,
 				searchType, keyword);
 
@@ -100,7 +100,7 @@ public class UsrArticleController extends Controller {
 
 		if (Util.isEmpty(request.getParameter("listUrl")) == false) {
 
-			request.setAttribute("replaceUrl", App.getAppUrl()+"/usr/article/detail?id=" + newArticleId + "&listUrl="
+			request.setAttribute("replaceUrl", App.getAppUrl() + "/usr/article/detail?id=" + newArticleId + "&listUrl="
 					+ request.getParameter("listUrl"));
 		}
 
@@ -118,8 +118,8 @@ public class UsrArticleController extends Controller {
 		modifyArgs.put("body", body);
 
 		articleService.doModify(modifyArgs);
-		
-		request.setAttribute("replaceUrl", App.getAppUrl()+"/usr/article/detail?id="+ id );
+
+		request.setAttribute("replaceUrl", App.getAppUrl() + "/usr/article/detail?id=" + id);
 
 		if (Util.isEmpty(request.getParameter("afterModifyUrl")) == false) {
 
@@ -163,7 +163,6 @@ public class UsrArticleController extends Controller {
 
 		request.setAttribute("article", article);
 
-
 		article = articleService.getArticleById(id);
 
 		int memberId = 0;
@@ -177,7 +176,7 @@ public class UsrArticleController extends Controller {
 		boolean isLikedArticle = articleService.isLikedArticle(id, memberId);
 		boolean isDislikedArticle = articleService.isDislikedArticle(id, memberId);
 
-		List<Reply> replies = replyService.getArticleReplysByArticleId(id);
+		List<Reply> replies = replyService.getReplys();
 
 		int totalReplyCount = 0;
 
@@ -188,7 +187,7 @@ public class UsrArticleController extends Controller {
 		request.setAttribute("article", article);
 		request.setAttribute("isLikedArticle", isLikedArticle);
 		request.setAttribute("isDislikedArticle", isDislikedArticle);
-		request.setAttribute("replys", replies);
+		request.setAttribute("replies", replies);
 		request.setAttribute("totalReplyCount", totalReplyCount);
 
 		return "usr/article/articleDetail";
@@ -243,8 +242,8 @@ public class UsrArticleController extends Controller {
 		int likeCount = 0;
 		Article article = null;
 		String resultCode = null;
-		Map<String,Object> map = new HashMap<>();
-		
+		Map<String, Object> map = new HashMap<>();
+
 		if (isLikedArticle) {
 			articleService.removeLikeArticle(id, memberId);
 			article = articleService.getArticleById(id);
@@ -271,7 +270,7 @@ public class UsrArticleController extends Controller {
 		int dislikeCount = 0;
 		String resultCode = null;
 		Article article = null;
-		Map<String,Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		if (isDislikedArticle) {
 			articleService.removeDislikeArticle(id, memberId);
 			article = articleService.getArticleById(id);
@@ -286,27 +285,26 @@ public class UsrArticleController extends Controller {
 			map.put("dislikeCount", dislikeCount);
 		}
 
-		return json(request, new ResultData(resultCode, "",map));
+		return json(request, new ResultData(resultCode, "", map));
 	}
 
 	public String doIncreaseArticleHit(HttpServletRequest request, HttpServletResponse response) {
 
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int articleId = Integer.parseInt(request.getParameter("articleId"));
-		
-		articleService.doIncreaseArticleHitCount(articleId,memberId);
-		
-		
+
+		articleService.doIncreaseArticleHitCount(articleId, memberId);
+
 		int hitCount = 0;
 		Article article = articleService.getArticleById(articleId);
-		
+
 		hitCount = article.getHitCount();
-		
-		Map<String,Object> map = new HashMap<>();
-		
+
+		Map<String, Object> map = new HashMap<>();
+
 		map.put("hitCount", hitCount);
-		
-		return json(request, new ResultData("S-1", "",map));
+
+		return json(request, new ResultData("S-1", "", map));
 	}
 
 }

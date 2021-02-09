@@ -14,6 +14,7 @@ public class Reply {
 	private int relId;
 	private String body;
 	private int memberId;
+	private int status;
 	
 	private Map<String, Object> extra;
 	
@@ -29,6 +30,7 @@ public class Reply {
 		this.relId = (int)replyMap.get("relId");
 		this.body = (String)replyMap.get("body");
 		this.memberId = (int)replyMap.get("memberId");
+		this.status = (int)replyMap.get("status");
 		
 		if(replyMap.containsKey("extra__writer")) {
 			this.extra__writer = (String)replyMap.get("extra__writer");

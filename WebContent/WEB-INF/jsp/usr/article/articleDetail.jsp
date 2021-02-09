@@ -327,11 +327,25 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
 	</div> 
       </div>
 <!-- 게시물 상세보기 상단 정보 모바일 버전 끝 -->
+
+<!-- 게시물 본문 내용 시작 -->
     <div class="flex flex-dir-col articleDetailBody">
-    <div class="flex-grow-1 articleDetailBody__bodytext">
+    <div class="flex flex-grow-1 articleDetailBody__bodytext">
+    <c:if test="${article.extra__dislikeCount < 10 }">
+    <div class="articleDetailBody__bodytext__body">
       <script type="text/x-template">${article.body }</script>
   <div class="toast-ui-viewer"></div>
   </div>
+  </c:if>
+  <c:if test="${article.extra__dislikeCount >= 10 }">
+  <div class="width-100p flex flex-ai-c flex-jc-c articleDetailBody__bodytext__blindbody">
+  <span>해당 게시물은 블라인드 처리되었습니다.</span>
+  </div>
+  </c:if>
+  </div>
+  <!-- 게시물 본문 내용 끝 -->
+  
+  <!-- 게시물 본문 좋아요 싫어요 버튼 시작 -->
   <c:if test="${isLogined }">
   <div class="flex flex-ai-c flex-jc-sa articleDetailBody__likeanddislike">
   <div class="articleDetailBody__likeBtn" onclick="doLikeBtn();">
@@ -353,6 +367,7 @@ const form = $(el).parents().parents('.articleDetailBox__reply-modify');
   </div>
   </c:if>
     </div>
+    <!-- 게시물 본문 좋아요 싫어요 버튼 끝 -->
     
 	<div class="articleDetailToList">
 	<a href="${param.listUrl }">목록</a>

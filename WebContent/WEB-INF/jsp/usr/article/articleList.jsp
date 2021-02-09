@@ -228,6 +228,7 @@
 
 
 </main>
+<!-- 리스트에서 작성자 이름을 클릭시 메뉴창 팝업 -->
 <div class="articleList__writerMenuBox">
 	<div><a href="">쪽지 보내기</a></div>
 		<div class="articleList__writerMenuBox__search"><a href="">작성글 검색</a>

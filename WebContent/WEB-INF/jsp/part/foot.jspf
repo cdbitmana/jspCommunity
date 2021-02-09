@@ -4,11 +4,8 @@
 </div>
 
 <footer class="con-min-width">
-<div class="con bottom-cr-bar">
+<div class="flex flex-dir-col flex-jc-sa con height-100p bottom-cr-bar">
 
-<div class="bottom-cr-bar__crtextbox">
-<div class="bottom-cr-bar__crtextbox__text">copyright <i class="fas fa-copyright"></i>. Indie World All rights reserved.</div>
-</div>
 
 <div class="bottom-cr-bar__infobox">
 <div class="bottom-cr-bar__infobox__text">
@@ -16,6 +13,11 @@
 <div class="bottom-cr-bar__infobox__text__email">cdbitmana@gmail.com</div>
 </div>
 </div>
+
+<div class="bottom-cr-bar__crtextbox">
+<div class="bottom-cr-bar__crtextbox__text">copyright <i class="fas fa-copyright"></i>. Indie World All rights reserved.</div>
+</div>
+
 
 </div>
 </footer>

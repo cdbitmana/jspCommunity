@@ -510,9 +510,12 @@ function replyReplyFormCheck(el){
 	<c:if test="${replyReply.relType eq 'reply' && replyReply.relId == reply.id}">
 	<div data-id="${replyReply.id }" class="targetReply flex replyreplies">
 	<div class="replyreplies__arrow"></div>
+	
+	
 	<div class="flex flex-dir-col replyreplies__replyReplyList">
 	
 	<div class="replyreplies__replyReplyList__replyContainer">
+	<c:if test="${replyReply.status > 0 }">
 	<div class="flex flex-ai-c replyreplies__replyReplyList__replyContainer__box-1">
 	<span class="replyreplies__writer">${replyReply.extra__writer }</span>
 	<span class="flex-grow-1 replyreplies__body">${replyReply.body }</span>
@@ -526,10 +529,23 @@ function replyReplyFormCheck(el){
 	</div>
 	</c:if>
 	</div>
+	</c:if>
+	
+		<c:if test="${replyReply.status < 0 }">
+	<div class="flex flex-ai-c articleDetailBox__articleReplyList__reply-1-pc__deletedReply">삭제된 댓글입니다.</div>
+	</c:if>
+	
 	</div>
 	
 	</div>
+	
+	
+
+	
 	</div>
+	
+	
+	
 	</c:if>
 	</c:forEach>
 	<!-- 대댓글 리스트 끝 -->
@@ -583,14 +599,15 @@ function replyReplyFormCheck(el){
 	<div class="flex flex-ai-c articleDetailBox__articleReplyList__reply-1-mb__deletedReply">삭제된 댓글입니다.</div>
 	</c:if>
 	
-	<!-- 대댓글 리스트 시작 -->
+	<!-- 대댓글 리스트 모바일 시작 -->
 	<c:forEach var="replyReply" items="${replies }">
 	<c:if test="${replyReply.relType eq 'reply' && replyReply.relId == reply.id}">
-	<div class="flex replyreplies-mb">
+	<div data-id="${replyReply.id }" class="targetReply flex replyreplies-mb">
 	<div class="replyreplies__arrow"></div>
 	<div class="flex flex-dir-col replyreplies__replyReplyList">
 	
 	<div class="replyreplies__replyReplyList__replyContainer-mb">
+	<c:if test="${replyReply.status > 0 }">
 	<div class="flex flex-ai-c replyreplies__replyReplyList__replyContainer__box-1">
 	<span class="replyreplies__writer-mb">${replyReply.extra__writer }</span>
 	<div class="flex-grow-1"></div>
@@ -606,13 +623,18 @@ function replyReplyFormCheck(el){
 	</div>
 	</c:if>
 	</div>
+	</c:if>
+	
+		<c:if test="${replyReply.status < 0 }">
+	<div class="flex flex-ai-c articleDetailBox__articleReplyList__reply-1-pc__deletedReply">삭제된 댓글입니다.</div>
+	</c:if>
 	</div>
 	
 	</div>
 	</div>
 	</c:if>
 	</c:forEach>
-	<!-- 대댓글 리스트 끝 -->
+	<!-- 대댓글 리스트 모바일 끝 -->
 	
 	
 	

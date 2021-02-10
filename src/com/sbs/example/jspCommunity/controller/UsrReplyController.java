@@ -69,8 +69,8 @@ public class UsrReplyController extends Controller {
 	public String doDeleteArticleReply(HttpServletRequest request, HttpServletResponse response) {
 
 		int id = Integer.parseInt(request.getParameter("id"));
-
-		replyService.doDeleteArticleReply(id);
+		int articleId = Integer.parseInt(request.getParameter("articleId"));
+		replyService.doDeleteArticleReply(id,articleId);
 
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
@@ -143,7 +143,9 @@ public class UsrReplyController extends Controller {
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int replyId = Integer.parseInt(request.getParameter("replyId"));
 		String relType = "reply";
-		int newReplyId = replyService.doWriteReply(relType, replyId, body, memberId);
+		int articleId = Integer.parseInt(request.getParameter("articleId"));
+		
+		int newReplyId = replyService.doWriteReply(relType, replyId, body, memberId, articleId);
 
 		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
 		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", newReplyId + "");
@@ -179,8 +181,9 @@ public class UsrReplyController extends Controller {
 	public String doDeleteReplyReply(HttpServletRequest request, HttpServletResponse response) {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
+		int articleId = Integer.parseInt(request.getParameter("articleId")); 
 
-		replyService.doDeleteReplyReply(id);
+		replyService.doDeleteReplyReply(id,articleId);
 
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 

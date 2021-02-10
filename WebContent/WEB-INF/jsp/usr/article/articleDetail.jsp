@@ -468,7 +468,7 @@ function modifyReplyReplyCancel(el){
 	
 	<!-- 전체 댓글 수 정보 시작 -->
 	<div class="articleDetailBox__articleReplyList__info">
-	<span>전체 댓글 수</span><span> ${totalReplyCount }</span>
+	<span>전체 댓글 수</span><span> ${article.replyCount}</span>
 	</div>
 	<!-- 전체 댓글 수 정보 끝 -->
 	
@@ -502,6 +502,7 @@ function modifyReplyReplyCancel(el){
 	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
+	<input type="hidden" name="articleId" value="${article.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	</div>
@@ -551,6 +552,7 @@ function modifyReplyReplyCancel(el){
 	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
 	<input type="submit" value="삭제">
 	<input type="hidden" name="id" value="${reply.id }">
+	<input type="hidden" name="articleId" value="${article.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	
@@ -599,7 +601,15 @@ function modifyReplyReplyCancel(el){
 	
 	<!-- 대댓글 리스트 시작 -->
 	<div class="flex replyReply-container">
-	<div class="replyreplies__arrow"></div>	
+	<c:forEach var="replyReply" items="${replies }">
+	<c:if test="${replyReply.relType eq 'reply' && replyReply.relId == reply.id}">
+	<c:set var="exists" value="true"></c:set>
+	</c:if>
+	</c:forEach>
+	<c:if test="${exists }">
+	<div class="replyreplies__arrow"></div>
+	</c:if>	
+	<c:set var="exists" value="false"></c:set>
 	<div class="flex flex-dir-col replyreplies__replyReplyList">
 	<c:forEach var="replyReply" items="${replies }">
 	<c:if test="${replyReply.relType eq 'reply' && replyReply.relId == reply.id}">	
@@ -633,6 +643,7 @@ function modifyReplyReplyCancel(el){
 	<form class="click replyreplies__btns-2__deleteForm" action="${appUrl }/usr/reply/doDeleteReplyReply">
 	<input class="click" type="submit" value="삭제">
 	<input type="hidden" name="id" value="${replyReply.id }">
+	<input type="hidden" name="articleId" value="${article.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	</div>
@@ -677,7 +688,13 @@ function modifyReplyReplyCancel(el){
 	<div class="replyreplies__replyReplyList__replyContainer__box-2">
 	<c:if test="${loginedMemberId == replyReply.memberId }">
 	<div class="float-r flex flex-ai-c flex-jc-sb replyreplies__btns-2-mb">
-	<span class="click" onclick="modifyReplyReplyFormOpen(this);">수정</span><span class="click">삭제</span>
+	<span class="click" onclick="modifyReplyReplyFormOpen(this);">수정</span>
+	<form class="click replyreplies__btns-2__deleteForm" action="${appUrl }/usr/reply/doDeleteReplyReply">
+	<input class="click" type="submit" value="삭제">
+	<input type="hidden" name="id" value="${replyReply.id }">
+	<input type="hidden" name="articleId" value="${article.id }">
+	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
+	</form>
 	</div>
 	</c:if>
 	</div>
@@ -727,6 +744,7 @@ function modifyReplyReplyCancel(el){
 	<input type="hidden" name="body">
 	<input type="hidden" name="memberId" value="${loginedMemberId }">
 	<input type="hidden" name="replyId" value="${reply.id }">
+	<input type="hidden" name="articleId" value="${article.id }">
 	<input type="hidden" name="afterWriteReplyUrl" value="${Util.getNewUrl(currentUrl, 'focusReplyId', '[NEW_REPLY_ID]')}">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>

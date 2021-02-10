@@ -180,17 +180,12 @@ public class UsrArticleController extends Controller {
 
 		List<Reply> repliesByArticleId = replyService.getReplysByArticleId(id);
 		
-		int totalReplyCount = 0;
-
-		if (repliesByArticleId != null) {
-			totalReplyCount = repliesByArticleId.size();
-		}
+		
 
 		request.setAttribute("article", article);
 		request.setAttribute("isLikedArticle", isLikedArticle);
 		request.setAttribute("isDislikedArticle", isDislikedArticle);
 		request.setAttribute("replies", replies);
-		request.setAttribute("totalReplyCount", totalReplyCount);
 
 		return "usr/article/articleDetail";
 

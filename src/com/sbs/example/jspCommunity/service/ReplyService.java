@@ -27,8 +27,8 @@ public class ReplyService {
 		replyDao.doModifyArticleReply(id,articleId,body,memberId);
 	}
 
-	public void doDeleteArticleReply(int id) {
-		replyDao.doDeleteArticleReply(id);
+	public void doDeleteArticleReply(int id,int articleId) {
+		replyDao.doDeleteArticleReply(id,articleId);
 	}
 
 	public boolean isLikedReply(int id, int memberId) {
@@ -65,16 +65,16 @@ public class ReplyService {
 		return replyDao.getReplys();
 	}
 
-	public int doWriteReply(String relType, int relId, String body, int memberId) {
-		return replyDao.doWriteReply(relType,relId,body,memberId);
+	public int doWriteReply(String relType, int relId, String body, int memberId,int articleId) {
+		return replyDao.doWriteReply(relType,relId,body,memberId,articleId);
 	}
 
 	public void doModifyReplyReply(int id, String body, int memberId) {
 		replyDao.doModifyReplyReply(id,body,memberId);
 	}
 
-	public void doDeleteReplyReply(int id) {
-		replyDao.doDeleteReplyReply(id);
+	public void doDeleteReplyReply(int id,int articleId) {
+		replyDao.doDeleteReplyReply(id,articleId);
 	}
 
 }

@@ -145,7 +145,8 @@
 			<a href="${appUrl }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}">
 			<div class="flex article-mb-1">
 			<span class="cell-id-mb">${article.id } ) </span>
-			<span class="flex-grow-1 cell-title-mb">${article.title }</span>
+			<span class="flex-grow-1 cell-title-mb">${article.title } <c:if test="${article.replyCount > 0}">
+					(${article.replyCount })</c:if></span>
 			</div>
 			<div class="article-mb-2">
 			<span class="cell-writer-mb">${article.extra__writer }</span>

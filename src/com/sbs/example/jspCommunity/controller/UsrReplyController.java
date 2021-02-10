@@ -33,32 +33,30 @@ public class UsrReplyController extends Controller {
 		String body = request.getParameter("body");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int articleId = Integer.parseInt(request.getParameter("articleId"));
-		
+
 		int newReplyId = replyService.doWriteArticleReply(articleId, body, memberId);
 
-	
 		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
 		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", newReplyId + "");
-		
+
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
-			request.setAttribute("replaceUrl",afterWriteReplyUrl);
+			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
-		
+
 		return "common/redirect";
 	}
 
-	
 	public String doModifyArticleReply(HttpServletRequest request, HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String body = request.getParameter("body");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int articleId = Integer.parseInt(request.getParameter("articleId"));
-		replyService.doModifyArticleReply(id,articleId,body,memberId);
-		
+		replyService.doModifyArticleReply(id, articleId, body, memberId);
+
 		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
 		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", id + "");
-		
+
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
 			request.setAttribute("replaceUrl", afterWriteReplyUrl);
@@ -67,16 +65,13 @@ public class UsrReplyController extends Controller {
 		return "common/redirect";
 
 	}
-	
-
-	
 
 	public String doDeleteArticleReply(HttpServletRequest request, HttpServletResponse response) {
 
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+
 		replyService.doDeleteArticleReply(id);
-		
+
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
 			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
@@ -94,16 +89,16 @@ public class UsrReplyController extends Controller {
 		int likeCount = 0;
 		Reply reply = null;
 		String resultCode = null;
-		Map<String,Object> map = new HashMap<>();
-		
+		Map<String, Object> map = new HashMap<>();
+
 		if (isLikedReply) {
-			replyService.doDeleteReplyLike(id,memberId);
+			replyService.doDeleteReplyLike(id, memberId);
 			reply = replyService.getReplyById(id);
 			likeCount = reply.getExtra__likeCount();
 			resultCode = "F-1";
 			map.put("replyLikeCount", likeCount);
 		} else {
-			replyService.doIncreaseReplyLike(id,memberId);
+			replyService.doIncreaseReplyLike(id, memberId);
 			reply = replyService.getReplyById(id);
 			likeCount = reply.getExtra__likeCount();
 			resultCode = "S-1";
@@ -122,16 +117,16 @@ public class UsrReplyController extends Controller {
 		int likeCount = 0;
 		Reply reply = null;
 		String resultCode = null;
-		Map<String,Object> map = new HashMap<>();
-		
+		Map<String, Object> map = new HashMap<>();
+
 		if (isDisLikedReply) {
-			replyService.doDeleteReplyDisLike(id,memberId);
+			replyService.doDeleteReplyDisLike(id, memberId);
 			reply = replyService.getReplyById(id);
 			likeCount = reply.getExtra__dislikeCount();
 			resultCode = "F-1";
 			map.put("replyDislikeCount", likeCount);
 		} else {
-			replyService.doIncreaseReplyDisLike(id,memberId);
+			replyService.doIncreaseReplyDisLike(id, memberId);
 			reply = replyService.getReplyById(id);
 			likeCount = reply.getExtra__dislikeCount();
 			resultCode = "S-1";
@@ -143,22 +138,55 @@ public class UsrReplyController extends Controller {
 	}
 
 	public String doWriteReplyReply(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String body = request.getParameter("body");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int replyId = Integer.parseInt(request.getParameter("replyId"));
 		String relType = "reply";
 		int newReplyId = replyService.doWriteReply(relType, replyId, body, memberId);
 
-	
 		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
 		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", newReplyId + "");
-		
+
 		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
 
-			request.setAttribute("replaceUrl",afterWriteReplyUrl);
+			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
+
+		return "common/redirect";
+	}
+
+	public String doModifyReplyReply(HttpServletRequest request, HttpServletResponse response) {
+
+		String body = request.getParameter("body");
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		replyService.doModifyReplyReply(id, body, memberId);
+
+		String afterWriteReplyUrl = request.getParameter("afterWriteReplyUrl");
+		afterWriteReplyUrl = afterWriteReplyUrl.replace("[NEW_REPLY_ID]", id + "");
+
+		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
+
+			request.setAttribute("replaceUrl", afterWriteReplyUrl);
+		}
+
+		return "common/redirect";
+
+	}
+
+	public String doDeleteReplyReply(HttpServletRequest request, HttpServletResponse response) {
 		
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		replyService.doDeleteReplyReply(id);
+
+		if (Util.isEmpty(request.getParameter("afterWriteReplyUrl")) == false) {
+
+			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
+		}
+
 		return "common/redirect";
 	}
 

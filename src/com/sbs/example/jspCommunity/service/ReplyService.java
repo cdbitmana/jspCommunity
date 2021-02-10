@@ -69,4 +69,12 @@ public class ReplyService {
 		return replyDao.doWriteReply(relType,relId,body,memberId);
 	}
 
+	public void doModifyReplyReply(int id, String body, int memberId) {
+		replyDao.doModifyReplyReply(id,body,memberId);
+	}
+
+	public void doDeleteReplyReply(int id) {
+		replyDao.doDeleteReplyReply(id);
+	}
+
 }

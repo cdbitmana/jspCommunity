@@ -178,7 +178,11 @@ main {
   color: #fff;
 
 }
-
+.click:hover{
+	cursor:pointer;
+	text-decoration:underline;
+	
+}
 /* 커스텀 */
 
 /* 바디컨텐트 시작 */
@@ -1178,7 +1182,9 @@ main {
 .articleDetailInfo-mb > div:nth-child(2) {
   margin-top: 5px;
 }
-
+.replyReply-container{
+	margin-top:10px;
+}
 .reply__reply{
 	margin-right:15px;
 }
@@ -1214,37 +1220,46 @@ main {
 	font-size:14px;
 	margin-left:5px;
 }
-.replyreplies{
+.replyreplies-pc{
 	margin-top:10px;
 }
 .replyreplies-mb{
 	margin-top:10px;
+	font-size:12px;
 }
+@media ( max-width:768px ) {
+	.replyreplies-pc{
+		display:none !important;
+	}
+}
+
+@media ( min-width:769px ) {
+	.replyreplies-mb{
+		display:none !important;
+	}
+}
+
 :root{
   --replyreplies__writer__width: 100px;
   --replyreplies__regDate__width: 150px;
   --replyreplies__btns-1__width:180px;
   --replyreplies__btns-2__width:90px;
-  --replyreplies__body__width:calc ( 100% - var(--replyreplies__writer_width) - var(--replyreplies__btns-1_width) var(--replyreplies__regDate_width) )
+  --replyreplies__body__width:calc ( 100% - var(--replyreplies__writer_width) - var(--replyreplies__btns-1_width) var(--replyreplies__regDate_width) );
   
-   --replyreplies__writer-mb__width: 80px;
+  --replyreplies__writer-mb__width: 80px;
   --replyreplies__regDate-mb__width: 110px;
   --replyreplies__btns-1-mb__width:140px;
   --replyreplies__btns-2-mb__width:60px;
 	
 }
-.replyreplies__replyReplyList__replyContainer{
+.replyreplies{
 	padding:10px;
 	margin-top:5px;
 	border:1px solid #ececec;
 	background-color:#f8f8f8;
 }
-.replyreplies__replyReplyList__replyContainer-mb{
-	padding:10px;
-	margin-top:5px;
-	border:1px solid #ececec;
-	background-color:#f8f8f8;
-	font-size:12px;
+.replyreplies .toast-ui-editor{
+	height:170px !important;
 }
 .replyreplies__writer{
 	width:var(--replyreplies__writer__width);
@@ -1265,7 +1280,6 @@ main {
 }
 .replyreplies__btns-2{
 	width:var(--replyreplies__btns-2__width);
-	margin-top:10px;
 }
 
 .replyreplies__writer-mb{
@@ -1275,7 +1289,7 @@ main {
 	width:var(--replyreplies__btns-1-mb__width);
 	margin-top:10px;
 }
-.replyreplies__btns-1-mb > span:not(:first-child) {
+.replyreplies__btns-1-mb > div:not(:first-child) {
 	margin-left:8px;
 }
 .replyreplies__btns-2-mb{
@@ -1288,6 +1302,15 @@ main {
 .replyreplies__body-mb{
 	margin-top:10px;
 	font-size:18px;
+}
+.articleDetailBox__replyReply-modify{
+	display:none;
+}
+.replyreplies__btns-2__deleteForm input{
+	background-color: inherit;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
 }
 /* 게시물 상세보기 끝 */
 

@@ -26,7 +26,6 @@ public class ReplyDao {
 		sql.append("ON R.memberId = M.id");
 		sql.append("LEFT JOIN recommend AS RC");
 		sql.append("ON R.id = RC.relId");
-		sql.append("AND RC.relType = 'reply'");
 		sql.append("WHERE R.relId = ?", id);		
 		sql.append("GROUP BY R.id");
 
@@ -91,6 +90,14 @@ public class ReplyDao {
 		sql.append("`status` = -1");
 		sql.append("WHERE id = ?", id);
 
+		MysqlUtil.update(sql);
+		
+		sql = new SecSql();
+		
+		sql.append("UPDATE article SET");
+		sql.append("replyCount = replyCount -1");
+		sql.append("WHERE id = ?", id);
+		
 		MysqlUtil.update(sql);
 	}
 
@@ -247,6 +254,31 @@ public class ReplyDao {
 		sql.append(", `status` = 1");
 		
 		return MysqlUtil.insert(sql);
+	}
+
+	public void doModifyReplyReply(int id, String body, int memberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE `reply` SET");
+		sql.append("updateDate = NOW()");
+		sql.append(", `body` = ?", body);
+		sql.append("WHERE id = ?", id);
+		sql.append("AND `relType` = 'reply'");
+		sql.append("AND memberId = ?", memberId);
+
+		MysqlUtil.update(sql);
+	}
+
+	public void doDeleteReplyReply(int id) {
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE `reply` SET");
+		sql.append("`status` = -1");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
+		
+	
 	}
 
 }

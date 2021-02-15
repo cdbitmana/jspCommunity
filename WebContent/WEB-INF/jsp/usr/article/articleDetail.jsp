@@ -450,13 +450,15 @@ function doDisLikeReplyBtn(el,id){
 	function replaceReply(reply){
 	var html = $('.articleDetailBox__articleReplyList__replies').html();
 	
+	html = replaceAll(html, "${번호}", reply.id);
 	html = replaceAll(html, "${작성자}", reply.extra__writer);
 	html = replaceAll(html, "${날짜}", reply.regDate);
 	html = replaceAll(html, "${내용}", reply.body);
 	html = replaceAll(html, "${좋아요}", reply.extra__likeCount);
 	html = replaceAll(html, "${싫어요}", reply.extra__dislikeCount);
+	html = replaceAll(html, "${상태}", reply.status);
 	
-	replies.prepend(html);
+		
 	}
 	
 	$(function() {

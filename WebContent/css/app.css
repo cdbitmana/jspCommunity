@@ -264,22 +264,7 @@ main {
     background-repeat: no-repeat;
   }
 }
-@media (max-width: 768px) {
-  .top-menu-bar__memberBox__name {
-    width: 35px !important;
-  }
-  .top-menu-bar__memberBox__modify {
-    width: 76px !important;
-    margin-left: 5px !important;
-  }
-  .top-menu-bar__memberBox__logout {
-    width: 55px !important;
-    margin-left: 5px !important;
-  }
-  .logo-text{
-  font-size:12px;
-  }
-}
+
 .top-menu-bar__logobox {
   padding-left: 5px;
 }
@@ -355,20 +340,28 @@ main {
 }
 /* PC버전 탑 바 끝 */
 
-/* 반응형 시작 */
-/* 반응형 끝 */
-
 /* 반응형 모바일 탑 바 시작 */
+@media (max-width: 768px) {
+  .top-menu-bar__memberBox__name {
+    width: 35px !important;
+  }
+  .top-menu-bar__memberBox__modify {
+    width: 76px !important;
+    margin-left: 5px !important;
+  }
+  .top-menu-bar__memberBox__logout {
+    width: 55px !important;
+    margin-left: 5px !important;
+  }
+  .logo-text{
+  font-size:12px;
+  }
+}
 /* 반응형 모바일 탑 바 끝 */
-
-/* 반응형 모바일 사이드 바 시작 */
-/* 반응형 모바일 사이드 바 끝 */
 
 /* 반응형 하단바 시작 */
 @media (max-width: 768px) {
-  main {
-    margin-bottom: 80px;
-  }
+ 
 }
 @media (min-width: 769px) {
   .bottom-bar {
@@ -381,7 +374,6 @@ main {
   width: 100%;
   height: 80px;
   background-color: #4d4b66;
-  border-top: 3px solid white;
   color: white;
   justify-content: space-around;
   z-index: 3;
@@ -1456,11 +1448,17 @@ footer {
   background-color: #2c2f3f80;
   color: white;
 }
-
+.bottom-cr-bar__infobox{
+	padding-left:10px;
+}
+.bottom-cr-bar__crtextbox{
+	padding-left:10px;
+}
 @media (max-width: 768px) {
   footer {
-    display: none !important;
+	margin-bottom:80px;
   }
+
 }
 
 

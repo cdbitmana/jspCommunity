@@ -5,8 +5,8 @@
 <c:set var="pageTitle" value="${article.title }"/>
 
 <%@ include file="../../part/head.jspf"%>
-<script>
 
+<script>
 function increaseHit(){
 	
 	let memberId = 0;
@@ -77,103 +77,9 @@ function countTime(){
 }
 
 countTime();
+</script>
 
-function doLikeBtn(){
-
-	const memberId = ${loginedMemberId};
-	const articleId = ${article.id};
-	$.get(
-			"doLikeArticle",
-			{
-				memberId,
-				articleId
-			},
-			function(data) {
-			if(data.success){
-				$('.articleDetailBody__likeBtn > i').attr('class','fas fa-thumbs-up');
-				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+ data.body.likeCount);
-				}
-			else{
-				$('.articleDetailBody__likeBtn > i').attr('class','far fa-thumbs-up');
-				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+ data.body.likeCount);
-				}
-			},
-			"json"
-		);
-}
-
-
-function doDislikeBtn(){
-	const memberId = ${loginedMemberId};
-	const articleId = ${article.id};
-	$.get(
-			"doDislikeArticle",
-			{
-				memberId,
-				articleId
-			},
-			function(data) {
-			if(data.success){
-				$('.articleDetailBody__dislikeBtn > i').attr('class','fas fa-thumbs-down');
-				$('.articleDetailInfo-box2__dislikeCount').text('싫어요 '+ data.body.dislikeCount);
-				}
-			else{
-				$('.articleDetailBody__dislikeBtn > i').attr('class','far fa-thumbs-down');
-				$('.articleDetailInfo-box2__dislikeCount').text('싫어요 '+ data.body.dislikeCount);
-				}
-			},
-			"json"
-		);
-}
-
-function doLikeReplyBtn(el,id){
-
-	const memberId = ${loginedMemberId};
-	const replyId = id;
-	$.get(
-			"${appUrl}/usr/reply/doLikeReply",
-			{
-				memberId,
-				replyId
-			},
-			function(data) {
-			if(data.success){
-				$(el).children('i').attr('class','fas fa-thumbs-up');
-				$(el).children('span').text('좋아요 '+data.body.replyLikeCount);
-				}
-			else{
-				$(el).children('i').attr('class','far fa-thumbs-up');
-				$(el).children('span').text('좋아요 '+data.body.replyLikeCount);
-				}
-			},
-			"json"
-		);
-}
-
-function doDisLikeReplyBtn(el,id){
-
-	const memberId = ${loginedMemberId};
-	const replyId = id;
-	$.get(
-			"${appUrl}/usr/reply/doDisLikeReply",
-			{
-				memberId,
-				replyId
-			},
-			function(data) {
-			if(data.success){
-				$(el).children('i').attr('class','fas fa-thumbs-down');
-				$(el).children('span').text('싫어요 '+data.body.replyDislikeCount);
-				}
-			else{
-				$(el).children('i').attr('class','far fa-thumbs-down');
-				$(el).children('span').text('싫어요 '+data.body.replyDislikeCount);
-				}
-			},
-			"json"
-		);
-}
-
+<script>
 let DoWriteForm__submited = false;
 
 function writeFormCheck(el) {
@@ -197,16 +103,9 @@ function writeFormCheck(el) {
 	
 	return true;
 }
+</script>
 
-function modifyFormOpen(el){
-	const form = $(el).parents().parents().siblings('.articleDetailBox__reply-modify');
-	$(form).css({
-		'display':'block',
-		'margin-top':'15px'
-		});
-}
-
-
+<script>
 let DoModifyForm__submited = false;
 
 function modifyFormCheck(el) {
@@ -230,65 +129,6 @@ function modifyFormCheck(el) {
 	
 	return true;
 }
-
-function modifyReplyCancel(el){
-const form = $(el).parents().parents('.articleDetailBox__reply-modify');
-	$(form).css('display','none');
-}
-
-function replyReplyFormOpen(el){
-	const form = $(el).parents().parents().siblings('.articleDetailBox__reply-reply');
-	$(form).css({
-		'display':'block',
-		'margin-top':'15px'
-		});
-}
-
-function replyReplyCancel(el){
-const form = $(el).parents().parents('.articleDetailBox__reply-reply');
-	$(form).css('display','none');
-}
-
-let writeReplyReplyForm__submited = false;
-
-function replyReplyFormCheck(el){
-
-	if ( writeReplyReplyForm__submited ) {
-		alert('처리중입니다.');
-		return false;
-	}
-	
-	
-	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
-	const body = editor.getMarkdown().trim();
-	
-	if ( body.length == 0 ) {
-		alert('내용을 입력해주세요.');
-		editor.focus();
-		
-		return false;
-	}
-	
-	$(el).closest('form').get(0).body.value = body;
-	
-	return true;
-}
-
-function modifyReplyReplyFormOpen(el){
-	const form = $(el).parents().parents().siblings('.articleDetailBox__replyReply-modify');
-	$(form).css({
-		'display':'block',
-		'margin-top':'15px'
-		});
-}
-
-function modifyReplyReplyCancel(el){
-	const form = $(el).parents().parents('.articleDetailBox__replyReply-modify');
-		$(form).css('display','none');
-	}
-
-
-
 </script>
 
 <script>
@@ -400,6 +240,59 @@ function modifyReplyReplyCancel(el){
   <!-- 게시물 본문 내용 끝 -->
   
   <!-- 게시물 본문 좋아요 싫어요 버튼 시작 -->
+  
+<script>
+function doLikeBtn(){
+
+	const memberId = ${loginedMemberId};
+	const articleId = ${article.id};
+	$.get(
+			"doLikeArticle",
+			{
+				memberId,
+				articleId
+			},
+			function(data) {
+			if(data.success){
+				$('.articleDetailBody__likeBtn > i').attr('class','fas fa-thumbs-up');
+				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+ data.body.likeCount);
+				}
+			else{
+				$('.articleDetailBody__likeBtn > i').attr('class','far fa-thumbs-up');
+				$('.articleDetailInfo-box2__likeCount').text('좋아요 '+ data.body.likeCount);
+				}
+			},
+			"json"
+		);
+}
+
+
+function doDislikeBtn(){
+	const memberId = ${loginedMemberId};
+	const articleId = ${article.id};
+	$.get(
+			"doDislikeArticle",
+			{
+				memberId,
+				articleId
+			},
+			function(data) {
+			if(data.success){
+				$('.articleDetailBody__dislikeBtn > i').attr('class','fas fa-thumbs-down');
+				$('.articleDetailInfo-box2__dislikeCount').text('싫어요 '+ data.body.dislikeCount);
+				}
+			else{
+				$('.articleDetailBody__dislikeBtn > i').attr('class','far fa-thumbs-down');
+				$('.articleDetailInfo-box2__dislikeCount').text('싫어요 '+ data.body.dislikeCount);
+				}
+			},
+			"json"
+		);
+}
+
+</script>
+  
+  
   <c:if test="${isLogined }">
   <div class="flex flex-ai-c flex-jc-sa articleDetailBody__likeanddislike">
   <div class="articleDetailBody__likeBtn" onclick="doLikeBtn();">
@@ -414,12 +307,12 @@ function modifyReplyReplyCancel(el){
    <c:if test="${isDislikedArticle == true }">  
   <i class="fas fa-thumbs-down"></i>
   </c:if>
-   <c:if test="${isDislikedArticle == false }">  
+  <c:if test="${isDislikedArticle == false }">  
   <i class="far fa-thumbs-down"></i>
   </c:if>
   <span>싫어요</span></div>
-  </div>
-  </c:if>
+    </div>
+    </c:if>
     </div>
     <!-- 게시물 본문 좋아요 싫어요 버튼 끝 -->
     
@@ -428,6 +321,63 @@ function modifyReplyReplyCancel(el){
 	</div>
 	
 	<!-- 댓글 -->
+	
+	
+<script>
+
+function doLikeReplyBtn(el,id){
+
+	const memberId = ${loginedMemberId};
+	const replyId = id;
+	$.get(
+			"${appUrl}/usr/reply/doLikeReply",
+			{
+				memberId,
+				replyId
+			},
+			function(data) {
+			if(data.success){
+				$(el).children('i').attr('class','fas fa-thumbs-up');
+				$(el).children('span').text('좋아요 '+data.body.replyLikeCount);
+				}
+			else{
+				$(el).children('i').attr('class','far fa-thumbs-up');
+				$(el).children('span').text('좋아요 '+data.body.replyLikeCount);
+				}
+			},
+			"json"
+		);
+}
+
+function doDisLikeReplyBtn(el,id){
+
+	const memberId = ${loginedMemberId};
+	const replyId = id;
+	$.get(
+			"${appUrl}/usr/reply/doDisLikeReply",
+			{
+				memberId,
+				replyId
+			},
+			function(data) {
+			if(data.success){
+				$(el).children('i').attr('class','fas fa-thumbs-down');
+				$(el).children('span').text('싫어요 '+data.body.replyDislikeCount);
+				}
+			else{
+				$(el).children('i').attr('class','far fa-thumbs-down');
+				$(el).children('span').text('싫어요 '+data.body.replyDislikeCount);
+				}
+			},
+			"json"
+		);
+}
+
+</script>
+	
+	
+	
+	
 	<div class="articleDetailBox__reply">
 	
 	<!-- 댓글 입력 창(로그인 안했을 때) -->
@@ -453,17 +403,18 @@ function modifyReplyReplyCancel(el){
 	<input type="hidden" name="articleId" value="${article.id }">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>
-  <div class="toast-ui-editor"></div>
-  </div>
-  <button class="btn-square submitWriteReply">등록</button>
+    <div class="toast-ui-editor"></div>
+    </div>
+    <button class="btn-square submitWriteReply">등록</button>
   
-  </form>
+    </form>
 	</div>
 	</c:if>
 	<!-- 댓글 입력 창(로그인 했을 때) -->
 	
 	
 	<!-- 댓글 리스트 시작 -->
+	
 	<div class="articleDetailBox__articleReplyList">
 	
 	<!-- 전체 댓글 수 정보 시작 -->
@@ -473,10 +424,12 @@ function modifyReplyReplyCancel(el){
 	<!-- 전체 댓글 수 정보 끝 -->
 	
 	<!-- 댓글 리스트 본문 시작 -->
-	 
-	<div class="articleDetailBox__articleReplyList__replies">		
-	<c:forEach var="reply" items="${replies }">
+	<script>
 	
+	</script>
+	
+	<div class="articleDetailBox__articleReplyList__replies">
+	<c:forEach var="reply" items="${replies }">	
 	<c:if test="${reply.relType eq 'article' && reply.relId == article.id}">	
 	<div data-id="${reply.id }" class="flex flex-dir-col targetReply articleDetailBox__articleReplyList__reply">
 	
@@ -578,6 +531,21 @@ function modifyReplyReplyCancel(el){
 	
 	
 	<!-- 댓글 수정 시작 -->
+   	<script>
+	function modifyFormOpen(el){
+	const form = $(el).parents().parents().siblings('.articleDetailBox__reply-modify');
+	$(form).css({
+		'display':'block',
+		'margin-top':'15px'
+		});
+	}
+
+	function modifyReplyCancel(el){
+	const form = $(el).parents().parents('.articleDetailBox__reply-modify');
+	$(form).css('display','none');
+	}
+	</script>	
+	
 	<div class="articleDetailBox__reply-modify">
 	<form name="writeReplyModifyForm" class="articleDetailBox__reply-modifyform" action="${appUrl }/usr/reply/doModifyArticleReply" method="POST" onsubmit="return modifyFormCheck(this);">
 	<input type="hidden" name="body">
@@ -587,18 +555,18 @@ function modifyReplyReplyCancel(el){
 	<input type="hidden" name="afterWriteReplyUrl" value="${Util.getNewUrl(currentUrl, 'focusReplyId', '[NEW_REPLY_ID]')}">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>
-  <div class="toast-ui-editor"></div>
-  </div>
-  <div class="flex flex-ai-c flex-jc-e articleDetailBox__reply-modifyform__btns">
-  <button class="btn-square submitReplyModify">수정</button><span class="btn-square submitReplyModifyCancel"  onclick="modifyReplyCancel(this);">취소</span>
-  </div>  
-  </form>
+	<div class="toast-ui-editor"></div>
+	</div>
+	<div class="flex flex-ai-c flex-jc-e articleDetailBox__reply-modifyform__btns">
+	<button class="btn-square submitReplyModify">수정</button><span class="btn-square submitReplyModifyCancel"  onclick="modifyReplyCancel(this);">취소</span>
+	</div>  
+	</form>
 	</div>
 	<!-- 댓글 수정 끝 -->
-	
-	
-	
-	
+		
+		
+		
+		
 	<!-- 대댓글 리스트 시작 -->
 	<div class="flex replyReply-container">
 	<c:forEach var="replyReply" items="${replies }">
@@ -712,6 +680,21 @@ function modifyReplyReplyCancel(el){
 	
 	
 	<!-- 대댓글 수정 시작 -->
+	<script>
+	function modifyReplyReplyFormOpen(el){
+	const form = $(el).parents().parents().siblings('.articleDetailBox__replyReply-modify');
+	$(form).css({
+		'display':'block',
+		'margin-top':'15px'
+		});
+	}
+
+	function modifyReplyReplyCancel(el){
+	const form = $(el).parents().parents('.articleDetailBox__replyReply-modify');
+		$(form).css('display','none');
+	}
+	</script>
+
 	<div class="articleDetailBox__replyReply-modify">
 	<form name="writeReplyReplyModifyForm" class="articleDetailBox__replyReply-modifyform" action="${appUrl }/usr/reply/doModifyReplyReply" method="POST" onsubmit="return modifyFormCheck(this);">
 	<input type="hidden" name="body">
@@ -720,12 +703,12 @@ function modifyReplyReplyCancel(el){
 	<input type="hidden" name="afterWriteReplyUrl" value="${Util.getNewUrl(currentUrl, 'focusReplyId', '[NEW_REPLY_ID]')}">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>
-  <div class="toast-ui-editor"></div>
-  </div>
-  <div class="flex flex-ai-c flex-jc-e articleDetailBox__reply-modifyform__btns">
-  <button class="btn-square submitReplyModify">수정</button><span class="btn-square submitReplyModifyCancel" onclick="modifyReplyReplyCancel(this);">취소</span>
-  </div>  
-  </form>
+  	<div class="toast-ui-editor"></div>
+ 	</div>
+ 	<div class="flex flex-ai-c flex-jc-e articleDetailBox__reply-modifyform__btns">
+ 	<button class="btn-square submitReplyModify">수정</button><span class="btn-square submitReplyModifyCancel" onclick="modifyReplyReplyCancel(this);">취소</span>
+ 	</div>  
+ 	</form>
 	</div>
 	<!-- 대댓글 수정 끝 -->
 	
@@ -739,6 +722,47 @@ function modifyReplyReplyCancel(el){
 	
 	
 	<!-- 대댓글 작성 시작 -->
+	<script>
+	function replyReplyFormOpen(el){
+	const form = $(el).parents().parents().siblings('.articleDetailBox__reply-reply');
+	$(form).css({
+		'display':'block',
+		'margin-top':'15px'
+		});
+	}
+
+	function replyReplyCancel(el){
+	const form = $(el).parents().parents('.articleDetailBox__reply-reply');
+	$(form).css('display','none');
+	}
+	</script>
+	<script>
+	let writeReplyReplyForm__submited = false;
+	
+	function replyReplyFormCheck(el){
+	
+	if ( writeReplyReplyForm__submited ) {
+		alert('처리중입니다.');
+	return false;
+	}
+	
+	
+	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
+	const body = editor.getMarkdown().trim();
+	
+	if ( body.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		editor.focus();
+		
+		return false;
+	}
+	
+	$(el).closest('form').get(0).body.value = body;
+	
+	return true;
+	}
+	</script>
+	
 	<div class="articleDetailBox__reply-reply">
 	<form name="writeReplyReplyForm" class="articleDetailBox__replyReplyForm" action="${appUrl }/usr/reply/doWriteReplyReply" method="POST" onsubmit="return replyReplyFormCheck(this);">
 	<input type="hidden" name="body">
@@ -748,20 +772,14 @@ function modifyReplyReplyCancel(el){
 	<input type="hidden" name="afterWriteReplyUrl" value="${Util.getNewUrl(currentUrl, 'focusReplyId', '[NEW_REPLY_ID]')}">
 	<div class="writeReplyBodyInput">
 		 <script type="text/x-template"></script>
-  <div class="toast-ui-editor"></div>
-  </div>
-  <div class="flex flex-ai-c flex-jc-e replyReply-btns">
-  <button class="btn-square replyReply__submit">등록</button><span class="btn-square replyReply__cancel"  onclick="replyReplyCancel(this);">취소</span>
-  </div>
-	</form>
-	</div>	
+ 	<div class="toast-ui-editor"></div>
+  	</div>
+  	<div class="flex flex-ai-c flex-jc-e replyReply-btns">
+  	<button class="btn-square replyReply__submit">등록</button><span class="btn-square replyReply__cancel"  onclick="replyReplyCancel(this);">취소</span>
+  	</div>
+  	</form>
+  	</div>	
 	<!-- 대댓글 작성 끝 -->
-	
-	
-	
-	
-	
-	
 	
 	</div>
 	</c:if>

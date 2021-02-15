@@ -96,7 +96,7 @@ var param = ${paramJson};
 <div class="">${loginedMember.name }</div>
 </div>
 <div class="top-menu-bar__memberBox__modify">
-<a href="${appUrl }/usr/member/memberInfo">회원정보수정</a>
+<a href="${appUrl }/usr/member/memberInfo">마이페이지</a>
 </div>
 <div class="top-menu-bar__memberBox__logout">
 <a class="" href="${appUrl }/usr/member/logout">로그아웃</a>

@@ -14,13 +14,14 @@
 <div class="article-list-box-1__board"><a href="${appUrl }/usr/article/list?boardId=3&page=1">새소식</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
-<c:forEach var="article" items="${articlesnews }" begin="0" end="4">
+<c:forEach var="article" items="${articles_news }" begin="0" end="4">
 <c:url var="url" value="/usr/article/detail">
 <c:param name="id" value="${article.id }"></c:param>
 <c:param name="listUrl" value="${appUrl }/usr/article/list?boardId=3&page=1"></c:param>
 </c:url>
 <a class="flex flex-ai-c article-list-box-1__article" href="${url }">
-<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-title">${article.title } </span>
+<span class="article-list-box__articles-replyCount"><c:if test="${article.replyCount > 0 }">(${article.replyCount })</c:if></span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
 </c:forEach>
@@ -33,13 +34,14 @@
 <div class="article-list-box-1__board"><a href="${appUrl }/usr/article/list?boardId=4&page=1">공략</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
-<c:forEach var="article" items="${articlestip }" begin="0" end="4">
+<c:forEach var="article" items="${articles_tip }" begin="0" end="4">
 <c:url var="url" value="/usr/article/detail">
 <c:param name="id" value="${article.id }"></c:param>
 <c:param name="listUrl" value="${appUrl }/usr/article/list?boardId=4&page=1"></c:param>
 </c:url>
 <a class="flex flex-ai-c article-list-box-1__article" href="${url}">
-<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-title">${article.title } </span>
+<span class="article-list-box__articles-replyCount"><c:if test="${article.replyCount > 0 }">(${article.replyCount })</c:if></span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
 </c:forEach>
@@ -52,13 +54,14 @@
 <div class="article-list-box-1__board"><a href="${appUrl }/usr/article/list?boardId=5&page=1">자료실</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
-<c:forEach var="article" items="${articlesdata }" begin="0" end="4">
+<c:forEach var="article" items="${articles_data }" begin="0" end="4">
 <c:url var="url" value="/usr/article/detail">
 <c:param name="id" value="${article.id }"></c:param>
 <c:param name="listUrl" value="${appUrl }/usr/article/list?boardId=5&page=1"></c:param>
 </c:url>
 <a class="flex flex-ai-c article-list-box-1__article" href="${url }">
-<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-title">${article.title } </span>
+<span class="article-list-box__articles-replyCount"><c:if test="${article.replyCount > 0 }">(${article.replyCount })</c:if></span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
 </c:forEach>
@@ -72,13 +75,14 @@
 <div class="article-list-box-1__board"><a href="${appUrl }/usr/article/list?boardId=1&page=1">공지</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
-<c:forEach var="article" items="${articlesnotice }" begin="0" end="4">
+<c:forEach var="article" items="${articles_notice }" begin="0" end="4">
 <c:url var="url" value="/usr/article/detail">
 <c:param name="id" value="${article.id }"></c:param>
 <c:param name="listUrl" value="${appUrl }/usr/article/list?boardId=1&page=1"></c:param>
 </c:url>
 <a class="flex flex-ai-c article-list-box-1__article" href="${url }">
-<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-title">${article.title } </span>
+<span class="article-list-box__articles-replyCount"><c:if test="${article.replyCount > 0 }">(${article.replyCount })</c:if></span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
 </c:forEach>
@@ -92,13 +96,14 @@
 <div class="article-list-box-1__board"><a href="${appUrl }/usr/article/list?boardId=2&page=1">자유</a></div>
 <div class="article-list-box-1__articles flex flex-dir-col">
 
-<c:forEach var="article" items="${articlesfree }" begin="0" end="4">
+<c:forEach var="article" items="${articles_free }" begin="0" end="4">
 <c:url var="url" value="/usr/article/detail">
 <c:param name="id" value="${article.id }"></c:param>
 <c:param name="listUrl" value="${appUrl }/usr/article/list?boardId=2&page=1"></c:param>
 </c:url>
 <a class="flex flex-ai-c article-list-box-1__article" href="${url }">
-<span class="article-list-box__articles-title">${article.title }</span>
+<span class="article-list-box__articles-title">${article.title } </span>
+<span class="article-list-box__articles-replyCount"><c:if test="${article.replyCount > 0 }">(${article.replyCount })</c:if></span>
 <span class="article-list-box__articles-writer">${article.extra__writer }</span>
 </a>
 </c:forEach>

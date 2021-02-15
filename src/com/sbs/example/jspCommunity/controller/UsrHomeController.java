@@ -30,7 +30,7 @@ public class UsrHomeController extends Controller {
 		
 		for(int i = 0 ; i < boards.size() ; i++) {
 			 articles = articleService.getArticlesForPrintByBoardId(boards.get(i).getId());
-			 request.setAttribute("articles" + boards.get(i).getCode(), articles);
+			 request.setAttribute("articles_" + boards.get(i).getCode(), articles);
 		}
 		
 		request.setAttribute("boards", boards);

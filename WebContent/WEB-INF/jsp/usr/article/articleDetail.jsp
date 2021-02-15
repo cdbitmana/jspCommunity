@@ -339,7 +339,7 @@ function modifyReplyReplyCancel(el){
       <span class="articleDetailHitCount">조회수 ${article.hitCount}</span>
       <span class="articleDetailInfo-box2__likeCount">좋아요 ${article.extra__likeCount}</span>
       <span class="articleDetailInfo-box2__dislikeCount">싫어요 ${article.extra__dislikeCount}</span>
-      <span>댓글수 ${totalReplyCount}</span>
+      <span>댓글수 ${article.replyCount}</span>
       </div>
       </div>	
 <!-- 게시물 상세보기 상단 정보 PC버전 끝 -->
@@ -353,7 +353,7 @@ function modifyReplyReplyCancel(el){
       </div>
       <div>
       <span class="articleDetailHitCount">조회수 ${article.hitCount}</span>
-      <span>댓글수 ${totalReplyCount}</span>
+      <span>댓글수 ${article.replyCount}</span>
       </div>
       </div>
       <div class="articleDetailInfo-mb__box2 flex flex-ai-c flex-jc-sb">

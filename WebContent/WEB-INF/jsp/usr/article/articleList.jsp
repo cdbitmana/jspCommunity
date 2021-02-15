@@ -123,9 +123,10 @@
 			<div class="article flex flex-ai-c">
 				<span class="cell-id">${article.id }</span> <a
 					class="flex cell-title title"
-					href="${appUrl }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span>${article.title }    
-					<c:if test="${article.replyCount > 0}">
+					href="${appUrl }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}"><span class="text-ellipsis">${article.title }    
+					</span><span class="cell-replyCount"><c:if test="${article.replyCount > 0}">
 					(${article.replyCount })</c:if></span></a>
+					
 				<span class="cell-writer articleList_writer">${article.extra__writer }</span>
 				 <span class="cell-regDate">${article.regDate }</span> 
 				 <span class="cell-hit">${article.hitCount}</span>
@@ -145,7 +146,8 @@
 			<a href="${appUrl }/usr/article/detail?id=${article.id }&listUrl=${encodedCurrentUrl}">
 			<div class="flex article-mb-1">
 			<span class="cell-id-mb">${article.id } ) </span>
-			<span class="flex-grow-1 cell-title-mb">${article.title } <c:if test="${article.replyCount > 0}">
+			<span class="cell-title-mb">${article.title }</span>
+			<span class="cell-replyCount-mb"> <c:if test="${article.replyCount > 0}">
 					(${article.replyCount })</c:if></span>
 			</div>
 			<div class="article-mb-2">

@@ -155,6 +155,11 @@ input {
 .block {
   display: block;
 }
+.text-ellipsis{
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
 main {
   padding-top: 30px;
   padding-bottom: 30px;
@@ -220,6 +225,7 @@ main {
   background-color: #2c2f3f;
   color: white;
   z-index: 6;
+  text-align:center;
 }
 .top-menu-bar__logo-img {
   width: 35px;
@@ -269,6 +275,9 @@ main {
   .top-menu-bar__memberBox__logout {
     width: 55px !important;
     margin-left: 5px !important;
+  }
+  .logo-text{
+  font-size:12px;
   }
 }
 .top-menu-bar__logobox {
@@ -655,12 +664,15 @@ main {
 }
 .cell-title {
   width: var(--cell-title__width);
-   white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis;  
 }
 .cell-writer {
   width: var(--cell-writer__width);
+}
+.cell-replyCount{
+	margin-left:5px;
 }
 .cell-regDate {
   width: var(--cell-regDate__width);
@@ -811,10 +823,7 @@ main {
   --cell-hit-mb__width: 80px;
   --cell-likeCount-mb__width: 40px;
   --cell-dislikeCount-mb__width: 40px;
-  --cell-title-mb__width: calc(
-    100% - var(--cell-id__width) - var(--cell-writer__width) -
-      var(--cell-regDate__width) - var(--cell-hit__width) - var(--cell-likeCount__width) - var(--cell-dislikeCount__width)
-  );
+
 }
 .cell-id-mb {
   width: var(--cell-id-mb__width);
@@ -1364,7 +1373,7 @@ main {
 }
 @media (max-width: 768px) {
   .article-list-box {
-    width: calc(100% / 2);
+    width: 100%;
   }
 }
 .article-list-box-1__board {
@@ -1382,10 +1391,14 @@ main {
   display: inline-block;
 }
 .article-list-box-1__articles span:nth-child(1) {
-  width: 70%;
+  max-width:70%;
 }
-.article-list-box-1__articles span:nth-child(2) {
-  width: 28%;
+.article-list-box__articles-replyCount{
+	flex-grow:1;
+	margin-left:5px;
+}
+.article-list-box-1__articles span:nth-child(3) {
+	float:right;
 }
 .article-list-box__articles-title {
   white-space: nowrap;

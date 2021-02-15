@@ -7,6 +7,7 @@
 <%@ include file="../../part/head.jspf"%>
 
 <script>
+let writeReplyReplyForm__submited = false; // 나중에 c:forEach 제거 후 스크립트 위치 옮길것
 function increaseHit(){
 	
 	let memberId = 0;
@@ -425,7 +426,44 @@ function doDisLikeReplyBtn(el,id){
 	
 	<!-- 댓글 리스트 본문 시작 -->
 	<script>
+	var replies;
 	
+	function loadRepliesList(){
+		
+	$.get('${appUrl}/usr/reply/getReplies',
+	{
+	
+	}, function(data){
+		for(var i = 0 ; i < data.body.length ; i++){
+		
+		var reply = data.body[i];
+		
+		replaceReply(reply);
+		
+		}
+	},
+	'json'
+	);	
+	
+	}
+	
+	function replaceReply(reply){
+	var html = $('.articleDetailBox__articleReplyList__replies').html();
+	
+	html = replaceAll(html, "${작성자}", reply.extra__writer);
+	html = replaceAll(html, "${날짜}", reply.regDate);
+	html = replaceAll(html, "${내용}", reply.body);
+	html = replaceAll(html, "${좋아요}", reply.extra__likeCount);
+	html = replaceAll(html, "${싫어요}", reply.extra__dislikeCount);
+	
+	replies.prepend(html);
+	}
+	
+	$(function() {
+	replies = $('.articleDetailBox__articleReplyList__replies');
+	
+	loadRepliesList();
+	});
 	</script>
 	
 	<div class="articleDetailBox__articleReplyList__replies">
@@ -576,7 +614,7 @@ function doDisLikeReplyBtn(el,id){
 	</c:forEach>
 	<c:if test="${exists }">
 	<div class="replyreplies__arrow"></div>
-	</c:if>	
+	</c:if>
 	<c:set var="exists" value="false"></c:set>
 	<div class="flex flex-dir-col replyreplies__replyReplyList">
 	<c:forEach var="replyReply" items="${replies }">
@@ -737,7 +775,7 @@ function doDisLikeReplyBtn(el,id){
 	}
 	</script>
 	<script>
-	let writeReplyReplyForm__submited = false;
+	
 	
 	function replyReplyFormCheck(el){
 	

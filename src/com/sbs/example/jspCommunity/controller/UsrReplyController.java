@@ -193,4 +193,13 @@ public class UsrReplyController extends Controller {
 		return "common/redirect";
 	}
 
+	public String getReplies(HttpServletRequest request, HttpServletResponse response) {		
+		
+		List<Reply> replies = replyService.getReplys();
+		
+		return json(request, new ResultData("","",replies));
+				
+
+	}
+
 }

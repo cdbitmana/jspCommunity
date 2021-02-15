@@ -100,6 +100,8 @@ public class UsrDispatcherServlet extends DisPatcherServlet {
 				jspPath = replyController.doModifyReplyReply(request,response);
 			} else if (actionMethodName.equals("doDeleteReplyReply")) {
 				jspPath = replyController.doDeleteReplyReply(request,response);
+			} else if (actionMethodName.equals("getReplies")) {
+				jspPath = replyController.getReplies(request,response);
 			}
 			
 		}

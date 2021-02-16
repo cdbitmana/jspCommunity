@@ -7,7 +7,7 @@
 <%@ include file="../../part/head.jspf"%>
 
 <script>
-let writeReplyReplyForm__submited = false; // 나중에 c:forEach 제거 후 스크립트 위치 옮길것
+
 function increaseHit(){
 	
 	let memberId = 0;
@@ -133,22 +133,33 @@ function modifyFormCheck(el) {
 </script>
 
 <script>
-	$(function() {
-		if ( param.focusReplyId ) {
-			const $target = $('.targetReply[data-id="' + param.focusReplyId + '"]');
-			$target.addClass('focus');
+	let writeReplyReplyForm__submited = false;
+	
+	function replyReplyFormCheck(el){
+	
+	if ( writeReplyReplyForm__submited ) {
+		alert('처리중입니다.');
+	return false;
+	}
+	
+	
+	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
+	const body = editor.getMarkdown().trim();
+	
+	if ( body.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		editor.focus();
 		
-			setTimeout(function() {
-				const targetOffset = $target.offset();
-				$(window).scrollTop(targetOffset.top);
-				
-				setTimeout(function() {
-					$target.removeClass('focus');
-				}, 1000);
-			}, 1000);
-		}
-	});
-</script>
+		return false;
+	}
+	
+	$(el).closest('form').get(0).body.value = body;
+	
+	return true;
+	}
+	</script>
+
+
 
 <main class="con-min-width">
 <div class="con articleDetailBox">
@@ -416,6 +427,9 @@ function doDisLikeReplyBtn(el,id){
 	
 	<!-- 댓글 리스트 시작 -->
 	
+	
+	
+	
 	<div class="articleDetailBox__articleReplyList">
 	
 	<!-- 전체 댓글 수 정보 시작 -->
@@ -425,58 +439,22 @@ function doDisLikeReplyBtn(el,id){
 	<!-- 전체 댓글 수 정보 끝 -->
 	
 	<!-- 댓글 리스트 본문 시작 -->
-	<script>
-	var replies;
 	
-	function loadRepliesList(){
-		
-	$.get('${appUrl}/usr/reply/getReplies',
-	{
 	
-	}, function(data){
-		for(var i = 0 ; i < data.body.length ; i++){
-		
-		var reply = data.body[i];
-		
-		replaceReply(reply);
-		
-		}
-	},
-	'json'
-	);	
 	
-	}
 	
-	function replaceReply(reply){
-	var html = $('.articleDetailBox__articleReplyList__replies').html();
 	
-	html = replaceAll(html, "${번호}", reply.id);
-	html = replaceAll(html, "${작성자}", reply.extra__writer);
-	html = replaceAll(html, "${날짜}", reply.regDate);
-	html = replaceAll(html, "${내용}", reply.body);
-	html = replaceAll(html, "${좋아요}", reply.extra__likeCount);
-	html = replaceAll(html, "${싫어요}", reply.extra__dislikeCount);
-	html = replaceAll(html, "${상태}", reply.status);
+	<div class="template-box articleDetailBox__articleReplyList__replies">
 	
-		
-	}
-	
-	$(function() {
-	replies = $('.articleDetailBox__articleReplyList__replies');
-	
-	loadRepliesList();
-	});
-	</script>
-	
-	<div class="articleDetailBox__articleReplyList__replies">
 	<c:forEach var="reply" items="${replies }">	
 	<c:if test="${reply.relType eq 'article' && reply.relId == article.id}">	
-	<div data-id="${reply.id }" class="flex flex-dir-col targetReply articleDetailBox__articleReplyList__reply">
 	
-	<!-- 댓글 리스트 본문 PC버전 시작 -->
+	<div data-id="${reply.id }" class="template-box-1 flex flex-dir-col targetReply articleDetailBox__articleReplyList__reply">
 	
-	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply-1-pc">
-	<c:if test="${reply.status > 0 }">
+	<!-- 댓글 리스트 본문 PC버전 시작 -->	
+	
+	<div class="template-box-replyList-pc flex flex-dir-col articleDetailBox__articleReplyList__reply-1-pc">
+	<c:if test="${reply.status > 0 }">	
 	<div class="flex articleDetailBox__articleReplyList__reply-1-pc__box-1">	
 	<div class="reply__writer">${reply.extra__writer }</div>
 	<div class="flex-grow-1 reply__body">${reply.body }</div>		
@@ -488,8 +466,8 @@ function doDisLikeReplyBtn(el,id){
 	</div>
 	
 	<div class="articleDetailBox__articleReplyList__reply-1-pc__box-2">
-	<div class="float-l reply__btns-1 flex flex-ai-c flex-jc-sb">
 	<c:if test="${loginedMemberId == reply.memberId }">
+	<div class="float-l reply__btns-1 flex flex-ai-c flex-jc-sb">
 	<div class="reply__btns__modify click" onclick="modifyFormOpen(this);">수정</div>
 	<div class="reply__btns__delete click">
 	<form class="reply__btns__delete-form" action="${appUrl }/usr/reply/doDeleteArticleReply">
@@ -499,32 +477,29 @@ function doDisLikeReplyBtn(el,id){
 	<input type="hidden" name="afterWriteReplyUrl" value="${currentUrl }">
 	</form>
 	</div>
-	</c:if>
 	</div>	
+	</c:if>
 	
 	<c:if test="${isLogined }">
 	<div class="float-r flex flex-ai-c reply__reply" onclick="replyReplyFormOpen(this);">
-	<div>[답글]</div>
+	<div class="click">[답글]</div>
 	</div>
 	</c:if>
 	
 	</div>
-	</c:if>
+	</c:if>	
 	
 	<c:if test="${reply.status < 0 }">
 	<div class="flex flex-ai-c articleDetailBox__articleReplyList__reply-1-pc__deletedReply">삭제된 댓글입니다.</div>
 	</c:if>
 	
-	
-	
-	
 	</div>	
+	
 	
 	<!-- 댓글 리스트 본문 PC버전 끝 -->
 	
 	<!-- 댓글 리스트 본문 모바일버전 시작 -->
-	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply-1-mb">
-	
+	<div class="flex flex-dir-col articleDetailBox__articleReplyList__reply-1-mb">	
 	<c:if test="${reply.status > 0 }">
 	<div class="flex flex-ai-c flex-jc-sb articleDetailBox__articleReplyList__reply-1-mb__box1">
 	<div>${reply.extra__writer }</div>
@@ -623,8 +598,7 @@ function doDisLikeReplyBtn(el,id){
 	<c:if test="${replyReply.relType eq 'reply' && replyReply.relId == reply.id}">	
 	<div data-id="${replyReply.id }" class="targetReply flex flex-dir-col replyreplies">
 	
-	<!-- 대댓글 리스트 PC버전 시작 -->
-	
+	<!-- 대댓글 리스트 PC버전 시작 -->	
 	<div class="flex replyreplies-pc">
 	
 	<div class="width-100p">
@@ -667,12 +641,9 @@ function doDisLikeReplyBtn(el,id){
 	
 	</div>
 	</div>
-	
-	
 	<!-- 대댓글 리스트 PC버전 끝 -->
 	
-	<!-- 대댓글 리스트 모바일 시작 -->
-	
+	<!-- 대댓글 리스트 모바일 시작 -->	
 	<div class="targetReply flex replyreplies-mb">
 	<div class="width-100p">
 	
@@ -728,13 +699,13 @@ function doDisLikeReplyBtn(el,id){
 		'margin-top':'15px'
 		});
 	}
-
+	
 	function modifyReplyReplyCancel(el){
 	const form = $(el).parents().parents('.articleDetailBox__replyReply-modify');
 		$(form).css('display','none');
 	}
 	</script>
-
+	
 	<div class="articleDetailBox__replyReply-modify">
 	<form name="writeReplyReplyModifyForm" class="articleDetailBox__replyReply-modifyform" action="${appUrl }/usr/reply/doModifyReplyReply" method="POST" onsubmit="return modifyFormCheck(this);">
 	<input type="hidden" name="body">
@@ -776,32 +747,7 @@ function doDisLikeReplyBtn(el,id){
 	$(form).css('display','none');
 	}
 	</script>
-	<script>
 	
-	
-	function replyReplyFormCheck(el){
-	
-	if ( writeReplyReplyForm__submited ) {
-		alert('처리중입니다.');
-	return false;
-	}
-	
-	
-	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
-	const body = editor.getMarkdown().trim();
-	
-	if ( body.length == 0 ) {
-		alert('내용을 입력해주세요.');
-		editor.focus();
-		
-		return false;
-	}
-	
-	$(el).closest('form').get(0).body.value = body;
-	
-	return true;
-	}
-	</script>
 	
 	<div class="articleDetailBox__reply-reply">
 	<form name="writeReplyReplyForm" class="articleDetailBox__replyReplyForm" action="${appUrl }/usr/reply/doWriteReplyReply" method="POST" onsubmit="return replyReplyFormCheck(this);">
@@ -822,17 +768,78 @@ function doDisLikeReplyBtn(el,id){
 	<!-- 대댓글 작성 끝 -->
 	
 	</div>
+	
+
 	</c:if>
 	</c:forEach>
+
+	 
+	</div>
+	
+	<!-- 댓글 실제 -->
+	<div class="articleDetailBox__articleReplyList__replies real">
 	
 	</div>
+	<!-- 댓글 실제 -->
+	
 	<!-- 댓글 리스트 본문 끝 -->
 	</div>
 	<!-- 댓글 리스트 끝 -->
 	
+	
+	
+	
 	</div>
 	<!-- 댓글 끝 -->
 	
+	<script>
+	
+	var oldHtml;
+	var newHtml;
+	
+	function loadRepliesList(){
+		
+	$.get('${appUrl}/usr/reply/getReplies',
+	{
+	
+	}, function(data){	
+	
+	newHtml.html(oldHtml);	
+	
+	EditorViewer__init();
+	Editor__init();	
+
+	
+	if ( param.focusReplyId ) {
+			const $target = $('.real .targetReply[data-id="' + param.focusReplyId + '"]');
+			console.log($target);
+			$target.addClass('focus');
+			
+			setTimeout(function() {
+				const targetOffset = $target.offset();
+				$(window).scrollTop(targetOffset.top);
+				
+				setTimeout(function() {
+					$target.removeClass('focus');
+				}, 1000);
+			}, 1000);
+		}
+
+	
+	},
+	'json'
+	);	
+	
+	}
+	
+	$(function() {
+		oldHtml = $('.articleDetailBox__articleReplyList__replies').html();
+		newHtml = $('.articleDetailBox__articleReplyList__replies.real');
+		loadRepliesList();
+	});
+	</script>
+	
 	</div>
 	</main>
+
 <%@ include file="../../part/foot.jspf"%>

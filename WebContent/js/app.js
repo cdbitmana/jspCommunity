@@ -53,8 +53,8 @@ function renderCodepen(wrapperId, url) {
 
 function Editor__init() {
   $('.toast-ui-editor').each(function(index, node) {
+	
     var initialValue = $(node).prev().html().trim().replace(/t-script/gi, 'script');
-    
     var editor = new toastui.Editor({
       el: node,
       previewStyle: false,
@@ -81,5 +81,7 @@ function EditorViewer__init() {
 }
 
 
-EditorViewer__init();
-Editor__init();
+
+
+
+

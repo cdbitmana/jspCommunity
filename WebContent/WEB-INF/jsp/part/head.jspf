@@ -36,7 +36,7 @@
 <!-- 토스트 UI 끝 -->
 
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet" type="text/css">
-<script src="${pageContext.request.contextPath}/js/app.js" defer></script>
+	<script src="${pageContext.request.contextPath}/js/app.js" defer></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 <%="<script>"%>

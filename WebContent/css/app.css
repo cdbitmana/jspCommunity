@@ -185,8 +185,10 @@ main {
 }
 .click:hover{
 	cursor:pointer;
-	text-decoration:underline;
-	
+	text-decoration:underline;	
+}
+.template-box{
+	display:none !important;
 }
 /* 커스텀 */
 
@@ -1221,11 +1223,9 @@ main {
 	font-size:14px;
 	margin-left:5px;
 }
-.replyreplies-pc{
-	margin-top:10px;
-}
+
 .replyreplies-mb{
-	margin-top:10px;
+	
 	font-size:12px;
 }
 @media ( max-width:768px ) {

@@ -92,6 +92,7 @@ function writeFormCheck(el) {
 	const editor = $(el).find('.toast-ui-editor').data('data-toast-editor');
 	const body = editor.getMarkdown().trim();
 	
+	
 	const memberId = writeReplyForm.memberId.value;
 	const articleId = writeReplyForm.articleId.value;
 	const afterWriteReplyUrl = writeReplyForm.afterWriteReplyUrl.value;
@@ -116,6 +117,9 @@ function writeFormCheck(el) {
 			},
 			function(data) {
 			loadRepliesList();
+			$('.toast-ui-editor').html('');
+			EditorViewer__init();
+			Editor__init();	
 			},
 			"json"
 		);

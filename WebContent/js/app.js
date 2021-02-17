@@ -80,7 +80,9 @@ function EditorViewer__init() {
   });
 }
 
-
+$('.toast-ui-editor').html('');
+EditorViewer__init();
+Editor__init();	
 
 
 

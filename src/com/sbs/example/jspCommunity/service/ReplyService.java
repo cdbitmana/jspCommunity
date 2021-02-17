@@ -61,8 +61,8 @@ public class ReplyService {
 		
 	}
 
-	public List<Reply> getReplys() {
-		return replyDao.getReplys();
+	public List<Reply> getReplies() {
+		return replyDao.getReplies();
 	}
 
 	public int doWriteReply(String relType, int relId, String body, int memberId,int articleId) {

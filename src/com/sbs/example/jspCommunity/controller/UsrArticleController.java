@@ -176,7 +176,7 @@ public class UsrArticleController extends Controller {
 		boolean isLikedArticle = articleService.isLikedArticle(id, memberId);
 		boolean isDislikedArticle = articleService.isDislikedArticle(id, memberId);
 
-		List<Reply> replies = replyService.getReplys();
+		List<Reply> replies = replyService.getReplies();
 
 		List<Reply> repliesByArticleId = replyService.getReplysByArticleId(id);
 		

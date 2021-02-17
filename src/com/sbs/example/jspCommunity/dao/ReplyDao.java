@@ -210,7 +210,7 @@ public class ReplyDao {
 		MysqlUtil.update(sql);
 	}
 
-	public List<Reply> getReplys() {
+	public List<Reply> getReplies() {
 		List<Reply> replies = null;
 
 		SecSql sql = new SecSql();

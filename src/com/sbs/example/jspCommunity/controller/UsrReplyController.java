@@ -43,12 +43,14 @@ public class UsrReplyController extends Controller {
 
 			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
+		
+		ResultData rs = new ResultData("","");
 
-		return "common/redirect";
+		return json(request,rs);
 	}
 
 	public String doModifyArticleReply(HttpServletRequest request, HttpServletResponse response) {
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("replyId"));
 		String body = request.getParameter("body");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		int articleId = Integer.parseInt(request.getParameter("articleId"));
@@ -62,7 +64,7 @@ public class UsrReplyController extends Controller {
 			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
 
-		return "common/redirect";
+		return json(request, new ResultData("",""));
 
 	}
 
@@ -77,7 +79,7 @@ public class UsrReplyController extends Controller {
 			request.setAttribute("replaceUrl", request.getParameter("afterWriteReplyUrl"));
 		}
 
-		return "common/redirect";
+		return json(request,new ResultData("",""));
 	}
 
 	public String doLikeReply(HttpServletRequest request, HttpServletResponse response) {
@@ -154,15 +156,15 @@ public class UsrReplyController extends Controller {
 
 			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
-
-		return "common/redirect";
+		
+		return json(request,new ResultData("",""));
 	}
 
 	public String doModifyReplyReply(HttpServletRequest request, HttpServletResponse response) {
 
 		String body = request.getParameter("body");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("replyId"));
 
 		replyService.doModifyReplyReply(id, body, memberId);
 
@@ -174,7 +176,7 @@ public class UsrReplyController extends Controller {
 			request.setAttribute("replaceUrl", afterWriteReplyUrl);
 		}
 
-		return "common/redirect";
+		return json(request,new ResultData("",""));
 
 	}
 
@@ -195,9 +197,9 @@ public class UsrReplyController extends Controller {
 
 	public String getReplies(HttpServletRequest request, HttpServletResponse response) {		
 		
-		List<Reply> replies = replyService.getReplys();
+		List<Reply> replies = replyService.getReplies();
 		
-		return json(request, new ResultData("","",replies));
+		return json(request, new ResultData("S-1","",replies));
 				
 
 	}

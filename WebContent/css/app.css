@@ -190,6 +190,9 @@ main {
 .template-box{
 	display:none !important;
 }
+.dp-none{
+	display:none !important;
+}
 /* 커스텀 */
 
 /* 바디컨텐트 시작 */

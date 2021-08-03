@@ -1,6 +1,7 @@
 package com.sbs.example.jspCommunity;
 
 public class App {
+	
 	public static String getSiteName() {
 		return "Indie World";
 	}
